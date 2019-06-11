@@ -11,6 +11,10 @@ public class Player : MonoBehaviour
     public GameObject attackPoint;
     public GameObject hitBox;
     public bool isGrounded = false;
+    public LayerMask groundLayer;
+    public Vector2 moving = Vector2.zero;
+    public float fireRate = 0.5f;
+    public float nextTime;
     // Start is called before the first frame update
     void Awake()
     {
@@ -23,12 +27,17 @@ public class Player : MonoBehaviour
         //player movement left and right
         if (Input.GetKey(KeyCode.A))
         {
+            attackPoint.transform.localPosition = new Vector3(-1.5f, attackPoint.transform.localPosition.y, attackPoint.transform.localPosition.z);
             rb.AddForce(Vector2.left * movingSpeed * Time.deltaTime);
         }
-
-        if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D))
         {
-            rb.AddForce(-Vector2.left * movingSpeed * Time.deltaTime);
+            attackPoint.transform.localPosition = new Vector3(1.5f, attackPoint.transform.localPosition.y, attackPoint.transform.localPosition.z);
+            rb.AddForce(Vector2.right * movingSpeed * Time.deltaTime);
+        }
+        else
+        {
+            rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, 0.1f), rb.velocity.y);
         }
 
         //player crouch
@@ -38,22 +47,25 @@ public class Player : MonoBehaviour
         }
 
         //player jump
-        if (Input.GetKey(KeyCode.W) && isGrounded == true)
+        if (Input.GetKeyDown(KeyCode.W) && isGrounded == true)
         {
-            rb.AddForce(Vector2.up * jumpPower * Time.deltaTime);
+            rb.AddForce(Vector2.up * jumpPower);
         }
-
-        if (Input.GetKey(KeyCode.Mouse0))
+        
+        //Player Attack
+        if (Input.GetKey(KeyCode.Mouse0) && nextTime < Time.time)
         {
             Instantiate(hitBox, attackPoint.transform.position, Quaternion.identity);
+            nextTime = Time.time + fireRate;
         }
 
         //Ground checker
-        RaycastHit2D hitInfo = Physics2D.Raycast(gameObject.transform.position, Vector3.down, 1f);
+        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, 0.55f, groundLayer);
 
-        if (hitInfo.collider.gameObject.CompareTag("floor"))
+        if (hitInfo.collider != null)
         {
             isGrounded = true;
+            rb.velocity = new Vector2(rb.velocity.x, 0f);
         }
         else
         {
