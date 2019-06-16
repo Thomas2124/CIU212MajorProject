@@ -7,7 +7,7 @@ public class HitBox : MonoBehaviour
     public float damage = 50f;
     public bool isHit = false;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         isHit = false;
     }
@@ -18,15 +18,18 @@ public class HitBox : MonoBehaviour
         Destroy(gameObject, 0.01f);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*void OnTriggerEnter2D(Collider2D col)
     {
         if (isHit == false)
         {
-            if (collision.gameObject.tag == "enemy")
+            print("Swag");
+
+            if (col.gameObject.CompareTag("enemy"))
             {
-                collision.gameObject.GetComponent<Enemy>().TakeDamage(damage);
+                print("Hit");
+                col.gameObject.GetComponent<Enemy>().TakeDamage(damage);
             }
             isHit = true;
         }
-    }
+    }*/
 }
