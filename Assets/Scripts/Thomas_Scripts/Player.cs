@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public float health = 100f;
     public float movingSpeed = 10f;
     public float jumpPower = 10f;
+    public float baseMoveSpeed;
     public Rigidbody2D rb;
     public GameObject attackPoint;
     public GameObject hitBox;
@@ -21,11 +22,13 @@ public class Player : MonoBehaviour
     public bool isRight;
     public bool isCrouching;
     public Text healthText;
+    public GameObject underObject;
     // Start is called before the first frame update
     void Awake()
     {
         healthText = GameObject.Find("Health").GetComponent<Text>();
         rb = gameObject.GetComponent<Rigidbody2D>();
+        baseMoveSpeed = movingSpeed;
     }
 
     // Update is called once per frame
@@ -43,6 +46,11 @@ public class Player : MonoBehaviour
             {
                 attackPoint.transform.localPosition = new Vector3(-1.5f, attackPoint.transform.localPosition.y, attackPoint.transform.localPosition.z);
                 rb.AddForce(Vector2.left * movingSpeed * Time.deltaTime);
+
+                if (rb.velocity.magnitude > 6f)
+                {
+                    rb.AddForce(Vector2.right * movingSpeed * Time.deltaTime);
+                }
             }
         }
         else if (Input.GetKey(KeyCode.D))
@@ -55,6 +63,11 @@ public class Player : MonoBehaviour
             {
                 attackPoint.transform.localPosition = new Vector3(1.5f, attackPoint.transform.localPosition.y, attackPoint.transform.localPosition.z);
                 rb.AddForce(Vector2.right * movingSpeed * Time.deltaTime);
+
+                if (rb.velocity.magnitude > 6f)
+                {
+                    rb.AddForce(Vector2.left * movingSpeed * Time.deltaTime);
+                }
             }
         }
         else
@@ -65,17 +78,40 @@ public class Player : MonoBehaviour
         //player crouch
         if (Input.GetKeyDown(KeyCode.S))
         {
-            isCrouching = true;
+            if (underObject != null)
+            {
+                if (underObject.GetComponent<crouchCheck>().isOutside == false)
+                {
+                    isCrouching = true;
+                    movingSpeed /= 2f;
+                }
+            }
+            else
+            {
+                isCrouching = true;
+                movingSpeed /= 2f;
+            }
         }
-        else if(Input.GetKeyUp(KeyCode.S)) 
+        else
         {
-            isCrouching = false;
+            if (underObject != null)
+            {
+                if (underObject.GetComponent<crouchCheck>().isOutside == true)
+                {
+                    isCrouching = false;
+                    movingSpeed = baseMoveSpeed;
+                }
+            }
+            else
+            {
+                isCrouching = false;
+                movingSpeed = baseMoveSpeed;
+            }
         }
 
         //player jump
-        if (Input.GetKeyDown(KeyCode.W) && isGrounded == true)
+        if (Input.GetKeyDown(KeyCode.W) && isGrounded == true && isCrouching == false)
         {
-            isCrouching = false;
             rb.AddForce(Vector2.up * jumpPower);
         }
         

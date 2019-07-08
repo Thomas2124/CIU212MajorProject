@@ -5,6 +5,8 @@ using UnityEngine;
 public class crouchCheck : MonoBehaviour
 {
     public GameObject player;
+    public GameObject blocker;
+    public bool isOutside = false;
     // Start is called before the first frame update
     void Awake()
     {
@@ -15,13 +17,32 @@ public class crouchCheck : MonoBehaviour
     void Update()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        if (player.GetComponent<Player>().isCrouching == true)
+        if (player.GetComponent<Player>().isCrouching == true && isOutside == false)
         {
-            gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            blocker.GetComponent<BoxCollider2D>().enabled = false;
         }
         else
         {
-            gameObject.GetComponent<BoxCollider2D>().enabled = true;
+            blocker.GetComponent<BoxCollider2D>().enabled = true;
+        }
+
+    }
+
+    public void OnTriggerStay2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "Player")
+        {
+            player.GetComponent<Player>().underObject = this.gameObject;
+            isOutside = false;
+        }
+    }
+
+    public void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "Player")
+        {
+            player.GetComponent<Player>().isCrouching = true;
+            isOutside = true;
         }
     }
 }
