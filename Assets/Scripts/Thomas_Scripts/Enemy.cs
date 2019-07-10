@@ -14,6 +14,13 @@ public class Enemy : MonoBehaviour
     public bool isHit = false;
     public Rigidbody2D rb;
     public bool isAttacking;
+    public GameObject playertracker;
+    public bool playerIsVisible = false;
+    public bool isGrounded = false;
+    public bool pathBlocked = false;
+    public LayerMask groundLayer;
+    public PlayerTracker trackObject;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -25,6 +32,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        playerIsVisible = trackObject.isHittingPlayer;
         player = GameObject.FindGameObjectWithTag("Player");
         playerTransform = player.GetComponent<Transform>();
 
@@ -35,7 +43,7 @@ public class Enemy : MonoBehaviour
             {
                 rb.AddForce(Vector2.left * movingSpeed * Time.deltaTime);
 
-                if (rb.velocity.magnitude > 6f)
+                if (rb.velocity.magnitude > 8f)
                 {
                     rb.AddForce(Vector2.right * movingSpeed * Time.deltaTime);
                 }
@@ -49,18 +57,16 @@ public class Enemy : MonoBehaviour
             {
                 rb.AddForce(Vector2.right * movingSpeed * Time.deltaTime);
 
-                if (rb.velocity.magnitude > 5f)
+                if (rb.velocity.magnitude > 8f)
                 {
                     rb.AddForce(Vector2.left * movingSpeed * Time.deltaTime);
                 }
             }
-            else if (rb.velocity.x < 6f)
+            else if (rb.velocity.x < 8f)
             {
                 SlowDown(-1f);
             }
         }
-
-
 
         if (Vector2.Distance(this.transform.position, player.transform.position) < 2.5f && nextTime < Time.time)
         {
@@ -73,7 +79,37 @@ public class Enemy : MonoBehaviour
             isAttacking = false;
         }
 
+        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, 0.55f, groundLayer);
+        RaycastHit2D hitInfoLeft = Physics2D.Raycast(transform.position, Vector2.left, 2f, groundLayer);
+        RaycastHit2D hitInfoRight = Physics2D.Raycast(transform.position, Vector2.right, 2f, groundLayer);
+
+        if (hitInfo.collider != null)
+        {
+            isGrounded = true;
+            rb.velocity = new Vector2(rb.velocity.x, 0f);
+        }
+        else
+        {
+            isGrounded = false;
+        }
+
+        if (hitInfoLeft.collider != null || hitInfoRight.collider != null)
+        {
+            pathBlocked = true;
+        }
+        else
+        {
+            pathBlocked = false;
+        }
+
+        float heightDifference = this.transform.position.y - player.transform.position.y;
+        if (isGrounded == true && pathBlocked == true && heightDifference >= 3f || heightDifference < -3f)
+        {
+            rb.AddForce(Vector2.up * 500f);
+        }
+
         Dead();
+
     }
 
     void Dead()
