@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class crouchCheck : MonoBehaviour
 {
-    public GameObject player;
+    /*public GameObject player;
     public GameObject blocker;
     public bool isOutside = false;
     // Start is called before the first frame update
@@ -44,5 +44,5 @@ public class crouchCheck : MonoBehaviour
             player.GetComponent<Player>().isCrouching = true;
             isOutside = true;
         }
-    }
+    }*/
 }
