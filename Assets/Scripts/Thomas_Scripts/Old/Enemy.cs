@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float health = 100f;
+    /*public float health = 100f;
     public GameObject player;
     public Transform playerTransform;
     public float movingSpeed = 400f;
@@ -139,5 +139,5 @@ public class Enemy : MonoBehaviour
     void SlowDown(float speed)
     {
         rb.velocity = new Vector2(Mathf.Lerp(speed, 0f, 0.1f), rb.velocity.y);
-    }
+    }*/
 }

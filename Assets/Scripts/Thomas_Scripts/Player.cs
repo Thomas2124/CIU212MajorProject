@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public float health = 100f;
     public float movingSpeed = 10f;
     public float jumpPower = 10f;
+    public float wallJumpPower = 10f;
     public float baseMoveSpeed;
     public Rigidbody2D rb;
     public bool isGrounded = false;
@@ -20,53 +21,61 @@ public class Player : MonoBehaviour
 
     public bool wallJumped;
     public bool jumped;
+    public bool secondJump;
     public float nextDashTime = 0.0f;
+    public float nextWallTime = 0.0f;
+    public int jumps = 0;
+    public Vector3 spawnPoint = Vector3.zero;
     // Start is called before the first frame update
     void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         baseMoveSpeed = movingSpeed;
+        wallJumped = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         //player movement left and right
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (wallJumped == false)
         {
-            if (rb.velocity.x > 0f)
+            if (Input.GetKey(KeyCode.LeftArrow))
             {
-                SlowDown(-1f);
-            }
-            else
-            {
-                rb.AddForce(Vector2.left * movingSpeed * Time.deltaTime);
-
-                if (rb.velocity.magnitude > 6f)
+                if (rb.velocity.x > 0f)
                 {
-                    rb.AddForce(Vector2.right * movingSpeed * Time.deltaTime);
+                    SlowDown(-1f);
                 }
-            }
-        }
-        else if (Input.GetKey(KeyCode.RightArrow))
-        {
-            if (rb.velocity.x < 0f)
-            {
-                SlowDown(1f);
-            }
-            else
-            {
-                rb.AddForce(Vector2.right * movingSpeed * Time.deltaTime);
-
-                if (rb.velocity.magnitude > 6f)
+                else
                 {
                     rb.AddForce(Vector2.left * movingSpeed * Time.deltaTime);
+
+                    if (rb.velocity.magnitude > 6f)
+                    {
+                        rb.AddForce(Vector2.right * movingSpeed * Time.deltaTime);
+                    }
                 }
             }
-        }
-        else
-        {
-            rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, 0.1f), rb.velocity.y);
+            else if (Input.GetKey(KeyCode.RightArrow))
+            {
+                if (rb.velocity.x < 0f)
+                {
+                    SlowDown(1f);
+                }
+                else
+                {
+                    rb.AddForce(Vector2.right * movingSpeed * Time.deltaTime);
+
+                    if (rb.velocity.magnitude > 6f)
+                    {
+                        rb.AddForce(Vector2.left * movingSpeed * Time.deltaTime);
+                    }
+                }
+            }
+            else
+            {
+                rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, 0.1f), rb.velocity.y);
+            }
         }
 
 
@@ -81,6 +90,7 @@ public class Player : MonoBehaviour
         {
             isGrounded = true;
             jumped = false;
+            jumps = 0;
             rb.velocity = new Vector2(rb.velocity.x, 0f);
         }
         else
@@ -89,44 +99,77 @@ public class Player : MonoBehaviour
         }
 
         //player jump
-        if (hitInfo4.collider == null && hitInfo5.collider == null)
+        if (wallJumped == false)
         {
             if (Input.GetKeyDown(KeyCode.Z) && isGrounded == true && jumped == false)
             {
                 rb.AddForce(Vector2.up * jumpPower);
                 jumped = true;
+                secondJump = true;
             }
 
-            if (Input.GetKeyDown(KeyCode.Z) && jumped == true && isGrounded == false)
+            if (Input.GetKeyDown(KeyCode.Z) && secondJump == true && isGrounded == false)
             {
                 rb.velocity = new Vector2(rb.velocity.x, 0.0f);
-                rb.AddForce(Vector2.up * jumpPower);
+                rb.AddForce(Vector2.up * jumpPower * 1.2f);
                 jumped = false;
+                secondJump = false;
             }
         }
 
         //wall jump
-        if (jumped == false)
+        if (jumped == false && wallJumped == false)
         {
-            if (hitInfo4.collider != null)
+            if (Input.GetKeyDown(KeyCode.Z))
             {
-                if (Input.GetKeyDown(KeyCode.Z))
+                if (hitInfo4.collider != null)
                 {
+                    wallJumped = true;
                     rb.velocity = new Vector2(0.0f, 0.0f);
-                    rb.AddForce(Vector2.up * jumpPower);
-                    rb.AddForce(Vector2.right * jumpPower);
-                }
-            }
 
-            if (hitInfo5.collider != null)
-            {
-                if (Input.GetKeyDown(KeyCode.Z))
+                    if (jumps > 0)
+                    {
+                        rb.velocity = new Vector2(rb.velocity.x * 0.01f, rb.velocity.y * 0.01f);
+                        rb.AddForce(Vector2.up * wallJumpPower * 2f);
+                        rb.AddForce(Vector2.right * wallJumpPower * 2.1f);
+                    }
+                    else
+                    {
+                        rb.velocity = new Vector2(rb.velocity.x * 0.01f, rb.velocity.y * 0.01f);
+                        rb.AddForce(Vector2.up * wallJumpPower);
+                        rb.AddForce(Vector2.right * wallJumpPower * 1.2f);
+                    }
+
+                    nextWallTime = Time.time + 0.25f;
+                    jumps++;
+                }
+
+                if (hitInfo5.collider != null)
                 {
+                    wallJumped = true;
                     rb.velocity = new Vector2(0.0f, 0.0f);
-                    rb.AddForce(Vector2.up * jumpPower);
-                    rb.AddForce(Vector2.left * jumpPower);
+
+                    if (jumps > 1)
+                    {
+                        rb.AddForce(Vector2.up * wallJumpPower * 2f);
+                        rb.AddForce(Vector2.left * wallJumpPower * 2f);
+                    }
+                    else
+                    {
+                        rb.velocity = new Vector2(rb.velocity.x * 0.01f, rb.velocity.y * 0.01f);
+                        rb.AddForce(Vector2.up * wallJumpPower);
+                        rb.AddForce(Vector2.left * wallJumpPower * 1.2f);
+                    }
+
+                    nextWallTime = Time.time + 0.25f;
+                    jumps++;
                 }
             }
+        }
+
+        if (Time.time > nextWallTime)
+        {
+            wallJumped = false;
         }
 
         //Dash
@@ -164,14 +207,20 @@ public class Player : MonoBehaviour
 
     }
 
+    IEnumerator waitTime()
+    {
+        yield return new WaitForSeconds(0.5f);
+        wallJumped = false;
+    }
+
     void SlowDown(float speed)
     {
         rb.velocity = new Vector2(Mathf.Lerp(speed, 0f, 0.1f), rb.velocity.y);
     }
 
-    public void TakeDamage(float amount)
+    public void Dead()
     {
-        health -= amount;
+        gameObject.transform.position = spawnPoint;
     }
 }
 
