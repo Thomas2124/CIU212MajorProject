@@ -29,19 +29,21 @@ public class Player : MonoBehaviour
     public float nextWallTime = 0.0f;
     public int jumps = 0;
     public Vector3 spawnPoint = Vector3.zero;
+    public float startGravity;
     // Start is called before the first frame update
     void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         baseMoveSpeed = movingSpeed;
         wallJumped = false;
+        startGravity = rb.gravityScale;
     }
 
     // Update is called once per frame
     void Update()
     {
         //player movement left and right
-        if (wallJumped == false)
+        if (wallJumped == false && wallAttached == false)
         {
             if (Input.GetKey(KeyCode.LeftArrow))
             {
@@ -83,11 +85,13 @@ public class Player : MonoBehaviour
 
 
         //Ground checker
-        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, 0.55f, groundLayer);
-        RaycastHit2D hitInfo2 = Physics2D.Raycast(transform.position, Vector2.left, 0.6f, groundLayer);
-        RaycastHit2D hitInfo3 = Physics2D.Raycast(transform.position, Vector2.right, 0.6f, groundLayer);
-        RaycastHit2D hitInfo4 = Physics2D.Raycast(transform.position, Vector2.left, 0.6f, groundLayer);
-        RaycastHit2D hitInfo5 = Physics2D.Raycast(transform.position, Vector2.right, 0.6f, groundLayer);
+        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, 0.51f, groundLayer);
+        RaycastHit2D hitInfo2 = Physics2D.Raycast(transform.position, Vector2.left, 4.0f, groundLayer);
+        RaycastHit2D hitInfo3 = Physics2D.Raycast(transform.position, Vector2.right, 4.0f, groundLayer);
+        RaycastHit2D hitInfo4 = Physics2D.Raycast(transform.position, Vector2.left, 0.51f, groundLayer);
+        RaycastHit2D hitInfo5 = Physics2D.Raycast(transform.position, Vector2.right, 0.51f, groundLayer);
+        RaycastHit2D hitInfo6 = Physics2D.Raycast(transform.position, Vector2.up, 4.0f, groundLayer);
+        RaycastHit2D hitInfo7 = Physics2D.Raycast(transform.position, Vector2.down, 4.0f, groundLayer);
 
         if (hitInfo.collider != null)
         {
@@ -113,94 +117,62 @@ public class Player : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Z) && secondJump == true && isGrounded == false)
             {
-                rb.velocity = new Vector2(rb.velocity.x, 0.0f);
-                rb.AddForce(Vector2.up * jumpPower * 1.2f);
+                rb.velocity = new Vector3(rb.velocity.x, 0.0f, 0.0f);
+                rb.AddForce(Vector2.up * jumpPower);
                 jumped = false;
                 secondJump = false;
             }
         }
 
         //wall jump
-        if (jumped == false)
+        if (Input.GetKeyDown(KeyCode.X))
         {
-            if (Input.GetKeyDown(KeyCode.Z))
+            if (hitInfo4.collider != null)
             {
-                if (hitInfo4.collider != null)
-                {
-                    secondJump = false;
-                    wallAttached = true;
+                wallAttached = true;
+                secondJump = false;
 
-                    rb.velocity = new Vector2(0.0f, 0.0f);
-                    rb.simulated = false;
+                rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+                rb.gravityScale = 0.1f;
 
-                    wallJumpRight = true;
+                wallJumpRight = true;
+            }
+            else if (hitInfo5.collider != null)
+            {
+                wallAttached = true;
+                secondJump = false;
 
-                    /*if (jumps > 0)
-                    {
-                        rb.velocity = new Vector2(rb.velocity.x * 0.01f, rb.velocity.y * 0.01f);
-                        rb.AddForce(Vector2.up * wallJumpPower * 2f);
-                        rb.AddForce(Vector2.right * wallJumpPower * 2.1f);
-                    }
-                    else
-                    {
-                        rb.velocity = new Vector2(rb.velocity.x * 0.01f, rb.velocity.y * 0.01f);
-                        rb.AddForce(Vector2.up * wallJumpPower);
-                        rb.AddForce(Vector2.right * wallJumpPower * 1.2f);
-                    }
+                rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+                rb.gravityScale = 0.1f;
 
-                    nextWallTime = Time.time + 0.25f;
-                    jumps++;*/
-                }
-                else if (hitInfo5.collider != null)
-                {
-                    secondJump = false;
-                    wallAttached = true;
+                wallJumpLeft = true;
+            }
+            else
+            {
+                wallAttached = false;
+            }
+        }
 
-                    rb.velocity = new Vector2(0.0f, 0.0f);
-                    rb.simulated = false;
-
-                    wallJumpLeft = true;
-
-                    /*if (jumps > 1)
-                    {
-                        rb.AddForce(Vector2.up * wallJumpPower * 2f);
-                        rb.AddForce(Vector2.left * wallJumpPower * 2f);
-                    }
-                    else
-                    {
-                        rb.velocity = new Vector2(rb.velocity.x * 0.01f, rb.velocity.y * 0.01f);
-                        rb.AddForce(Vector2.up * wallJumpPower);
-                        rb.AddForce(Vector2.left * wallJumpPower * 1.2f);
-                    }
-
-                    nextWallTime = Time.time + 0.25f;
-                    jumps++;*/
-                }
-                else
-                {
-                    //wallAttached = false;
-                }
+        if (Input.GetKeyUp(KeyCode.X) && wallAttached == true)
+        {
+            if (wallJumpLeft == true)
+            {
+                rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+                rb.gravityScale = startGravity;
+                rb.AddForce(Vector2.up * jumpPower);
+                rb.AddForce(Vector2.left * jumpPower * 1.01f);
+                wallJumpLeft = false;
+                wallAttached = false;
             }
 
-            if (Input.GetKeyUp(KeyCode.Z) && wallAttached == true)
+            if (wallJumpRight == true)
             {
-                if (wallJumpLeft == true)
-                {
-                    rb.simulated = true;
-                    rb.AddForce(Vector2.up * wallJumpPower);
-                    rb.AddForce(Vector2.right * wallJumpPower * 1.2f);
-                    wallJumpLeft = false;
-                    wallAttached = false;
-                }
-
-                if (wallJumpRight == true)
-                {
-                    rb.simulated = true;
-                    rb.AddForce(Vector2.up * wallJumpPower);
-                    rb.AddForce(Vector2.left * wallJumpPower * 1.2f);
-                    wallJumpRight = false;
-                    wallAttached = false;
-                }
+                rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+                rb.gravityScale = startGravity;
+                rb.AddForce(Vector2.up * jumpPower);
+                rb.AddForce(Vector2.right * jumpPower * 1.01f);
+                wallJumpRight = false;
+                wallAttached = false;
             }
         }
 
@@ -235,6 +207,30 @@ public class Player : MonoBehaviour
                 else
                 {
                     gameObject.transform.position = new Vector2(gameObject.transform.position.x + 4, gameObject.transform.position.y);
+                }
+
+                nextDashTime = Time.time + 0.5f;
+            }
+
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                if (hitInfo3.collider == true)
+                {
+                    gameObject.transform.position = hitInfo6.point;
+                }
+                else
+                {
+                    gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + 4);
+                }
+
+                nextDashTime = Time.time + 0.5f;
+            }
+
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                if (hitInfo3.collider == false)
+                {
+                    gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - 4);
                 }
 
                 nextDashTime = Time.time + 0.5f;
