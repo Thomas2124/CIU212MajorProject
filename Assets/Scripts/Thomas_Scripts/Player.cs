@@ -27,9 +27,12 @@ public class Player : MonoBehaviour
     public bool secondJump;
     public float nextDashTime = 0.0f;
     public float nextWallTime = 0.0f;
+    //public float wallGripTime = 0.0f;
+    //public float wallGripDuration = 2.0f;
     public int jumps = 0;
     public Vector3 spawnPoint = Vector3.zero;
     public float startGravity;
+    //public bool walljumpReset = false;
     // Start is called before the first frame update
     void Awake()
     {
@@ -95,6 +98,7 @@ public class Player : MonoBehaviour
 
         if (hitInfo.collider != null)
         {
+            //walljumpReset = true;
             isGrounded = true;
             jumped = false;
             jumps = 0;
@@ -127,7 +131,7 @@ public class Player : MonoBehaviour
         //wall jump
         if (Input.GetKeyDown(KeyCode.X))
         {
-            if (hitInfo4.collider != null)
+            if (hitInfo4.collider != null /*&& walljumpReset == true*/)
             {
                 wallAttached = true;
                 secondJump = false;
@@ -136,8 +140,9 @@ public class Player : MonoBehaviour
                 rb.gravityScale = 0.1f;
 
                 wallJumpRight = true;
+                //StartCoroutine("WallGripWaitRight");
             }
-            else if (hitInfo5.collider != null)
+            else if (hitInfo5.collider != null /*&& walljumpReset == true*/)
             {
                 wallAttached = true;
                 secondJump = false;
@@ -146,6 +151,8 @@ public class Player : MonoBehaviour
                 rb.gravityScale = 0.1f;
 
                 wallJumpLeft = true;
+                //StartCoroutine("WallGripWaitLeft");
+                
             }
             else
             {
@@ -245,6 +252,30 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         wallJumped = false;
     }
+
+    /*IEnumerator WallGripWaitRight()
+    {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            yield return new WaitForSeconds(wallGripDuration);
+            wallAttached = false;
+            wallJumpRight = false;
+            rb.gravityScale = startGravity;
+            walljumpReset = false;
+        }
+    }
+
+    IEnumerator WallGripWaitLeft()
+    {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            yield return new WaitForSeconds(wallGripDuration);
+            wallAttached = false;
+            wallJumpLeft = false;
+            rb.gravityScale = startGravity;
+            walljumpReset = false;
+        }
+    }*/
 
     void SlowDown(float speed)
     {
