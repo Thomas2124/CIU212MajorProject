@@ -88,11 +88,11 @@ public class Player : MonoBehaviour
 
 
         //Ground checker
-        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, 0.51f, groundLayer);
+        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, 0.55f, groundLayer);
         RaycastHit2D hitInfo2 = Physics2D.Raycast(transform.position, Vector2.left, 4.0f, groundLayer);
         RaycastHit2D hitInfo3 = Physics2D.Raycast(transform.position, Vector2.right, 4.0f, groundLayer);
-        RaycastHit2D hitInfo4 = Physics2D.Raycast(transform.position, Vector2.left, 0.51f, groundLayer);
-        RaycastHit2D hitInfo5 = Physics2D.Raycast(transform.position, Vector2.right, 0.51f, groundLayer);
+        RaycastHit2D hitInfo4 = Physics2D.Raycast(transform.position, Vector2.left, 0.55f, groundLayer);
+        RaycastHit2D hitInfo5 = Physics2D.Raycast(transform.position, Vector2.right, 0.55f, groundLayer);
         RaycastHit2D hitInfo6 = Physics2D.Raycast(transform.position, Vector2.up, 4.0f, groundLayer);
         RaycastHit2D hitInfo7 = Physics2D.Raycast(transform.position, Vector2.down, 4.0f, groundLayer);
 
@@ -221,7 +221,7 @@ public class Player : MonoBehaviour
 
             if (Input.GetKey(KeyCode.UpArrow))
             {
-                if (hitInfo3.collider == true)
+                if (hitInfo6.collider == true)
                 {
                     gameObject.transform.position = hitInfo6.point;
                 }
@@ -235,7 +235,7 @@ public class Player : MonoBehaviour
 
             if (Input.GetKey(KeyCode.DownArrow))
             {
-                if (hitInfo3.collider == false)
+                if (hitInfo7.collider == false)
                 {
                     gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - 4);
                 }
