@@ -32,6 +32,9 @@ public class Player : MonoBehaviour
     public int jumps = 0;
     public Vector3 spawnPoint = Vector3.zero;
     public float startGravity;
+    public bool fallJump;
+    public bool forceFall;
+
     //public bool walljumpReset = false;
     // Start is called before the first frame update
     void Awake()
@@ -102,29 +105,55 @@ public class Player : MonoBehaviour
             isGrounded = true;
             jumped = false;
             jumps = 0;
+            fallJump = false;
             rb.velocity = new Vector2(rb.velocity.x, 0f);
         }
         else
         {
+            //jumped = true;
+            fallJump = true;
             isGrounded = false;
+        }
+
+        if (jumps >= 2)
+        {
+            forceFall = true;
+        }
+        else
+        {
+            forceFall = false;
         }
 
         //player jump
         if (wallAttached == false)
         {
-            if (Input.GetKeyDown(KeyCode.Z) && isGrounded == true && jumped == false)
+            if (forceFall == false)
             {
-                rb.AddForce(Vector2.up * jumpPower);
-                jumped = true;
-                secondJump = true;
-            }
+                if (Input.GetKeyDown(KeyCode.Z) && isGrounded == true && jumped == false || Input.GetKeyDown(KeyCode.Z) && isGrounded == false && fallJump == true)
+                {
+                    rb.velocity = new Vector3(rb.velocity.x, 0.0f, 0.0f);
+                    rb.AddForce(Vector2.up * jumpPower);
+                    jumped = true;
+                    //secondJump = true;
+                    if (fallJump == true)
+                    {
+                        jumps = 2;
+                    }
+                    else
+                    {
+                        jumps++;
+                    }
+                    //StartCoroutine(waitJumpTime());
+                }
 
-            if (Input.GetKeyDown(KeyCode.Z) && secondJump == true && isGrounded == false)
-            {
-                rb.velocity = new Vector3(rb.velocity.x, 0.0f, 0.0f);
-                rb.AddForce(Vector2.up * jumpPower);
-                jumped = false;
-                secondJump = false;
+                if (Input.GetKeyDown(KeyCode.Z) && secondJump == true && isGrounded == false && jumped == true)
+                {
+                    rb.velocity = new Vector3(rb.velocity.x, 0.0f, 0.0f);
+                    rb.AddForce(Vector2.up * jumpPower);
+                    jumped = false;
+                    jumps++;
+                    secondJump = false;
+                }
             }
         }
 
@@ -137,7 +166,7 @@ public class Player : MonoBehaviour
                 secondJump = false;
 
                 rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
-                rb.gravityScale = 0.1f;
+                rb.gravityScale = 0.2f;
 
                 wallJumpRight = true;
                 //StartCoroutine("WallGripWaitRight");
@@ -148,7 +177,7 @@ public class Player : MonoBehaviour
                 secondJump = false;
 
                 rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
-                rb.gravityScale = 0.1f;
+                rb.gravityScale = 0.2f;
 
                 wallJumpLeft = true;
                 //StartCoroutine("WallGripWaitLeft");
@@ -251,6 +280,12 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         wallJumped = false;
+    }
+
+    IEnumerator waitJumpTime()
+    {
+        yield return new WaitForSeconds(0.25f);
+        secondJump = true;
     }
 
     /*IEnumerator WallGripWaitRight()
