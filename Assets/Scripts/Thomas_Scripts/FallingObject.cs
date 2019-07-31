@@ -22,6 +22,10 @@ public class FallingObject : MonoBehaviour
         {
             rb.simulated = true;
         }
+        else
+        {
+
+        }
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
