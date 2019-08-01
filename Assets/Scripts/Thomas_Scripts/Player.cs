@@ -195,8 +195,8 @@ public class Player : MonoBehaviour
             {
                 rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
                 rb.gravityScale = startGravity;
-                rb.AddForce(Vector2.up * jumpPower);
-                rb.AddForce(Vector2.left * jumpPower * 1.01f);
+                rb.AddForce(Vector2.up * jumpPower / 1.2f);
+                rb.AddForce(Vector2.left * jumpPower * 1.05f);
                 wallJumpLeft = false;
                 wallAttached = false;
             }
@@ -205,8 +205,8 @@ public class Player : MonoBehaviour
             {
                 rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
                 rb.gravityScale = startGravity;
-                rb.AddForce(Vector2.up * jumpPower);
-                rb.AddForce(Vector2.right * jumpPower * 1.01f);
+                rb.AddForce(Vector2.up * jumpPower / 1.2f);
+                rb.AddForce(Vector2.right * jumpPower * 1.05f);
                 wallJumpRight = false;
                 wallAttached = false;
             }

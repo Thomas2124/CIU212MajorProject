@@ -39,7 +39,7 @@ public class FallingObject : MonoBehaviour
 
         if (collision.gameObject.tag != "Player")
         {
-            Destroy(gameObject);
+            this.gameObject.SetActive(false);
         }
     }
 

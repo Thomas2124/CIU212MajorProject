@@ -25,9 +25,9 @@ public class Illumination : MonoBehaviour
     {
         foreach (GameObject item in levelObjects)
         {
-            if (Vector2.Distance(item.transform.position, this.gameObject.transform.position) < detectRange)
+            if (Vector2.Distance(item.transform.position, this.gameObject.transform.position) < detectRange && gameObject.GetComponent<Rigidbody2D>().velocity.magnitude >= 6f && item.GetComponent<SpriteRenderer>() != null)
             {
-                item.GetComponent<SpriteRenderer>().color = new Color(item.GetComponent<SpriteRenderer>().color.r, item.GetComponent<SpriteRenderer>().color.g, item.GetComponent<SpriteRenderer>().color.b, 1.0f);
+                item.GetComponent<SpriteRenderer>().color = new Color(item.GetComponent<SpriteRenderer>().color.r, item.GetComponent<SpriteRenderer>().color.g, item.GetComponent<SpriteRenderer>().color.b, item.GetComponent<SpriteRenderer>().color.a + 0.025f);
             }
         }
     }
