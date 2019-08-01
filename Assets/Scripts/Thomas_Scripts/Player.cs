@@ -91,11 +91,11 @@ public class Player : MonoBehaviour
 
 
         //Ground checker
-        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, 0.55f, groundLayer);
+        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, 0.6f, groundLayer);
         RaycastHit2D hitInfo2 = Physics2D.Raycast(transform.position, Vector2.left, 4.0f, groundLayer);
         RaycastHit2D hitInfo3 = Physics2D.Raycast(transform.position, Vector2.right, 4.0f, groundLayer);
-        RaycastHit2D hitInfo4 = Physics2D.Raycast(transform.position, Vector2.left, 0.55f, groundLayer);
-        RaycastHit2D hitInfo5 = Physics2D.Raycast(transform.position, Vector2.right, 0.55f, groundLayer);
+        RaycastHit2D hitInfo4 = Physics2D.Raycast(transform.position, Vector2.left, 0.6f, groundLayer);
+        RaycastHit2D hitInfo5 = Physics2D.Raycast(transform.position, Vector2.right, 0.6f, groundLayer);
         RaycastHit2D hitInfo6 = Physics2D.Raycast(transform.position, Vector2.up, 4.0f, groundLayer);
         RaycastHit2D hitInfo7 = Physics2D.Raycast(transform.position, Vector2.down, 4.0f, groundLayer);
 
