@@ -27,6 +27,9 @@ public class Player : MonoBehaviour
     public bool secondJump;
     public float nextDashTime = 0.0f;
     public float nextWallTime = 0.0f;
+
+    public float lightSpawnTime = 0.0f;
+    public float nextLightSpawn = 1.5f;
     //public float wallGripTime = 0.0f;
     //public float wallGripDuration = 2.0f;
     public int jumps = 0;
@@ -34,6 +37,8 @@ public class Player : MonoBehaviour
     public float startGravity;
     public bool fallJump;
     public bool forceFall;
+
+    public GameObject lightPrefab;
 
     //public bool walljumpReset = false;
     // Start is called before the first frame update
@@ -48,6 +53,12 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Time.time > lightSpawnTime)
+        {
+            Instantiate(lightPrefab, this.transform.position, Quaternion.identity);
+            lightSpawnTime = Time.time + nextLightSpawn;
+        }
+
         //player movement left and right
         if (wallJumped == false && wallAttached == false)
         {
