@@ -47,7 +47,7 @@ MonoBehaviour:
   startValue: 0
   endValue: 1
   objectLight: {fileID: 0}
-  changeRate: 0.01
+  changeRate: 0.02
   doneTask: 0
 --- !u!1 &7300336262014417345
 GameObject:

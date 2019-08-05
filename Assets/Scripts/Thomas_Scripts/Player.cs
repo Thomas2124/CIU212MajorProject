@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     public bool wallJumpRight;
     public bool secondJump;
     public float nextDashTime = 0.0f;
+    public float DashTimeIncrease = 1f;
     public float nextWallTime = 0.0f;
 
     public float lightSpawnTime = 0.0f;
@@ -55,7 +56,8 @@ public class Player : MonoBehaviour
     {
         if (Time.time > lightSpawnTime)
         {
-            Instantiate(lightPrefab, this.transform.position, Quaternion.identity);
+            GameObject thing = Instantiate(lightPrefab, this.transform.position, Quaternion.identity);
+            thing.transform.SetParent(this.gameObject.transform);
             lightSpawnTime = Time.time + nextLightSpawn;
         }
 
@@ -242,7 +244,7 @@ public class Player : MonoBehaviour
                     gameObject.transform.position = new Vector2(gameObject.transform.position.x - 4, gameObject.transform.position.y);
                 }
 
-                nextDashTime = Time.time + 0.5f;
+                nextDashTime = Time.time + DashTimeIncrease;
             }
 
             if (Input.GetKey(KeyCode.RightArrow))
@@ -256,7 +258,7 @@ public class Player : MonoBehaviour
                     gameObject.transform.position = new Vector2(gameObject.transform.position.x + 4, gameObject.transform.position.y);
                 }
 
-                nextDashTime = Time.time + 0.5f;
+                nextDashTime = Time.time + DashTimeIncrease;
             }
 
             if (Input.GetKey(KeyCode.UpArrow))
@@ -270,7 +272,7 @@ public class Player : MonoBehaviour
                     gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + 4);
                 }
 
-                nextDashTime = Time.time + 0.5f;
+                nextDashTime = Time.time + DashTimeIncrease;
             }
 
             if (Input.GetKey(KeyCode.DownArrow))
@@ -280,7 +282,7 @@ public class Player : MonoBehaviour
                     gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - 4);
                 }
 
-                nextDashTime = Time.time + 0.5f;
+                nextDashTime = Time.time + DashTimeIncrease;
             }
         }
 
