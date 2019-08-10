@@ -4,7 +4,7 @@ public class LevelGenerator : MonoBehaviour
 {
     public Texture2D map;
 
-    public ColorToPrefab[] colorMapping;
+    public ColorToPrefab[] colorMappings;
 
     // Start is called before the first frame update
     void Start()
@@ -32,12 +32,14 @@ public class LevelGenerator : MonoBehaviour
             return;
         }
 
-        foreach (ColorToPrefab item in colorMapping)
+        //print(x.ToString() + ", " + y.ToString());
+        
+        foreach (ColorToPrefab item in colorMappings)
         {
             if (item.color.Equals(pixelColor))
             {
-                Vector2 pos = new Vector2(x, y);
-                Instantiate(item.prefab, pos, Quaternion.identity, transform);
+                Vector3 pos = new Vector3(x, y, 0f);
+                Instantiate(item.prefab, pos, Quaternion.identity, this.gameObject.transform);
             }
         }
     }

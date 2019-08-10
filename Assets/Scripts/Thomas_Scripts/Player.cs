@@ -43,8 +43,9 @@ public class Player : MonoBehaviour
 
     //public bool walljumpReset = false;
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
+        spawnPoint = new Vector3(transform.position.x, transform.position.y, 0.0f);
         rb = gameObject.GetComponent<Rigidbody2D>();
         baseMoveSpeed = movingSpeed;
         wallJumped = false;
