@@ -360,7 +360,7 @@ public class Player : MonoBehaviour
 
     void SlowDown(float speed)
     {
-        rb.velocity = new Vector2(Mathf.Lerp(speed, 0f, 0.1f), rb.velocity.y);
+        rb.velocity = new Vector2(Mathf.Lerp(speed, 0f, 0.2f), rb.velocity.y);
     }
 
     public void Dead()
