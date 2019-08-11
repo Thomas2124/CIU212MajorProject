@@ -6,8 +6,10 @@ public class LevelGenerator : MonoBehaviour
 
     public ColorToPrefab[] colorMappings;
 
+    public bool isDone = false;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         GenerateLevel();
     }
@@ -21,6 +23,8 @@ public class LevelGenerator : MonoBehaviour
                 GenerateTile(x, y);
             }
         }
+
+        isDone = true;
     }
 
     void GenerateTile(int x, int y)

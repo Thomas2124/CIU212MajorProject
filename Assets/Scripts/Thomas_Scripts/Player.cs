@@ -39,6 +39,11 @@ public class Player : MonoBehaviour
     public bool fallJump;
     public bool forceFall;
 
+    public bool dashLeft;
+    public bool dashRight;
+    public bool dashUp;
+    public bool dashDown;
+
     public GameObject lightPrefab;
 
     //public bool walljumpReset = false;
@@ -67,6 +72,8 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.LeftArrow))
             {
+                dashLeft = true;
+                dashRight = false;
                 if (rb.velocity.x > 0f)
                 {
                     SlowDown(-1f);
@@ -83,6 +90,8 @@ public class Player : MonoBehaviour
             }
             else if (Input.GetKey(KeyCode.RightArrow))
             {
+                dashLeft = false;
+                dashRight = true;
                 if (rb.velocity.x < 0f)
                 {
                     SlowDown(1f);
@@ -99,10 +108,11 @@ public class Player : MonoBehaviour
             }
             else
             {
+                dashLeft = false;
+                dashRight = false;
                 rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, 0.1f), rb.velocity.y);
             }
         }
-
 
         //Ground checker
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, 0.6f, groundLayer);
@@ -168,7 +178,25 @@ public class Player : MonoBehaviour
                     jumps++;
                     secondJump = false;
                 }
+
+                if (dashLeft == false && dashRight == false && isGrounded == false)
+                {
+                    dashUp = true;
+                }
+                else
+                {
+                    dashUp = false;
+                }
             }
+        }
+
+        if (Input.GetKeyUp(KeyCode.Z) && Input.GetKeyUp(KeyCode.LeftArrow) && Input.GetKeyUp(KeyCode.RightArrow))
+        {
+            dashDown = true;
+        }
+        else
+        {
+            dashDown = false;
         }
 
         //wall jump
@@ -183,6 +211,8 @@ public class Player : MonoBehaviour
                 rb.gravityScale = 0.2f;
 
                 wallJumpRight = true;
+                dashLeft = false;
+                dashRight = true;
                 //StartCoroutine("WallGripWaitRight");
             }
             else if (hitInfo5.collider != null /*&& walljumpReset == true*/)
@@ -194,8 +224,10 @@ public class Player : MonoBehaviour
                 rb.gravityScale = 0.2f;
 
                 wallJumpLeft = true;
+                dashLeft = true;
+                dashRight = false;
                 //StartCoroutine("WallGripWaitLeft");
-                
+
             }
             else
             {
@@ -234,7 +266,7 @@ public class Player : MonoBehaviour
         //Dash
         if (Input.GetKeyDown(KeyCode.LeftShift) && Time.time > nextDashTime)
         {
-            if (Input.GetKey(KeyCode.LeftArrow))
+            if (/*Input.GetKey(KeyCode.LeftArrow)*/ dashLeft == true)
             {
                 if (hitInfo2.collider == true)
                 {
@@ -248,7 +280,7 @@ public class Player : MonoBehaviour
                 nextDashTime = Time.time + DashTimeIncrease;
             }
 
-            if (Input.GetKey(KeyCode.RightArrow))
+            if (/*Input.GetKey(KeyCode.RightArrow)*/ dashRight == true)
             {
                 if (hitInfo3.collider == true)
                 {
@@ -262,7 +294,7 @@ public class Player : MonoBehaviour
                 nextDashTime = Time.time + DashTimeIncrease;
             }
 
-            if (Input.GetKey(KeyCode.UpArrow))
+            if (/*Input.GetKey(KeyCode.UpArrow)*/ dashUp == true)
             {
                 if (hitInfo6.collider == true)
                 {
@@ -276,7 +308,7 @@ public class Player : MonoBehaviour
                 nextDashTime = Time.time + DashTimeIncrease;
             }
 
-            if (Input.GetKey(KeyCode.DownArrow))
+            if (/*Input.GetKey(KeyCode.DownArrow)*/ dashDown == true)
             {
                 if (hitInfo7.collider == false)
                 {
