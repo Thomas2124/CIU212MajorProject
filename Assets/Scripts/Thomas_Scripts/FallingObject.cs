@@ -12,6 +12,7 @@ public class FallingObject : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         rb = gameObject.GetComponent<Rigidbody2D>();
+        rb.simulated = false;
     }
 
     // Update is called once per frame
@@ -37,7 +38,7 @@ public class FallingObject : MonoBehaviour
             StartCoroutine(PlayerSpawn());
         }
 
-        if (collision.gameObject.tag != "Player")
+        if (collision.gameObject.tag != "Player" && collision.gameObject != this.gameObject)
         {
             this.gameObject.SetActive(false);
         }
