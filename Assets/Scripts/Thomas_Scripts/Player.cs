@@ -155,9 +155,12 @@ public class Player : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Z) && isGrounded == true && jumped == false || Input.GetKeyDown(KeyCode.Z) && isGrounded == false && fallJump == true)
                 {
-                    rb.velocity = new Vector3(rb.velocity.x, 0.0f, 0.0f);
+
+                    rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, 0.0f);
+
                     rb.AddForce(Vector2.up * jumpPower);
                     jumped = true;
+                    
                     //secondJump = true;
                     if (fallJump == true)
                     {
@@ -172,8 +175,9 @@ public class Player : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.Z) && secondJump == true && isGrounded == false && jumped == true)
                 {
-                    rb.velocity = new Vector3(rb.velocity.x, 0.0f, 0.0f);
+                    rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, 0.0f);
                     rb.AddForce(Vector2.up * jumpPower);
+
                     jumped = false;
                     jumps++;
                     secondJump = false;
@@ -274,7 +278,7 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    gameObject.transform.position = new Vector2(gameObject.transform.position.x - 4, gameObject.transform.position.y);
+                    gameObject.transform.position = new Vector2(gameObject.transform.position.x - 3, gameObject.transform.position.y);
                 }
 
                 nextDashTime = Time.time + DashTimeIncrease;
@@ -288,7 +292,7 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    gameObject.transform.position = new Vector2(gameObject.transform.position.x + 4, gameObject.transform.position.y);
+                    gameObject.transform.position = new Vector2(gameObject.transform.position.x + 3, gameObject.transform.position.y);
                 }
 
                 nextDashTime = Time.time + DashTimeIncrease;
@@ -302,7 +306,7 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + 4);
+                    gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + 3);
                 }
 
                 nextDashTime = Time.time + DashTimeIncrease;
@@ -312,7 +316,7 @@ public class Player : MonoBehaviour
             {
                 if (hitInfo7.collider == false)
                 {
-                    gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - 4);
+                    gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - 3);
                 }
 
                 nextDashTime = Time.time + DashTimeIncrease;

@@ -22,7 +22,7 @@ public class Illumination : MonoBehaviour
         {
             if (once == false)
             {
-                detectRangeMin = detectRangeMax - 3f;
+                //detectRangeMin = detectRangeMax - 5f;
                 levelObjects = GameObject.FindObjectsOfType<GameObject>();
 
                 foreach (GameObject item in levelObjects)

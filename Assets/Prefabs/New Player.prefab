@@ -43,7 +43,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 2202710418559515410}
   smoothSpeed: 7.5
-  offset: {x: 0, y: 0, z: -10}
+  offset: {x: 0, y: 0, z: -16}
 --- !u!1 &6438143308024090831
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,6 +197,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5172797926494981989, guid: 0b7b33047e1fba04aa587ef5f68bcfb1,
+        type: 3}
+      propertyPath: detectRangeMax
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5172797926494981989, guid: 0b7b33047e1fba04aa587ef5f68bcfb1,
+        type: 3}
+      propertyPath: detectRangeMin
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5172797926494982011, guid: 0b7b33047e1fba04aa587ef5f68bcfb1,
+        type: 3}
+      propertyPath: jumpPower
+      value: 900
+      objectReference: {fileID: 0}
+    - target: {fileID: 5172797926494982011, guid: 0b7b33047e1fba04aa587ef5f68bcfb1,
+        type: 3}
+      propertyPath: movingSpeed
+      value: 2100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5172797926494982008, guid: 0b7b33047e1fba04aa587ef5f68bcfb1,
+        type: 3}
+      propertyPath: m_GravityScale
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b7b33047e1fba04aa587ef5f68bcfb1, type: 3}

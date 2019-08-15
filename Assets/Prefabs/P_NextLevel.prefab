@@ -119,4 +119,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e63a21b163100e4db449f46afb1308d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: PlatformerScene
+  sceneName: TestLevelEditor
