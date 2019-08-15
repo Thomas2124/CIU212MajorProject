@@ -43,6 +43,9 @@ public class Player : MonoBehaviour
     public bool dashRight;
     public bool dashUp;
     public bool dashDown;
+    public bool stopJump = false;
+
+    public float speedLimit = 6.0f;
 
     public GameObject lightPrefab;
 
@@ -67,53 +70,6 @@ public class Player : MonoBehaviour
             lightSpawnTime = Time.time + nextLightSpawn;
         }
 
-        //player movement left and right
-        if (wallJumped == false && wallAttached == false)
-        {
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                dashLeft = true;
-                dashRight = false;
-                if (rb.velocity.x > 0f)
-                {
-                    SlowDown(-1f);
-                }
-                else
-                {
-                    rb.AddForce(Vector2.left * movingSpeed * Time.deltaTime);
-
-                    if (rb.velocity.magnitude > 6f)
-                    {
-                        rb.AddForce(Vector2.right * movingSpeed * Time.deltaTime);
-                    }
-                }
-            }
-            else if (Input.GetKey(KeyCode.RightArrow))
-            {
-                dashLeft = false;
-                dashRight = true;
-                if (rb.velocity.x < 0f)
-                {
-                    SlowDown(1f);
-                }
-                else
-                {
-                    rb.AddForce(Vector2.right * movingSpeed * Time.deltaTime);
-
-                    if (rb.velocity.magnitude > 6f)
-                    {
-                        rb.AddForce(Vector2.left * movingSpeed * Time.deltaTime);
-                    }
-                }
-            }
-            else
-            {
-                dashLeft = false;
-                dashRight = false;
-                rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, 0.1f), rb.velocity.y);
-            }
-        }
-
         //Ground checker
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, 0.6f, groundLayer);
         RaycastHit2D hitInfo2 = Physics2D.Raycast(transform.position, Vector2.left, 4.0f, groundLayer);
@@ -130,6 +86,7 @@ public class Player : MonoBehaviour
             jumped = false;
             jumps = 0;
             fallJump = false;
+            stopJump = false;
             rb.velocity = new Vector2(rb.velocity.x, 0f);
         }
         else
@@ -156,11 +113,10 @@ public class Player : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Z) && isGrounded == true && jumped == false || Input.GetKeyDown(KeyCode.Z) && isGrounded == false && fallJump == true)
                 {
 
-                    rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, 0.0f);
-
+                    rb.velocity = new Vector3(rb.velocity.x, 0.0f, 0.0f);
                     rb.AddForce(Vector2.up * jumpPower);
                     jumped = true;
-                    
+
                     //secondJump = true;
                     if (fallJump == true)
                     {
@@ -175,7 +131,7 @@ public class Player : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.Z) && secondJump == true && isGrounded == false && jumped == true)
                 {
-                    rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, 0.0f);
+                    rb.velocity = new Vector3(rb.velocity.x, 0.0f, 0.0f);
                     rb.AddForce(Vector2.up * jumpPower);
 
                     jumped = false;
@@ -191,6 +147,53 @@ public class Player : MonoBehaviour
                 {
                     dashUp = false;
                 }
+            }
+        }
+
+        //player movement left and right
+        if (wallJumped == false && wallAttached == false)
+        {
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                dashLeft = true;
+                dashRight = false;
+                if (rb.velocity.x > 0f)
+                {
+                    SlowDown(-1f);
+                }
+                else
+                {
+                    rb.AddForce(Vector2.left * movingSpeed * Time.deltaTime);
+
+                    if (rb.velocity.x < -speedLimit)
+                    {
+                        rb.AddForce(Vector2.right * movingSpeed * Time.deltaTime);
+                    }
+                }
+            }
+            else if (Input.GetKey(KeyCode.RightArrow))
+            {
+                dashLeft = false;
+                dashRight = true;
+                if (rb.velocity.x < 0f)
+                {
+                    SlowDown(1f);
+                }
+                else
+                {
+                    rb.AddForce(Vector2.right * movingSpeed * Time.deltaTime);
+
+                    if (rb.velocity.x > speedLimit)
+                    {
+                        rb.AddForce(Vector2.left * movingSpeed * Time.deltaTime);
+                    }
+                }
+            }
+            else
+            {
+                dashLeft = false;
+                dashRight = false;
+                rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, 0.1f), rb.velocity.y);
             }
         }
 
