@@ -8,14 +8,16 @@ public class FallingPlatform : MonoBehaviour
     public Rigidbody2D rb;
     public float detectionRange = 10f;
     public bool stop = false;
-    public float waitTime = 2.5f;
+    public float waitTime = 0.5f;
     public Vector3 resetPoint;
+    public float theGravity;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         rb = gameObject.transform.parent.GetComponent<Rigidbody2D>();
         resetPoint = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
+        theGravity = rb.gravityScale;
     }
 
     // Update is called once per frame
@@ -40,7 +42,12 @@ public class FallingPlatform : MonoBehaviour
 
     IEnumerator Fall()
     {
+        rb.gravityScale = 0.80f;
+        rb.constraints = RigidbodyConstraints2D.FreezePosition;
+        rb.constraints = RigidbodyConstraints2D.FreezePositionX;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         yield return new WaitForSeconds(waitTime);
+        rb.gravityScale = theGravity;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         yield return new WaitForSeconds(8f);
         rb.constraints = RigidbodyConstraints2D.FreezeAll;

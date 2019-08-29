@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -42,7 +43,7 @@ public class Player : MonoBehaviour
     public bool dashLeft;
     public bool dashRight;
     public bool dashUp;
-    public bool dashDown;
+    //public bool dashDown;
     public bool stopJump = false;
 
     public float speedLimit = 6.0f;
@@ -197,14 +198,17 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.Z) && Input.GetKeyUp(KeyCode.LeftArrow) && Input.GetKeyUp(KeyCode.RightArrow))
+        /*if (Input.GetKeyUp(KeyCode.Z) && Input.GetKeyUp(KeyCode.LeftArrow) && Input.GetKeyUp(KeyCode.RightArrow))
         {
+            dashUp = false;
+            dashLeft = false;
+            dashRight = false;
             dashDown = true;
         }
         else
         {
             dashDown = false;
-        }
+        }*/
 
         //wall jump
         if (Input.GetKeyDown(KeyCode.X))
@@ -282,6 +286,7 @@ public class Player : MonoBehaviour
                 else
                 {
                     gameObject.transform.position = new Vector2(gameObject.transform.position.x - 3, gameObject.transform.position.y);
+                    rb.AddForce(Vector2.left * jumpPower / 2f);
                 }
 
                 nextDashTime = Time.time + DashTimeIncrease;
@@ -296,6 +301,7 @@ public class Player : MonoBehaviour
                 else
                 {
                     gameObject.transform.position = new Vector2(gameObject.transform.position.x + 3, gameObject.transform.position.y);
+                    rb.AddForce(Vector2.right * jumpPower / 2f);
                 }
 
                 nextDashTime = Time.time + DashTimeIncrease;
@@ -310,12 +316,13 @@ public class Player : MonoBehaviour
                 else
                 {
                     gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + 3);
+                    rb.AddForce(Vector2.up * jumpPower / 2f);
                 }
 
                 nextDashTime = Time.time + DashTimeIncrease;
             }
 
-            if (/*Input.GetKey(KeyCode.DownArrow)*/ dashDown == true)
+            /*if (Input.GetKey(KeyCode.DownArrow) dashDown == true)
             {
                 if (hitInfo7.collider == false)
                 {
@@ -323,7 +330,7 @@ public class Player : MonoBehaviour
                 }
 
                 nextDashTime = Time.time + DashTimeIncrease;
-            }
+            }*/
         }
 
 
@@ -373,6 +380,8 @@ public class Player : MonoBehaviour
     public void Dead()
     {
         gameObject.transform.position = spawnPoint;
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        
     }
 }
 

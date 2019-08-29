@@ -13,6 +13,7 @@ public class Illumination : MonoBehaviour
     void Start()
     {
         done = GameObject.Find("EGO LevelGenerator").GetComponent<LevelGenerator>().isDone;
+        once = false;
     }
 
     // Update is called once per frame
@@ -32,6 +33,7 @@ public class Illumination : MonoBehaviour
                         item.GetComponent<SpriteRenderer>().material.color = new Color(item.GetComponent<SpriteRenderer>().material.color.r, item.GetComponent<SpriteRenderer>().material.color.g, item.GetComponent<SpriteRenderer>().material.color.b, 0f);
                     }
                 }
+
                 once = true;
             }
 

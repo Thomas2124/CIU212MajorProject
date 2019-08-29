@@ -23,6 +23,7 @@ public class Spikes : MonoBehaviour
         {
             player.gameObject.GetComponent<SpriteRenderer>().enabled = false;
             player.gameObject.GetComponent<Player>().enabled = false;
+            player.gameObject.GetComponent<Rigidbody2D>().simulated = false;
             StartCoroutine(PlayerSpawn());
             
         }
@@ -33,6 +34,7 @@ public class Spikes : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         player.gameObject.GetComponent<SpriteRenderer>().enabled = true;
         player.gameObject.GetComponent<Player>().enabled = true;
+        player.gameObject.GetComponent<Rigidbody2D>().simulated = true;
         player.gameObject.GetComponent<Player>().Dead();
     }
 }
