@@ -140,7 +140,7 @@ public class Player : MonoBehaviour
                     secondJump = false;
                 }
 
-                if (dashLeft == false && dashRight == false && isGrounded == false)
+                if (Input.GetKey(KeyCode.UpArrow))
                 {
                     dashUp = true;
                 }
@@ -192,8 +192,6 @@ public class Player : MonoBehaviour
             }
             else
             {
-                dashLeft = false;
-                dashRight = false;
                 rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, 0.1f), rb.velocity.y);
             }
         }
