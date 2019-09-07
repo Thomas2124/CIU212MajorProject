@@ -130,6 +130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 324705467}
   - component: {fileID: 324705466}
+  - component: {fileID: 324705468}
   m_Layer: 0
   m_Name: EGO LevelGenerator
   m_TagString: Untagged
@@ -186,3 +187,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &324705468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 324705465}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 863e8a30097523a41bfc335efc2b4fa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  script: {fileID: 0}
+  leftPlatforms: []
+  rightPlatforms: []
+  setPlatforms: []
+  platforms: []
+  isDone: 0
+  isDone2: 0
+  prefab: {fileID: 2132362243203022234, guid: 3aff8c302f5d7a248adcbbfce8343541, type: 3}

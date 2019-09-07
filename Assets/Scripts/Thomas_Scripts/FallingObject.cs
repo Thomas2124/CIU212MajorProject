@@ -10,7 +10,6 @@ public class FallingObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
         rb = gameObject.GetComponent<Rigidbody2D>();
         rb.simulated = false;
     }
@@ -18,14 +17,11 @@ public class FallingObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, detectionRange);
-        if (hitInfo.collider.gameObject == player)
+        player = GameObject.FindGameObjectWithTag("Player");
+        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, Mathf.Infinity);
+        if (hitInfo.collider != null && hitInfo.collider.gameObject == player)
         {
             rb.simulated = true;
-        }
-        else
-        {
-
         }
     }
 
