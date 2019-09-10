@@ -8,6 +8,7 @@ TagManager:
   - enemy
   - hitbox
   - FallingPlatform
+  - Test
   layers:
   - Default
   - TransparentFX

@@ -194,16 +194,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 324705465}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 863e8a30097523a41bfc335efc2b4fa2, type: 3}
+  m_Script: {fileID: 11500000, guid: 4bf9d44f66ed2304d8974f4dacbac4de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  script: {fileID: 0}
-  leftPlatforms: []
-  rightPlatforms: []
-  setPlatforms: []
-  platforms: []
+  myPlatforms: []
+  platformPrefab: {fileID: 2132362243203022234, guid: 3aff8c302f5d7a248adcbbfce8343541,
+    type: 3}
+  startPos: []
+  endPos: []
   isDone: 0
-  isDone2: 0
-  prefab: {fileID: 2132362243203022234, guid: 3aff8c302f5d7a248adcbbfce8343541, type: 3}
