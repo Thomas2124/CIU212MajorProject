@@ -174,8 +174,8 @@ MonoBehaviour:
   dashLeft: 0
   dashRight: 0
   dashUp: 0
-  dashDown: 0
   stopJump: 0
+  speedLimit: 6
   lightPrefab: {fileID: 7300336261969412370, guid: 1e34b01dc4cd5a243bb0c9fcdc6f008f,
     type: 3}
 --- !u!114 &2202710418559515406
@@ -192,8 +192,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelObjects: []
   detectRangeMax: 12
-  detectRangeMin: 1
+  detectRangeMin: 4
   done: 0
+  lightScript: {fileID: 0}
 --- !u!50 &2202710418559515411
 Rigidbody2D:
   serializedVersion: 4

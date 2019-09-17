@@ -88,6 +88,8 @@ public class TestPlatformJoin : MonoBehaviour
             Vector3 midPos = combinePos / 2f;
             GameObject newPlatform = Instantiate(platformPrefab, midPos, Quaternion.identity);
             newPlatform.transform.localScale = new Vector3(Vector2.Distance(startPos[i], endPos[i]) + 1f, 1f, 1f);
+            //newPlatform.GetComponent<SpriteRenderer>().size = new Vector2(Vector2.Distance(startPos[i], endPos[i]), 1f);
+            //newPlatform.GetComponent<BoxCollider2D>().size = new Vector2(Vector2.Distance(startPos[i], endPos[i]), 1f);
         }
 
         foreach (GameObject item in myPlatforms)

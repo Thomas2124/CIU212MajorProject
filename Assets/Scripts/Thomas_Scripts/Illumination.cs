@@ -4,11 +4,20 @@ using UnityEngine;
 
 public class Illumination : MonoBehaviour
 {
+    public static Illumination Instance;
+
     public GameObject[] levelObjects;
     public float detectRangeMax = 8.0f;
     public float detectRangeMin;
     public bool done;
     bool once = false;
+    public PlayerLight lightScript;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +28,11 @@ public class Illumination : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (lightScript != null && detectRangeMax >= detectRangeMin - 0.5f)
+        {
+            detectRangeMax = lightScript.objectLight.range;
+        }
+
         if (done == true)
         {
             if (once == false)

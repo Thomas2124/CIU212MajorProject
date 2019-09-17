@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerLight : MonoBehaviour
 {
+
     public float startValue = 0.0f;
     public float endValue = 1.0f;
     public Light objectLight;
@@ -14,8 +15,10 @@ public class PlayerLight : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Illumination.Instance.lightScript = this;
         objectLight = gameObject.transform.GetChild(0).gameObject.GetComponent<Light>();
-        objectLight.intensity = startValue;
+        objectLight.intensity = 2f;
+        objectLight.range = startValue;
     }
 
     // Update is called once per frame
@@ -26,11 +29,11 @@ public class PlayerLight : MonoBehaviour
 
     void LightLerp()
     {
-        objectLight.intensity = Mathf.Lerp(startValue, endValue, speed);
+        objectLight.range = Mathf.Lerp(startValue, endValue, speed);
 
         if (doneTask == false)
         {
-            if (objectLight.intensity >= 1f)
+            if (objectLight.range >= 10f)
             {
                 doneTask = true;
             }
@@ -45,9 +48,9 @@ public class PlayerLight : MonoBehaviour
             speed -= changeRate;
         }
 
-        objectLight.intensity = Mathf.Lerp(startValue, endValue, speed);
+        objectLight.range = Mathf.Lerp(startValue, endValue, speed);
 
-        if (objectLight.intensity <= 0f && doneTask == true)
+        if (objectLight.range <= 0f && doneTask == true)
         {
             Destroy(gameObject);
         }
