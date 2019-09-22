@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 324705467}
   - component: {fileID: 324705466}
   - component: {fileID: 324705468}
+  - component: {fileID: 324705469}
   m_Layer: 0
   m_Name: EGO LevelGenerator
   m_TagString: Untagged
@@ -172,6 +173,8 @@ MonoBehaviour:
   - color: {r: 0, g: 1, b: 1, a: 1}
     prefab: {fileID: 4278057475372590175, guid: bc17f810ad700f8468eb148505728533,
       type: 3}
+  joinScript: {fileID: 324705468}
+  spriteScript: {fileID: 324705469}
   isDone: 0
 --- !u!4 &324705467
 Transform:
@@ -194,7 +197,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 324705465}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4bf9d44f66ed2304d8974f4dacbac4de, type: 3}
   m_Name: 
@@ -202,6 +205,45 @@ MonoBehaviour:
   myPlatforms: []
   platformPrefab: {fileID: 2132362243203022234, guid: 3aff8c302f5d7a248adcbbfce8343541,
     type: 3}
+  spritePrefab: {fileID: 6317624976327013742, guid: 2ec0ce6920b7af34cae0956f566e4d4e,
+    type: 3}
   startPos: []
   endPos: []
   isDone: 0
+  platformSprites:
+  - {fileID: 3355476527195597676, guid: f663a034bb2077043b769fc40f89ea6b, type: 3}
+  - {fileID: -609323429369546963, guid: f663a034bb2077043b769fc40f89ea6b, type: 3}
+  - {fileID: -1807242926811807039, guid: f663a034bb2077043b769fc40f89ea6b, type: 3}
+--- !u!114 &324705469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 324705465}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f0bc1934cd45e44a94c08ce752f0498, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oneSprites:
+  - {fileID: -6122505322357182731, guid: f663a034bb2077043b769fc40f89ea6b, type: 3}
+  - {fileID: -6151230836841273223, guid: f663a034bb2077043b769fc40f89ea6b, type: 3}
+  - {fileID: 805221391121974306, guid: f663a034bb2077043b769fc40f89ea6b, type: 3}
+  - {fileID: 1862079372324425631, guid: f663a034bb2077043b769fc40f89ea6b, type: 3}
+  twoSprites:
+  - {fileID: -4506408123588042973, guid: f663a034bb2077043b769fc40f89ea6b, type: 3}
+  - {fileID: 3489743259674783877, guid: f663a034bb2077043b769fc40f89ea6b, type: 3}
+  - {fileID: 165978549937934331, guid: f663a034bb2077043b769fc40f89ea6b, type: 3}
+  - {fileID: -2684085417648585195, guid: f663a034bb2077043b769fc40f89ea6b, type: 3}
+  - {fileID: 5858438725936142605, guid: f663a034bb2077043b769fc40f89ea6b, type: 3}
+  - {fileID: 1334908934573591359, guid: f663a034bb2077043b769fc40f89ea6b, type: 3}
+  threeSprites:
+  - {fileID: -3470217535415884655, guid: f663a034bb2077043b769fc40f89ea6b, type: 3}
+  - {fileID: -8657651900945450730, guid: f663a034bb2077043b769fc40f89ea6b, type: 3}
+  - {fileID: 748134723488538643, guid: f663a034bb2077043b769fc40f89ea6b, type: 3}
+  - {fileID: 3615724166543838827, guid: f663a034bb2077043b769fc40f89ea6b, type: 3}
+  fourSprite: {fileID: 215005643552151799, guid: f663a034bb2077043b769fc40f89ea6b,
+    type: 3}
+  otherSprite: {fileID: 2080562972146593898, guid: f663a034bb2077043b769fc40f89ea6b,
+    type: 3}

@@ -44,11 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25129e7597152f142827bfd0b5564dc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startValue: 0
-  endValue: 12
+  startValue: 5
+  endValue: 15
   objectLight: {fileID: 0}
-  changeRate: 0.02
-  doneTask: 0
+  changeRate: 0.01
+  waitTime: 2
+  lightUp: 0
+  lightDown: 0
 --- !u!1 &7300336262014417345
 GameObject:
   m_ObjectHideFlags: 0

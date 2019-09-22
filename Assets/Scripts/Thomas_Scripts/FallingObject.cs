@@ -12,12 +12,12 @@ public class FallingObject : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         rb.simulated = false;
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, Mathf.Infinity);
         if (hitInfo.collider != null && hitInfo.collider.gameObject == player)
         {
@@ -45,6 +45,7 @@ public class FallingObject : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         player.gameObject.GetComponent<SpriteRenderer>().enabled = true;
         player.gameObject.GetComponent<Player>().enabled = true;
+        player.gameObject.GetComponent<Rigidbody2D>().simulated = true;
         player.gameObject.GetComponent<Player>().Dead();
     }
 }

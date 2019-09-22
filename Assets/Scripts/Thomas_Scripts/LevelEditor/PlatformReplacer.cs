@@ -18,6 +18,7 @@ public class PlatformReplacer : MonoBehaviour
     {
         script = GetComponent<LevelGenerator>();
         platforms = GameObject.FindGameObjectsWithTag("FallingPlatform");
+
         foreach (GameObject item in platforms)
         {
             setPlatforms.Add(item);    
@@ -65,10 +66,13 @@ public class PlatformReplacer : MonoBehaviour
         {
             for (int j = 0; j < rightPlatforms.Count; j++)
             {
-                if (Vector2.Distance(leftPlatforms[i].transform.position, rightPlatforms[j].transform.position) < 4f && leftPlatforms[i].transform.position.y == rightPlatforms[j].transform.position.y)
+                Vector3 leftPos = leftPlatforms[i].transform.position;
+                Vector3 rightPos = rightPlatforms[j].transform.position;
+
+                if (Vector2.Distance(leftPos, rightPos) < 4f && leftPos.y == rightPos.y)
                 {
-                    GameObject item = Instantiate(prefab, leftPlatforms[i].transform.position - rightPlatforms[j].transform.position, Quaternion.identity);
-                    item.transform.localScale = new Vector2(Vector2.Distance(leftPlatforms[i].transform.position, rightPlatforms[j].transform.position) / 2f, 1f);
+                    GameObject item = Instantiate(prefab, leftPos - rightPos, Quaternion.identity);
+                    item.transform.localScale = new Vector2(Vector2.Distance(leftPos, rightPos) / 2f, 1f);
                 }
             }
         }

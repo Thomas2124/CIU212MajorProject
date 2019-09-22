@@ -6,27 +6,18 @@ public class TestPlatformJoin : MonoBehaviour
 {
     public GameObject[] myPlatforms;
     public GameObject platformPrefab;
+    public GameObject spritePrefab;
     public List<Vector3> startPos;
     public List<Vector3> endPos;
     public bool isDone = false;
+    public List<Sprite> platformSprites;
 
     // Start is called before the first frame update
     void Start()
     {
-        isDone = GetComponent<LevelGenerator>().isDone;
-        if (isDone == true)
-        {
-            myPlatforms = GameObject.FindGameObjectsWithTag("FallingPlatform");
+        myPlatforms = GameObject.FindGameObjectsWithTag("FallingPlatform");
 
-            CheckAndSetPlatform();
-            isDone = false;
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        CheckAndSetPlatform();
     }
 
     void CheckAndSetPlatform()
@@ -41,6 +32,8 @@ public class TestPlatformJoin : MonoBehaviour
             RaycastHit2D hitLeft = Physics2D.Raycast(leftPos, Vector2.left, 0.1f);
             RaycastHit2D hitRight = Physics2D.Raycast(rightPos, Vector2.right, 0.1f);
 
+            myPlatforms[i].gameObject.GetComponent<SpriteRenderer>().sprite = platformSprites[1];
+
             bool isLeft = false;
             bool isRight = false;
 
@@ -51,10 +44,6 @@ public class TestPlatformJoin : MonoBehaviour
                     isLeft = true;
                 }
             }
-            else
-            {
-                isLeft = false;
-            }
 
             if (hitRight.collider != null)
             {
@@ -63,22 +52,17 @@ public class TestPlatformJoin : MonoBehaviour
                     isRight = true;
                 }
             }
-            else
-            {
-                isRight = false;
-            }
 
             if (isLeft == true && isRight == false)
             {
                 startPos.Add(myPlatforms[i].transform.position);
+                myPlatforms[i].gameObject.GetComponent<SpriteRenderer>().sprite = platformSprites[2];
             }
-            else if (isLeft == false && isRight == true)
+
+            if (isLeft == false && isRight == true)
             {
                 endPos.Add(myPlatforms[i].transform.position);
-            }
-            else if (isLeft == true && isRight == true)
-            {
-
+                myPlatforms[i].gameObject.GetComponent<SpriteRenderer>().sprite = platformSprites[0];
             }
         }
 
@@ -87,14 +71,19 @@ public class TestPlatformJoin : MonoBehaviour
             Vector3 combinePos = startPos[i] + endPos[i];
             Vector3 midPos = combinePos / 2f;
             GameObject newPlatform = Instantiate(platformPrefab, midPos, Quaternion.identity);
-            newPlatform.transform.localScale = new Vector3(Vector2.Distance(startPos[i], endPos[i]) + 1f, 1f, 1f);
-            //newPlatform.GetComponent<SpriteRenderer>().size = new Vector2(Vector2.Distance(startPos[i], endPos[i]), 1f);
-            //newPlatform.GetComponent<BoxCollider2D>().size = new Vector2(Vector2.Distance(startPos[i], endPos[i]), 1f);
-        }
+            newPlatform.GetComponent<SpriteRenderer>().enabled = false;
+            newPlatform.GetComponent<BoxCollider2D>().size = new Vector2(Vector2.Distance(startPos[i], endPos[i]), 1f);
 
-        foreach (GameObject item in myPlatforms)
-        {
-            Destroy(item);
+            foreach (GameObject item in myPlatforms)
+            {
+                if (newPlatform.GetComponent<BoxCollider2D>().bounds.Contains(item.transform.position))
+                {
+                    item.GetComponent<BoxCollider2D>().enabled = false;
+                    item.GetComponent<Rigidbody2D>().simulated = false;
+                    item.transform.GetChild(0).gameObject.SetActive(false);
+                    item.transform.SetParent(newPlatform.transform);
+                }
+            }
         }
     }
 }

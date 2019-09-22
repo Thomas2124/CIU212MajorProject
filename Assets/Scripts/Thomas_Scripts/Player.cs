@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
+    public static Player playerInstance;
+
     public float health = 100f;
     public float movingSpeed = 10f;
     public float jumpPower = 10f;
@@ -30,30 +32,32 @@ public class Player : MonoBehaviour
     public float DashTimeIncrease = 1f;
     public float nextWallTime = 0.0f;
 
-    public float lightSpawnTime = 0.0f;
-    public float nextLightSpawn = 1.5f;
-    //public float wallGripTime = 0.0f;
-    //public float wallGripDuration = 2.0f;
     public int jumps = 0;
     public Vector3 spawnPoint = Vector3.zero;
     public float startGravity;
     public bool fallJump;
     public bool forceFall;
 
-    public bool dashLeft;
-    public bool dashRight;
-    public bool dashUp;
-    //public bool dashDown;
+    public Vector2 dashDirection = Vector2.zero;
+
     public bool stopJump = false;
 
     public float speedLimit = 6.0f;
 
     public GameObject lightPrefab;
 
+    public Animator myAnimator;
+
+    private void Awake()
+    {
+        playerInstance = this;
+    }
+
     //public bool walljumpReset = false;
     // Start is called before the first frame update
     void Start()
     {
+        dashDirection = Vector2.right;
         spawnPoint = new Vector3(transform.position.x, transform.position.y, 0.0f);
         rb = gameObject.GetComponent<Rigidbody2D>();
         baseMoveSpeed = movingSpeed;
@@ -64,25 +68,17 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.time > lightSpawnTime)
-        {
-            GameObject thing = Instantiate(lightPrefab, this.transform.position, Quaternion.identity);
-            thing.transform.SetParent(this.gameObject.transform);
-            lightSpawnTime = Time.time + nextLightSpawn;
-        }
-
         //Ground checker
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, 0.6f, groundLayer);
-        RaycastHit2D hitInfo2 = Physics2D.Raycast(transform.position, Vector2.left, 4.0f, groundLayer);
-        RaycastHit2D hitInfo3 = Physics2D.Raycast(transform.position, Vector2.right, 4.0f, groundLayer);
+        //RaycastHit2D hitInfo2 = Physics2D.Raycast(transform.position, Vector2.left, 4.0f, groundLayer);
+        //RaycastHit2D hitInfo3 = Physics2D.Raycast(transform.position, Vector2.right, 4.0f, groundLayer);
         RaycastHit2D hitInfo4 = Physics2D.Raycast(transform.position, Vector2.left, 0.6f, groundLayer);
         RaycastHit2D hitInfo5 = Physics2D.Raycast(transform.position, Vector2.right, 0.6f, groundLayer);
-        RaycastHit2D hitInfo6 = Physics2D.Raycast(transform.position, Vector2.up, 4.0f, groundLayer);
-        RaycastHit2D hitInfo7 = Physics2D.Raycast(transform.position, Vector2.down, 4.0f, groundLayer);
+        //RaycastHit2D hitInfo6 = Physics2D.Raycast(transform.position, Vector2.up, 4.0f, groundLayer);
+        //RaycastHit2D hitInfo7 = Physics2D.Raycast(transform.position, Vector2.down, 4.0f, groundLayer);
 
         if (hitInfo.collider != null)
         {
-            //walljumpReset = true;
             isGrounded = true;
             jumped = false;
             jumps = 0;
@@ -92,7 +88,6 @@ public class Player : MonoBehaviour
         }
         else
         {
-            //jumped = true;
             fallJump = true;
             isGrounded = false;
         }
@@ -113,12 +108,10 @@ public class Player : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Z) && isGrounded == true && jumped == false || Input.GetKeyDown(KeyCode.Z) && isGrounded == false && fallJump == true)
                 {
-
                     rb.velocity = new Vector3(rb.velocity.x, 0.0f, 0.0f);
                     rb.AddForce(Vector2.up * jumpPower);
                     jumped = true;
 
-                    //secondJump = true;
                     if (fallJump == true)
                     {
                         jumps = 2;
@@ -127,10 +120,9 @@ public class Player : MonoBehaviour
                     {
                         jumps++;
                     }
-                    //StartCoroutine(waitJumpTime());
+                    myAnimator.SetBool("IsJumping", true);
                 }
-
-                if (Input.GetKeyDown(KeyCode.Z) && secondJump == true && isGrounded == false && jumped == true)
+                else if (Input.GetKeyDown(KeyCode.Z) && secondJump == true && isGrounded == false && jumped == true)
                 {
                     rb.velocity = new Vector3(rb.velocity.x, 0.0f, 0.0f);
                     rb.AddForce(Vector2.up * jumpPower);
@@ -138,15 +130,11 @@ public class Player : MonoBehaviour
                     jumped = false;
                     jumps++;
                     secondJump = false;
-                }
-
-                if (Input.GetKey(KeyCode.UpArrow))
-                {
-                    dashUp = true;
+                    myAnimator.SetBool("IsJumping", true);
                 }
                 else
                 {
-                    dashUp = false;
+                    myAnimator.SetBool("IsJumping", false);
                 }
             }
         }
@@ -156,8 +144,8 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.LeftArrow))
             {
-                dashLeft = true;
-                dashRight = false;
+                myAnimator.SetBool("IsRunning", true);
+                gameObject.GetComponent<SpriteRenderer>().flipX = true;
                 if (rb.velocity.x > 0f)
                 {
                     SlowDown(-1f);
@@ -174,8 +162,8 @@ public class Player : MonoBehaviour
             }
             else if (Input.GetKey(KeyCode.RightArrow))
             {
-                dashLeft = false;
-                dashRight = true;
+                myAnimator.SetBool("IsRunning", true);
+                gameObject.GetComponent<SpriteRenderer>().flipX = false;
                 if (rb.velocity.x < 0f)
                 {
                     SlowDown(1f);
@@ -192,26 +180,15 @@ public class Player : MonoBehaviour
             }
             else
             {
+                myAnimator.SetBool("IsRunning", false);
                 rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, 0.1f), rb.velocity.y);
             }
         }
 
-        /*if (Input.GetKeyUp(KeyCode.Z) && Input.GetKeyUp(KeyCode.LeftArrow) && Input.GetKeyUp(KeyCode.RightArrow))
-        {
-            dashUp = false;
-            dashLeft = false;
-            dashRight = false;
-            dashDown = true;
-        }
-        else
-        {
-            dashDown = false;
-        }*/
-
         //wall jump
         if (Input.GetKeyDown(KeyCode.X))
         {
-            if (hitInfo4.collider != null /*&& walljumpReset == true*/)
+            if (hitInfo4.collider != null)
             {
                 wallAttached = true;
                 secondJump = false;
@@ -220,11 +197,8 @@ public class Player : MonoBehaviour
                 rb.gravityScale = 0.2f;
 
                 wallJumpRight = true;
-                dashLeft = false;
-                dashRight = true;
-                //StartCoroutine("WallGripWaitRight");
             }
-            else if (hitInfo5.collider != null /*&& walljumpReset == true*/)
+            else if (hitInfo5.collider != null)
             {
                 wallAttached = true;
                 secondJump = false;
@@ -233,10 +207,6 @@ public class Player : MonoBehaviour
                 rb.gravityScale = 0.2f;
 
                 wallJumpLeft = true;
-                dashLeft = true;
-                dashRight = false;
-                //StartCoroutine("WallGripWaitLeft");
-
             }
             else
             {
@@ -272,63 +242,52 @@ public class Player : MonoBehaviour
             wallJumped = false;
         }
 
-        //Dash
+        // Dash one directions set
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            dashDirection = Vector2.right;
+        }
+
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            dashDirection = Vector2.left;
+        }
+
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            dashDirection = Vector2.up;
+        }
+
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            dashDirection = Vector2.down;
+        }
+
+        // Dash two directions set
+        if (Input.GetKey(KeyCode.RightArrow) && Input.GetKey(KeyCode.UpArrow))
+        {
+            dashDirection = Vector2.right + Vector2.up;
+        }
+
+        if (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.UpArrow))
+        {
+            dashDirection = Vector2.left + Vector2.up;
+        }
+
+        if (Input.GetKey(KeyCode.RightArrow) && Input.GetKey(KeyCode.DownArrow))
+        {
+            dashDirection = Vector2.right + Vector2.down;
+        }
+
+        if (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.DownArrow))
+        {
+            dashDirection = Vector2.left + Vector2.down;
+        }
+
+        //Player Dashing
         if (Input.GetKeyDown(KeyCode.LeftShift) && Time.time > nextDashTime)
         {
-            if (/*Input.GetKey(KeyCode.LeftArrow)*/ dashLeft == true)
-            {
-                if (hitInfo2.collider == true)
-                {
-                    gameObject.transform.position = hitInfo2.point;
-                }
-                else
-                {
-                    gameObject.transform.position = new Vector2(gameObject.transform.position.x - 3, gameObject.transform.position.y);
-                    rb.AddForce(Vector2.left * jumpPower / 2f);
-                }
-
-                nextDashTime = Time.time + DashTimeIncrease;
-            }
-
-            if (/*Input.GetKey(KeyCode.RightArrow)*/ dashRight == true)
-            {
-                if (hitInfo3.collider == true)
-                {
-                    gameObject.transform.position = hitInfo3.point;
-                }
-                else
-                {
-                    gameObject.transform.position = new Vector2(gameObject.transform.position.x + 3, gameObject.transform.position.y);
-                    rb.AddForce(Vector2.right * jumpPower / 2f);
-                }
-
-                nextDashTime = Time.time + DashTimeIncrease;
-            }
-
-            if (/*Input.GetKey(KeyCode.UpArrow)*/ dashUp == true)
-            {
-                if (hitInfo6.collider == true)
-                {
-                    gameObject.transform.position = hitInfo6.point;
-                }
-                else
-                {
-                    gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + 3);
-                    rb.AddForce(Vector2.up * jumpPower / 2f);
-                }
-
-                nextDashTime = Time.time + DashTimeIncrease;
-            }
-
-            /*if (Input.GetKey(KeyCode.DownArrow) dashDown == true)
-            {
-                if (hitInfo7.collider == false)
-                {
-                    gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - 3);
-                }
-
-                nextDashTime = Time.time + DashTimeIncrease;
-            }*/
+            PlayerDash(dashDirection * 1.10f);
         }
 
 
@@ -346,29 +305,22 @@ public class Player : MonoBehaviour
         secondJump = true;
     }
 
-    /*IEnumerator WallGripWaitRight()
+    void PlayerDash(Vector2 dir)
     {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            yield return new WaitForSeconds(wallGripDuration);
-            wallAttached = false;
-            wallJumpRight = false;
-            rb.gravityScale = startGravity;
-            walljumpReset = false;
-        }
+        rb.AddForce(dir * jumpPower * 1.2f);
+        StartCoroutine("NormalMoveSpeed");
+
+        nextDashTime = Time.time + DashTimeIncrease;
     }
 
-    IEnumerator WallGripWaitLeft()
+    IEnumerator NormalMoveSpeed()
     {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            yield return new WaitForSeconds(wallGripDuration);
-            wallAttached = false;
-            wallJumpLeft = false;
-            rb.gravityScale = startGravity;
-            walljumpReset = false;
-        }
-    }*/
+        yield return new WaitForSeconds(0.05f);
+        rb.velocity /= 1.2f;
+        yield return new WaitForSeconds(0.15f);
+        float num = rb.velocity.x > 0f ? -1f : 1f;
+        SlowDown(num);
+    }
 
     void SlowDown(float speed)
     {

@@ -14,6 +14,9 @@ public class FallingPlatform : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Vector2 boxCollider = transform.parent.GetComponent<BoxCollider2D>().size;
+        boxCollider.y = GetComponent<BoxCollider2D>().size.y;
+        GetComponent<BoxCollider2D>().size = boxCollider;
         player = GameObject.FindGameObjectWithTag("Player");
         rb = gameObject.transform.parent.GetComponent<Rigidbody2D>();
         resetPoint = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);

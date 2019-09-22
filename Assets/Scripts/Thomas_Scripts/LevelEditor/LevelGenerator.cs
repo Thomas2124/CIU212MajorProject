@@ -2,15 +2,22 @@
 
 public class LevelGenerator : MonoBehaviour
 {
+    public static LevelGenerator Instance;
+
     public Texture2D map;
 
     public ColorToPrefab[] colorMappings;
+
+    public TestPlatformJoin joinScript;
+
+    public ReplaceSprites spriteScript;
 
     public bool isDone = false;
 
     // Start is called before the first frame update
     void Awake()
     {
+        Instance = this;
         GenerateLevel();
     }
 
@@ -24,6 +31,8 @@ public class LevelGenerator : MonoBehaviour
             }
         }
 
+        joinScript.enabled = true;
+        spriteScript.enabled = true;
         isDone = true;
     }
 

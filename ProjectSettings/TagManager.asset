@@ -9,6 +9,11 @@ TagManager:
   - hitbox
   - FallingPlatform
   - Test
+  - Floor
+  - CheckPoint
+  - Spikes
+  - Pit
+  - FallingObject
   layers:
   - Default
   - TransparentFX

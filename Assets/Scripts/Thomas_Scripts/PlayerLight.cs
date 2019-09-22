@@ -10,13 +10,21 @@ public class PlayerLight : MonoBehaviour
     public Light objectLight;
     float speed = 0.0f;
     public float changeRate = 0.01f;
-    public bool doneTask = false;
+    //private bool doneTask = false;
+    //private bool isRunning = false;
+    public float waitTime = 3f;
+
+    public bool lightUp = false;
+    public bool lightDown = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        lightUp = true;
+        lightDown = false;
         Illumination.Instance.lightScript = this;
         objectLight = gameObject.transform.GetChild(0).gameObject.GetComponent<Light>();
+        objectLight.range = endValue;
         objectLight.intensity = 2f;
         objectLight.range = startValue;
     }
@@ -24,12 +32,52 @@ public class PlayerLight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        LightLerp();
+        if (lightUp == true)
+        {
+            objectLight.range = Mathf.Lerp(startValue, endValue, speed);
+
+            if (objectLight.range >= endValue)
+            {
+                StartCoroutine("HoldLightUp");
+            }
+            else
+            {
+                speed += changeRate;
+            }
+        }
+
+        if (lightDown == true)
+        {
+            speed -= changeRate;
+
+            objectLight.range = Mathf.Lerp(startValue, endValue, speed);
+
+            if (objectLight.range <= startValue)
+            {
+                StartCoroutine("HoldLightDown");
+            }
+        }
     }
 
-    void LightLerp()
+    IEnumerator HoldLightUp()
     {
-        objectLight.range = Mathf.Lerp(startValue, endValue, speed);
+        lightUp = false;
+
+        yield return new WaitForSeconds(waitTime);
+
+        lightDown = true;
+    }
+
+    IEnumerator HoldLightDown()
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        lightDown = false;
+        lightUp = true;
+    }
+}
+
+/*objectLight.range = Mathf.Lerp(startValue, endValue, speed);
 
         if (doneTask == false)
         {
@@ -43,6 +91,8 @@ public class PlayerLight : MonoBehaviour
             }
         }
 
+        yield return new WaitForSeconds(waitTime);
+
         if (doneTask == true)
         {
             speed -= changeRate;
@@ -50,9 +100,9 @@ public class PlayerLight : MonoBehaviour
 
         objectLight.range = Mathf.Lerp(startValue, endValue, speed);
 
-        if (objectLight.range <= 0f && doneTask == true)
+        if (objectLight.range <= startValue && doneTask == true)
         {
-            Destroy(gameObject);
+            isRunning = false;
+            doneTask = false;
         }
-    }
-}
+    }*/
