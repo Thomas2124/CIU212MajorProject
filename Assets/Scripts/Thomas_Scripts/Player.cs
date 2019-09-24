@@ -185,6 +185,11 @@ public class Player : MonoBehaviour
                 rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, 0.1f), rb.velocity.y);
             }
         }
+        else
+        {
+            myAnimator.SetBool("IsRunning", false);
+            rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, 0.1f), rb.velocity.y);
+        }
 
         //wall jump
         if (Input.GetKeyDown(KeyCode.X) && wallAttached == false)
@@ -308,7 +313,7 @@ public class Player : MonoBehaviour
     {
         isDashing = true;
         rb.velocity = Vector2.zero;
-        rb.AddForce(dir * jumpPower);
+        rb.AddForce(dir * jumpPower * 1.6f);
         StartCoroutine("NormalMoveSpeed");
 
         nextDashTime = Time.time + DashTimeIncrease;
