@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     public bool slowStop;
     public bool isLeft;
     public bool isRight;
+    public bool isDashing = false;
 
     public bool wallJumped;
     public bool jumped;
@@ -140,7 +141,7 @@ public class Player : MonoBehaviour
         }
 
         //player movement left and right
-        if (wallJumped == false && wallAttached == false)
+        if (wallJumped == false && wallAttached == false && isDashing == false)
         {
             if (Input.GetKey(KeyCode.LeftArrow))
             {
@@ -186,7 +187,7 @@ public class Player : MonoBehaviour
         }
 
         //wall jump
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X) && wallAttached == false)
         {
             if (hitInfo4.collider != null)
             {
@@ -218,7 +219,7 @@ public class Player : MonoBehaviour
         {
             if (wallJumpLeft == true)
             {
-                rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+                rb.velocity = Vector2.zero;
                 rb.gravityScale = startGravity;
                 rb.AddForce(Vector2.up * jumpPower / 1.2f);
                 rb.AddForce(Vector2.left * jumpPower * 1.05f);
@@ -228,7 +229,7 @@ public class Player : MonoBehaviour
 
             if (wallJumpRight == true)
             {
-                rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+                rb.velocity = Vector2.zero;
                 rb.gravityScale = startGravity;
                 rb.AddForce(Vector2.up * jumpPower / 1.2f);
                 rb.AddForce(Vector2.right * jumpPower * 1.05f);
@@ -287,10 +288,8 @@ public class Player : MonoBehaviour
         //Player Dashing
         if (Input.GetKeyDown(KeyCode.LeftShift) && Time.time > nextDashTime)
         {
-            PlayerDash(dashDirection * 1.10f);
+            PlayerDash(dashDirection);
         }
-
-
     }
 
     IEnumerator waitTime()
@@ -307,7 +306,9 @@ public class Player : MonoBehaviour
 
     void PlayerDash(Vector2 dir)
     {
-        rb.AddForce(dir * jumpPower * 1.2f);
+        isDashing = true;
+        rb.velocity = Vector2.zero;
+        rb.AddForce(dir * jumpPower);
         StartCoroutine("NormalMoveSpeed");
 
         nextDashTime = Time.time + DashTimeIncrease;
@@ -315,16 +316,20 @@ public class Player : MonoBehaviour
 
     IEnumerator NormalMoveSpeed()
     {
-        yield return new WaitForSeconds(0.05f);
-        rb.velocity /= 1.2f;
+        yield return new WaitForSeconds(0.10f);
+        rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, 0.3f), rb.velocity.y);
         yield return new WaitForSeconds(0.15f);
-        float num = rb.velocity.x > 0f ? -1f : 1f;
-        SlowDown(num);
+        DashSlowDown(rb.velocity.x);
     }
 
     void SlowDown(float speed)
     {
-        rb.velocity = new Vector2(Mathf.Lerp(speed, 0f, 0.2f), rb.velocity.y);
+        rb.velocity = new Vector2(Mathf.Lerp(speed, 0f, 0.1f), rb.velocity.y);
+    }
+
+    void DashSlowDown(float speed)
+    {
+        isDashing = false;
     }
 
     public void Dead()
