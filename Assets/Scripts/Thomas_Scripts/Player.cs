@@ -121,7 +121,6 @@ public class Player : MonoBehaviour
                     {
                         jumps++;
                     }
-                    myAnimator.SetBool("IsJumping", true);
                 }
                 else if (Input.GetKeyDown(KeyCode.Z) && secondJump == true && isGrounded == false && jumped == true)
                 {
@@ -131,11 +130,6 @@ public class Player : MonoBehaviour
                     jumped = false;
                     jumps++;
                     secondJump = false;
-                    myAnimator.SetBool("IsJumping", true);
-                }
-                else
-                {
-                    myAnimator.SetBool("IsJumping", false);
                 }
             }
         }
@@ -145,7 +139,6 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.LeftArrow))
             {
-                myAnimator.SetBool("IsRunning", true);
                 gameObject.GetComponent<SpriteRenderer>().flipX = true;
                 if (rb.velocity.x > 0f)
                 {
@@ -163,7 +156,6 @@ public class Player : MonoBehaviour
             }
             else if (Input.GetKey(KeyCode.RightArrow))
             {
-                myAnimator.SetBool("IsRunning", true);
                 gameObject.GetComponent<SpriteRenderer>().flipX = false;
                 if (rb.velocity.x < 0f)
                 {
@@ -181,13 +173,11 @@ public class Player : MonoBehaviour
             }
             else
             {
-                myAnimator.SetBool("IsRunning", false);
                 rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, 0.1f), rb.velocity.y);
             }
         }
         else
         {
-            myAnimator.SetBool("IsRunning", false);
             rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, 0.1f), rb.velocity.y);
         }
 
@@ -295,6 +285,12 @@ public class Player : MonoBehaviour
         {
             PlayerDash(dashDirection);
         }
+
+        myAnimator.SetBool("IsJumping", jumped);
+        myAnimator.SetBool("Hold", wallAttached);
+        myAnimator.SetBool("Dashing", isDashing);
+        myAnimator.SetFloat("Speed", rb.velocity.magnitude);
+
     }
 
     IEnumerator waitTime()
