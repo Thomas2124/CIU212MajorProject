@@ -216,8 +216,8 @@ public class Player : MonoBehaviour
             {
                 rb.velocity = Vector2.zero;
                 rb.gravityScale = startGravity;
-                rb.AddForce(Vector2.up * jumpPower / 1.2f);
-                rb.AddForce(Vector2.left * jumpPower * 1.05f);
+                Vector2 myVector = Vector2.up + Vector2.left;
+                rb.AddForce(myVector * jumpPower);
                 wallJumpLeft = false;
                 wallAttached = false;
             }
@@ -226,8 +226,8 @@ public class Player : MonoBehaviour
             {
                 rb.velocity = Vector2.zero;
                 rb.gravityScale = startGravity;
-                rb.AddForce(Vector2.up * jumpPower / 1.2f);
-                rb.AddForce(Vector2.right * jumpPower * 1.05f);
+                Vector2 myVector = Vector2.up + Vector2.right;
+                rb.AddForce(myVector * jumpPower);
                 wallJumpRight = false;
                 wallAttached = false;
             }
@@ -241,22 +241,22 @@ public class Player : MonoBehaviour
         // Dash one directions set
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            dashDirection = Vector2.right;
+            dashDirection = Vector2.right * 1.6f;
         }
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            dashDirection = Vector2.left;
+            dashDirection = Vector2.left * 1.6f;
         }
 
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            dashDirection = Vector2.up;
+            dashDirection = Vector2.up / 1.2f;
         }
 
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            dashDirection = Vector2.down;
+            dashDirection = Vector2.down / 1.2f;
         }
 
         // Dash two directions set
@@ -309,7 +309,9 @@ public class Player : MonoBehaviour
     {
         isDashing = true;
         rb.velocity = Vector2.zero;
-        rb.AddForce(dir * jumpPower * 1.6f);
+        float power = jumpPower;
+
+        rb.AddForce(dir * power);
         StartCoroutine("NormalMoveSpeed");
 
         nextDashTime = Time.time + DashTimeIncrease;
@@ -318,14 +320,14 @@ public class Player : MonoBehaviour
     IEnumerator NormalMoveSpeed()
     {
         yield return new WaitForSeconds(0.10f);
-        rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, 0.3f), rb.velocity.y);
+        rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, Time.deltaTime), rb.velocity.y);
         yield return new WaitForSeconds(0.15f);
         DashSlowDown(rb.velocity.x);
     }
 
     void SlowDown(float speed)
     {
-        rb.velocity = new Vector2(Mathf.Lerp(speed, 0f, 0.1f), rb.velocity.y);
+        rb.velocity = new Vector2(Mathf.Lerp(speed, 0f, Time.deltaTime), rb.velocity.y);
     }
 
     void DashSlowDown(float speed)

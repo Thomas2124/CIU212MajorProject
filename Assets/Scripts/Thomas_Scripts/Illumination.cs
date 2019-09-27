@@ -44,7 +44,7 @@ public class Illumination : MonoBehaviour
                 {
                     SpriteRenderer itemSpriteRenderer = item.GetComponent<SpriteRenderer>();
 
-                    if (item != this.gameObject && itemSpriteRenderer != null)
+                    if (item != this.gameObject && itemSpriteRenderer != null && item.tag != "BackGround")
                     {
                         itemSpriteRenderer.material.color = new Color(itemSpriteRenderer.material.color.r, itemSpriteRenderer.material.color.g, itemSpriteRenderer.material.color.b, 0f);
                     }
@@ -57,7 +57,7 @@ public class Illumination : MonoBehaviour
             {
                 SpriteRenderer itemSpriteRenderer = item.GetComponent<SpriteRenderer>();
 
-                if (itemSpriteRenderer != null)
+                if (itemSpriteRenderer != null && item.tag != "BackGround")
                 {
                     float alphaNum = Vector2.Distance(item.transform.position, this.gameObject.transform.position) / detectRangeMax;
                     Color farColor = new Color(itemSpriteRenderer.material.color.r, itemSpriteRenderer.material.color.g, itemSpriteRenderer.material.color.b, 0f);

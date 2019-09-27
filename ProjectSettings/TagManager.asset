@@ -14,6 +14,7 @@ TagManager:
   - Spikes
   - Pit
   - FallingObject
+  - BackGround
   layers:
   - Default
   - TransparentFX

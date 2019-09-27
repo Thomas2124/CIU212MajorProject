@@ -14,10 +14,16 @@ public class LevelGenerator : MonoBehaviour
 
     public bool isDone = false;
 
+    public int highestNum = 0;
+
+    public int longestNum = 0;
+
     // Start is called before the first frame update
     void Awake()
     {
         Instance = this;
+        highestNum = map.height;
+        longestNum = map.width;
         GenerateLevel();
     }
 
