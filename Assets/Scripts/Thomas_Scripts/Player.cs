@@ -85,7 +85,7 @@ public class Player : MonoBehaviour
             jumps = 0;
             fallJump = false;
             stopJump = false;
-            rb.velocity = new Vector2(rb.velocity.x, 0f);
+            rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, Time.deltaTime), rb.velocity.y);
         }
         else
         {
@@ -178,7 +178,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, 0.1f), rb.velocity.y);
+            rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, Time.deltaTime), rb.velocity.y);
         }
 
         //wall jump
@@ -241,12 +241,12 @@ public class Player : MonoBehaviour
         // Dash one directions set
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            dashDirection = Vector2.right * 2.4f;
+            dashDirection = Vector2.right * 1.2f;
         }
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            dashDirection = Vector2.left * 2.4f;
+            dashDirection = Vector2.left * 1.2f;
         }
 
         if (Input.GetKey(KeyCode.UpArrow))
@@ -319,9 +319,9 @@ public class Player : MonoBehaviour
 
     IEnumerator NormalMoveSpeed()
     {
-        yield return new WaitForSeconds(0.08f);
+        yield return new WaitForSeconds(0.04f);
         rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, Time.deltaTime), rb.velocity.y);
-        yield return new WaitForSeconds(0.20f);
+        yield return new WaitForSeconds(0.15f);
         DashSlowDown(rb.velocity.x);
     }
 

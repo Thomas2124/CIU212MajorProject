@@ -176,6 +176,8 @@ MonoBehaviour:
   joinScript: {fileID: 324705468}
   spriteScript: {fileID: 324705469}
   isDone: 0
+  highestNum: 0
+  longestNum: 0
 --- !u!4 &324705467
 Transform:
   m_ObjectHideFlags: 0

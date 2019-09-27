@@ -50,9 +50,11 @@ public class FallingPlatform : MonoBehaviour
         rb.constraints = RigidbodyConstraints2D.FreezePositionX;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         yield return new WaitForSeconds(waitTime);
+        transform.parent.GetComponent<BoxCollider2D>().enabled = false;
         rb.gravityScale = theGravity;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-        yield return new WaitForSeconds(8f);
+        yield return new WaitForSeconds(6f);
+        transform.parent.GetComponent<BoxCollider2D>().enabled = true;
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
         gameObject.transform.parent.position = resetPoint;
         stop = false;

@@ -5,7 +5,6 @@ using UnityEngine;
 public class ReplaceSprites : MonoBehaviour
 {
     private GameObject[] floorGameObject;
-
     public Sprite[] oneSprites;
     public Sprite[] twoSprites;
     public Sprite[] threeSprites;
