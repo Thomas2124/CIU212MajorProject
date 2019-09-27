@@ -241,43 +241,43 @@ public class Player : MonoBehaviour
         // Dash one directions set
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            dashDirection = Vector2.right * 1.6f;
+            dashDirection = Vector2.right * 2.4f;
         }
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            dashDirection = Vector2.left * 1.6f;
+            dashDirection = Vector2.left * 2.4f;
         }
 
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            dashDirection = Vector2.up / 1.2f;
+            dashDirection = Vector2.up / 1.1f;
         }
 
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            dashDirection = Vector2.down / 1.2f;
+            dashDirection = Vector2.down / 1.1f;
         }
 
         // Dash two directions set
         if (Input.GetKey(KeyCode.RightArrow) && Input.GetKey(KeyCode.UpArrow))
         {
-            dashDirection = Vector2.right + Vector2.up;
+            dashDirection = Vector2.right + Vector2.up * 1.2f;
         }
 
         if (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.UpArrow))
         {
-            dashDirection = Vector2.left + Vector2.up;
+            dashDirection = Vector2.left + Vector2.up * 1.2f;
         }
 
         if (Input.GetKey(KeyCode.RightArrow) && Input.GetKey(KeyCode.DownArrow))
         {
-            dashDirection = Vector2.right + Vector2.down;
+            dashDirection = Vector2.right + Vector2.down * 1.2f;
         }
 
         if (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.DownArrow))
         {
-            dashDirection = Vector2.left + Vector2.down;
+            dashDirection = Vector2.left + Vector2.down * 1.2f;
         }
 
         //Player Dashing
@@ -319,9 +319,9 @@ public class Player : MonoBehaviour
 
     IEnumerator NormalMoveSpeed()
     {
-        yield return new WaitForSeconds(0.10f);
+        yield return new WaitForSeconds(0.08f);
         rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, Time.deltaTime), rb.velocity.y);
-        yield return new WaitForSeconds(0.15f);
+        yield return new WaitForSeconds(0.20f);
         DashSlowDown(rb.velocity.x);
     }
 
