@@ -85,7 +85,7 @@ public class Player : MonoBehaviour
             jumps = 0;
             fallJump = false;
             stopJump = false;
-            rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, Time.deltaTime), rb.velocity.y);
+            rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, Time.deltaTime * 3f), rb.velocity.y);
         }
         else
         {
@@ -178,7 +178,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, Time.deltaTime), rb.velocity.y);
+            rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, Time.deltaTime * 3f), rb.velocity.y);
         }
 
         //wall jump
