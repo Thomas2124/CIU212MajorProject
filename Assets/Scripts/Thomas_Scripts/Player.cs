@@ -51,6 +51,7 @@ public class Player : MonoBehaviour
 
     public bool leftRightDash = false;
 
+    #region Start/Awake
     private void Awake()
     {
         playerInstance = this;
@@ -68,6 +69,9 @@ public class Player : MonoBehaviour
         startGravity = rb.gravityScale;
     }
 
+    #endregion
+
+    #region Update
     // Update is called once per frame
     void Update()
     {
@@ -184,54 +188,63 @@ public class Player : MonoBehaviour
         }
 
         //wall jump
-        if (Input.GetKeyDown(KeyCode.X) && wallAttached == false)
+        if (Input.GetKeyDown(KeyCode.X))
         {
             if (hitInfo4.collider != null)
             {
                 wallAttached = true;
                 secondJump = false;
 
-                rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+                rb.velocity = Vector2.zero;
                 rb.gravityScale = 0.2f;
 
                 wallJumpRight = true;
             }
-            else if (hitInfo5.collider != null)
+
+            if (hitInfo5.collider != null)
             {
                 wallAttached = true;
                 secondJump = false;
 
-                rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+                rb.velocity = Vector2.zero;
                 rb.gravityScale = 0.2f;
 
                 wallJumpLeft = true;
             }
-            else
-            {
-                wallAttached = false;
-            }
         }
 
-        if (Input.GetKeyUp(KeyCode.X) && wallAttached == true)
+        if (hitInfo4.collider == null && hitInfo5.collider == null && wallAttached == true)
         {
-            if (wallJumpLeft == true)
-            {
-                rb.velocity = Vector2.zero;
-                rb.gravityScale = startGravity;
-                Vector2 myVector = Vector2.up + Vector2.left;
-                rb.AddForce(myVector * jumpPower);
-                wallJumpLeft = false;
-                wallAttached = false;
-            }
+            rb.velocity = Vector2.zero;
+            rb.gravityScale = startGravity;
+            wallJumpRight = false;
+            wallJumpLeft = false;
+            wallAttached = false;
+        }
 
-            if (wallJumpRight == true)
+        if (Input.GetKeyUp(KeyCode.X))
+        {
+            if (wallAttached == true)
             {
-                rb.velocity = Vector2.zero;
-                rb.gravityScale = startGravity;
-                Vector2 myVector = Vector2.up + Vector2.right;
-                rb.AddForce(myVector * jumpPower);
-                wallJumpRight = false;
-                wallAttached = false;
+                if (wallJumpLeft == true)
+                {
+                    rb.velocity = Vector2.zero;
+                    rb.gravityScale = startGravity;
+                    Vector2 myVector = Vector2.up + Vector2.left;
+                    rb.AddForce(myVector * jumpPower);
+                    wallJumpLeft = false;
+                    wallAttached = false;
+                }
+
+                if (wallJumpRight == true)
+                {
+                    rb.velocity = Vector2.zero;
+                    rb.gravityScale = startGravity;
+                    Vector2 myVector = Vector2.up + Vector2.right;
+                    rb.AddForce(myVector * jumpPower);
+                    wallJumpRight = false;
+                    wallAttached = false;
+                }
             }
         }
 
@@ -295,6 +308,9 @@ public class Player : MonoBehaviour
 
     }
 
+    #endregion
+
+    #region wait
     IEnumerator waitTime()
     {
         yield return new WaitForSeconds(0.5f);
@@ -307,6 +323,9 @@ public class Player : MonoBehaviour
         secondJump = true;
     }
 
+    #endregion
+
+    #region Dash/SlowDown
     void PlayerDash(Vector2 dir)
     {
         isDashing = true;
@@ -349,8 +368,27 @@ public class Player : MonoBehaviour
         isDashing = false;
     }
 
+    #endregion
+
     public void Dead()
     {
+        rb.velocity = Vector2.zero;
+        rb.gravityScale = startGravity;
+        isLeft = false;
+        isRight = true;
+        isDashing = false;
+        wallJumped = false;
+        jumped = false;
+        wallAttached = false;
+        wallJumpLeft = false;
+        wallJumpRight = false;
+        secondJump = false;
+        jumps = 0;
+        fallJump = false;
+        forceFall = false;
+        stopJump = false;
+        leftRightDash = false;
+
         gameObject.transform.position = spawnPoint;
         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         
