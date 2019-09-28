@@ -127,7 +127,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.057036627}
   serializedVersion: 2
-  m_Radius: 0.4508493
+  m_Radius: 0.4
 --- !u!114 &2202710418559515408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,6 +178,7 @@ MonoBehaviour:
   lightPrefab: {fileID: 7300336261969412370, guid: 1e34b01dc4cd5a243bb0c9fcdc6f008f,
     type: 3}
   myAnimator: {fileID: 7922003450637996889}
+  leftRightDash: 0
 --- !u!114 &2202710418559515406
 MonoBehaviour:
   m_ObjectHideFlags: 0
