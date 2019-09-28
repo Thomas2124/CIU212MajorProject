@@ -9,6 +9,10 @@ public class TestPlatformJoin : MonoBehaviour
     public GameObject spritePrefab;
     public List<Vector3> startPos;
     public List<Vector3> endPos;
+
+    public List<GameObject> startPlat;
+    public List<GameObject> endPlat;
+
     public bool isDone = false;
     public List<Sprite> platformSprites;
 
@@ -56,13 +60,58 @@ public class TestPlatformJoin : MonoBehaviour
             if (isLeft == true && isRight == false)
             {
                 startPos.Add(myPlatforms[i].transform.position);
+                startPlat.Add(myPlatforms[i]);
                 myPlatforms[i].gameObject.GetComponent<SpriteRenderer>().sprite = platformSprites[2];
             }
-
-            if (isLeft == false && isRight == true)
+            else if (isLeft == false && isRight == true)
             {
-                endPos.Add(myPlatforms[i].transform.position);
+                endPlat.Add(myPlatforms[i]);
                 myPlatforms[i].gameObject.GetComponent<SpriteRenderer>().sprite = platformSprites[0];
+            }
+        }
+
+        foreach (GameObject item in myPlatforms)
+        {
+            bool not1 = false;
+            bool not2 = false;
+
+            foreach (GameObject start in startPlat)
+            {
+                if (start == item)
+                {
+                    not1 = true;
+                }
+            }
+
+            foreach (GameObject end in endPlat)
+            {
+                if (end == item)
+                {
+                    not2 = true;
+                }
+            }
+
+            if (not1 == false && not2 == false)
+            {
+                item.GetComponent<BoxCollider2D>().enabled = false;
+            }
+        }
+
+        for (int i = 0; i < startPlat.Count; i++)
+        {
+            for (int j = 0; j < endPlat.Count; j++)
+            {
+                Vector2 objectPos = startPlat[i].transform.position;
+                Vector2 leftPos = new Vector2(objectPos.x - 0.51f, objectPos.y);
+                Vector2 rightPos = new Vector2(objectPos.x + 0.51f, objectPos.y);
+
+                RaycastHit2D hitRight = Physics2D.Raycast(rightPos, Vector2.right);
+                RaycastHit2D hitLeft = Physics2D.Raycast(leftPos, Vector2.left);
+
+                if (hitLeft.collider.gameObject == endPlat[j])
+                {
+                    endPos.Add(hitLeft.collider.transform.position);
+                }
             }
         }
 

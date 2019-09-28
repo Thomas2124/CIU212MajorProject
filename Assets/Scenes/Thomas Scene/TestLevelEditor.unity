@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59bd265a94efa614180143e464b54724, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  map: {fileID: 2800000, guid: 14d4aee72aaa36b4cb605878f382a234, type: 3}
+  map: {fileID: 2800000, guid: a6bbb54eef8cfa743983fadab1381a6a, type: 3}
   colorMappings:
   - color: {r: 0, g: 0, b: 0, a: 1}
     prefab: {fileID: 1429170346565403358, guid: b4549c1856ea2a145b07e24ed57cbbdb,
@@ -211,6 +211,8 @@ MonoBehaviour:
     type: 3}
   startPos: []
   endPos: []
+  startPlat: []
+  endPlat: []
   isDone: 0
   platformSprites:
   - {fileID: -3627264120405484348, guid: 744635e766af28d45a3501002519d4bf, type: 3}

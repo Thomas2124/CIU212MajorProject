@@ -16,7 +16,7 @@ public class FallingObject : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, Mathf.Infinity);
         if (hitInfo.collider != null && hitInfo.collider.gameObject == player)

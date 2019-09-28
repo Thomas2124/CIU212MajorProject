@@ -23,12 +23,6 @@ public class FallingPlatform : MonoBehaviour
         theGravity = rb.gravityScale;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player" && stop == false)

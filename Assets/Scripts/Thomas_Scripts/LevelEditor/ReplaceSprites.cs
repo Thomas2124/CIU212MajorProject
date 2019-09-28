@@ -23,21 +23,6 @@ public class ReplaceSprites : MonoBehaviour
     void Start()
     {
         floorGameObject = GameObject.FindGameObjectsWithTag("Floor");
-        fallingPlatformGameObject = GameObject.FindGameObjectsWithTag("FallingPlatform");
-        spikesGameObject = GameObject.FindGameObjectsWithTag("Spikes");
-        finishGameObject = GameObject.FindGameObjectWithTag("Finish");
-
-        foreach (GameObject item in fallingPlatformGameObject)
-        {
-            item.GetComponent<BoxCollider2D>().enabled = false;
-        }
-
-        finishGameObject.GetComponent<BoxCollider2D>().enabled = false;
-
-        foreach (GameObject item in spikesGameObject)
-        {
-            item.GetComponent<Spikes>().GameObjectSpin();
-        }
 
         foreach (GameObject item in floorGameObject)
         {
@@ -109,13 +94,6 @@ public class ReplaceSprites : MonoBehaviour
                 itemSpriteRenderer.sprite = otherSprite;
             }
         }
-
-        foreach (GameObject item in fallingPlatformGameObject)
-        {
-            item.GetComponent<BoxCollider2D>().enabled = true;
-        }
-
-        finishGameObject.GetComponent<BoxCollider2D>().enabled = true;
     }
 
     void RaycastDirections(Vector2 pos)

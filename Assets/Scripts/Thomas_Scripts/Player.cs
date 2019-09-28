@@ -49,6 +49,8 @@ public class Player : MonoBehaviour
 
     public Animator myAnimator;
 
+    public bool leftRightDash = false;
+
     private void Awake()
     {
         playerInstance = this;
@@ -241,12 +243,12 @@ public class Player : MonoBehaviour
         // Dash one directions set
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            dashDirection = Vector2.right * 1.2f;
+            dashDirection = Vector2.right * 1.4f;
         }
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            dashDirection = Vector2.left * 1.2f;
+            dashDirection = Vector2.left * 1.4f;
         }
 
         if (Input.GetKey(KeyCode.UpArrow))
@@ -311,6 +313,12 @@ public class Player : MonoBehaviour
         rb.velocity = Vector2.zero;
         float power = jumpPower;
 
+        if (dashDirection == Vector2.left * 1.4f || dashDirection == Vector2.right * 1.4f)
+        {
+            rb.constraints = RigidbodyConstraints2D.FreezePositionY;
+            leftRightDash = true;
+        }
+
         rb.AddForce(dir * power);
         StartCoroutine("NormalMoveSpeed");
 
@@ -319,7 +327,13 @@ public class Player : MonoBehaviour
 
     IEnumerator NormalMoveSpeed()
     {
-        yield return new WaitForSeconds(0.04f);
+        yield return new WaitForSeconds(0.2f);
+        if (leftRightDash == true)
+        {
+            rb.constraints = RigidbodyConstraints2D.None;
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            leftRightDash = false;
+        }
         rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, Time.deltaTime), rb.velocity.y);
         yield return new WaitForSeconds(0.15f);
         DashSlowDown(rb.velocity.x);

@@ -26,7 +26,7 @@ public class PlatformReplacer : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (script.isDone == true && isDone == false)
         {
