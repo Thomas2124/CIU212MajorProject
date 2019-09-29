@@ -21,7 +21,6 @@ public class Illumination : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        done = LevelGenerator.Instance.joinScript.enabled;
         once = false;
     }
 
@@ -80,6 +79,10 @@ public class Illumination : MonoBehaviour
                     }
                 }
             }
+        }
+        else
+        {
+            done = LevelGenerator.Instance.joinScript.enabled;
         }
     }
 }

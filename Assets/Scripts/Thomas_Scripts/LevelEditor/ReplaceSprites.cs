@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ReplaceSprites : MonoBehaviour
 {
+    public static ReplaceSprites Instance;
+
     private GameObject[] floorGameObject;
     private GameObject[] fallingPlatformGameObject;
     private GameObject[] spikesGameObject;
@@ -13,16 +15,29 @@ public class ReplaceSprites : MonoBehaviour
     public Sprite[] threeSprites;
     public Sprite fourSprite;
     public Sprite otherSprite;
+    public TestPlatformJoin joinScript;
 
     RaycastHit2D hitLeft;
     RaycastHit2D hitRight;
     RaycastHit2D hitUp;
     RaycastHit2D hitDown;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         floorGameObject = GameObject.FindGameObjectsWithTag("Floor");
+        fallingPlatformGameObject = GameObject.FindGameObjectsWithTag("FallingPlatform");
+        spikesGameObject = GameObject.FindGameObjectsWithTag("Spikes");
+        finishGameObject = GameObject.FindGameObjectWithTag("Finish");
+
+        SetSpikes(false);
+        SetFallingPlatforms(false);
+        finishGameObject.SetActive(false);
 
         foreach (GameObject item in floorGameObject)
         {
@@ -93,6 +108,9 @@ public class ReplaceSprites : MonoBehaviour
             {
                 itemSpriteRenderer.sprite = otherSprite;
             }
+
+            SetSpikes(true);
+            finishGameObject.SetActive(true);
         }
     }
 
@@ -103,5 +121,41 @@ public class ReplaceSprites : MonoBehaviour
 
         hitUp = Physics2D.Raycast(new Vector2(pos.x, pos.y + 0.51f), Vector2.left, 0.1f);
         hitDown = Physics2D.Raycast(new Vector2(pos.x, pos.y - 0.51f), Vector2.right, 0.1f);
+    }
+
+    void SetSpikes(bool myBool)
+    {
+        foreach (GameObject item in spikesGameObject)
+        {
+            item.SetActive(myBool);
+            if (myBool == true)
+            {
+                item.GetComponent<Spikes>().GameObjectSpin();
+                StartCoroutine(NewSetFallingPlatform());
+            }
+        }
+
+        if (spikesGameObject.Length == 0)
+        {
+            if (myBool == true)
+            {
+                StartCoroutine(NewSetFallingPlatform());
+            }
+        }
+    }
+
+    void SetFallingPlatforms(bool myBool)
+    {
+        foreach (GameObject item in fallingPlatformGameObject)
+        {
+            item.SetActive(myBool);
+        }
+    }
+
+    IEnumerator NewSetFallingPlatform()
+    {
+        yield return new WaitForSeconds(0.2f);
+        SetFallingPlatforms(true);
+        joinScript.enabled = true;
     }
 }

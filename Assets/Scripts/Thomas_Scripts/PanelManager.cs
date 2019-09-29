@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PanelManager : MonoBehaviour
 {
     int page = 0;
     public GameObject[] panels;
+    public string sceneName;
 
     // Start is called before the first frame update
     void Start()
@@ -66,5 +68,16 @@ public class PanelManager : MonoBehaviour
     public void MinusOne()
     {
         page -= 1;
+    }
+
+    public void LevelSelected(int num)
+    {
+        PlayerPrefs.SetInt("Level", num);
+        SceneManager.LoadScene(sceneName);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

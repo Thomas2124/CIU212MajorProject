@@ -8,6 +8,8 @@ public class LevelGenerator : MonoBehaviour
 
     public ColorToPrefab[] colorMappings;
 
+    public Texture2D[] levelSprites;
+
     public TestPlatformJoin joinScript;
 
     public ReplaceSprites spriteScript;
@@ -21,6 +23,7 @@ public class LevelGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        map = levelSprites[PlayerPrefs.GetInt("Level")];
         Instance = this;
         highestNum = map.height;
         longestNum = map.width;
@@ -37,7 +40,7 @@ public class LevelGenerator : MonoBehaviour
             }
         }
 
-        joinScript.enabled = true;
+        //joinScript.enabled = true;
         spriteScript.enabled = true;
         isDone = true;
     }

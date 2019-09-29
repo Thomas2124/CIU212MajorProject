@@ -18,7 +18,6 @@ public class Spikes : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        GameObjectSpin();
         //GetComponent<BoxCollider2D>().enabled = true;
     }
 

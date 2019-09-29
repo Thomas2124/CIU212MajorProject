@@ -11,7 +11,16 @@ public class ResetPlayer : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            SceneManager.LoadScene(sceneName);
+            PlayerPrefs.SetInt("Level", PlayerPrefs.GetInt("Level") + 1);
+
+            if (PlayerPrefs.GetInt("Level") > 15)
+            {
+                SceneManager.LoadScene("MainMenu");
+            }
+            else
+            {
+                SceneManager.LoadScene(sceneName);
+            }
         }
     }
 }
