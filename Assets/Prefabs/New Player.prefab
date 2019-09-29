@@ -264,7 +264,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6438143306856260161}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -12.5}
   m_LocalScale: {x: 5.3125, y: 5.3125, z: 5.3125}
   m_Children:
   - {fileID: 6190625668721392532}
@@ -335,8 +335,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 2202710418559515410}
+  targetRb: {fileID: 0}
   smoothSpeed: 6
-  offset: {x: 0, y: 0, z: -10}
+  offset: {x: 0, y: 0, z: -12}
   offsetRight: {x: 0, y: 0, z: 0}
   offsetLeft: {x: 0, y: 0, z: 0}
   highestPoint: 0
@@ -556,7 +557,22 @@ PrefabInstance:
     - target: {fileID: 7300336262014417215, guid: 1e34b01dc4cd5a243bb0c9fcdc6f008f,
         type: 3}
       propertyPath: m_Range
-      value: 12
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300336262014417215, guid: 1e34b01dc4cd5a243bb0c9fcdc6f008f,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300336262014417215, guid: 1e34b01dc4cd5a243bb0c9fcdc6f008f,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.91968715
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300336262014417215, guid: 1e34b01dc4cd5a243bb0c9fcdc6f008f,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.504717
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e34b01dc4cd5a243bb0c9fcdc6f008f, type: 3}

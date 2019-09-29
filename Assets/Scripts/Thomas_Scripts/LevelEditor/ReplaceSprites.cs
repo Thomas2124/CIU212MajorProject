@@ -110,6 +110,7 @@ public class ReplaceSprites : MonoBehaviour
             }
 
             SetSpikes(true);
+
             finishGameObject.SetActive(true);
         }
     }
@@ -157,5 +158,13 @@ public class ReplaceSprites : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         SetFallingPlatforms(true);
         joinScript.enabled = true;
+    }
+
+    void FadeNow()
+    {
+        if (PauseMenu.Instance != null)
+        {
+            StartCoroutine(PauseMenu.Instance.FadeDown());
+        }
     }
 }

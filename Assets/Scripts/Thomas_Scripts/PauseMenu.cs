@@ -2,37 +2,70 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
+    public static PauseMenu Instance;
     public GameObject myMenu;
+    public GameObject loadingPanel;
+    public GameObject blackPanel;
     public bool isPaused = false;
+    public bool isLoading = false;
+    public Rigidbody2D rb;
+    public float t = 0.0f;
 
     private void Awake()
     {
+        Instance = this;
         myMenu.SetActive(false);
+        loadingPanel.SetActive(false);
+        blackPanel.SetActive(true);
         isPaused = false;
+    }
+
+    void Start()
+    {
+        rb = Player.playerInstance.gameObject.GetComponent<Rigidbody2D>();
+        StartCoroutine(FadeDown());
+        rb.simulated = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (isLoading == true)
         {
-            isPaused = !isPaused;
+            loadingPanel.SetActive(true);
         }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                isPaused = !isPaused;
+            }
 
-        if (isPaused == true)
-        {
-            Time.timeScale = 0.0f;
-            myMenu.SetActive(true);
-        }
+            if (isPaused == true)
+            {
+                Time.timeScale = 0.0f;
+                myMenu.SetActive(true);
+            }
 
-        if (isPaused == false)
-        {
-            Time.timeScale = 1.0f;
-            myMenu.SetActive(false);
+            if (isPaused == false)
+            {
+                Time.timeScale = 1.0f;
+                myMenu.SetActive(false);
+            }
         }
+    }
+
+    public IEnumerator FadeDown()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Image myImage = blackPanel.GetComponent<Image>();
+        myImage.CrossFadeAlpha(0, 2.0f, true);
+        yield return new WaitForSeconds(0.5f);
+        rb.simulated = true;
     }
 
     public void Resume()
