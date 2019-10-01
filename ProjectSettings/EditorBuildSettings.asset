@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Thomas Scene/TestLevelEditor.unity
-    guid: 51474e54a293c5f47b79eac7eb5733b8
-  - enabled: 1
     path: Assets/Scenes/Thomas Scene/MainMenu.unity
     guid: 949b07adedfbcee43913e3eac3ffa8bf
+  - enabled: 1
+    path: Assets/Scenes/Thomas Scene/TestLevelEditor.unity
+    guid: 51474e54a293c5f47b79eac7eb5733b8
   m_configObjects: {}
