@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     public float nextDashTime = 0.0f;
     public float DashTimeIncrease = 1f;
     public float nextWallTime = 0.0f;
+    public bool switchMode = false;
 
     public int jumps = 0;
     public Vector3 spawnPoint = Vector3.zero;
@@ -192,6 +193,12 @@ public class Player : MonoBehaviour
         {
             if (hitInfo4.collider != null)
             {
+                /*if (Input.GetKeyDown(KeyCode.Z))
+                {
+
+                }
+
+                switchMode = true;*/
                 wallAttached = true;
                 secondJump = false;
 
@@ -203,6 +210,12 @@ public class Player : MonoBehaviour
 
             if (hitInfo5.collider != null)
             {
+                /*if (Input.GetKeyDown(KeyCode.X))
+                {
+
+                }
+
+                switchMode = true;*/
                 wallAttached = true;
                 secondJump = false;
 
@@ -388,6 +401,7 @@ public class Player : MonoBehaviour
         forceFall = false;
         stopJump = false;
         leftRightDash = false;
+        Instantiate(lightPrefab, transform.position, Quaternion.identity);
 
         gameObject.transform.position = spawnPoint;
         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
