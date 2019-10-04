@@ -176,8 +176,7 @@ MonoBehaviour:
   dashDirection: {x: 0, y: 0}
   stopJump: 0
   speedLimit: 6
-  lightPrefab: {fileID: 8332768167065867784, guid: 7a2e169a3c738c345af50b20d545634d,
-    type: 3}
+  lightPrefab: {fileID: 0}
   myAnimator: {fileID: 7922003450637996889}
   leftRightDash: 0
 --- !u!114 &2202710418559515406
@@ -480,6 +479,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2202710418559515410}
     m_Modifications:
+    - target: {fileID: 7300336261969412370, guid: 1e34b01dc4cd5a243bb0c9fcdc6f008f,
+        type: 3}
+      propertyPath: m_Name
+      value: EGO Light Spawn
+      objectReference: {fileID: 0}
     - target: {fileID: 7300336261969412368, guid: 1e34b01dc4cd5a243bb0c9fcdc6f008f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -534,11 +538,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7300336261969412370, guid: 1e34b01dc4cd5a243bb0c9fcdc6f008f,
-        type: 3}
-      propertyPath: m_Name
-      value: EGO Light Spawn
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e34b01dc4cd5a243bb0c9fcdc6f008f, type: 3}

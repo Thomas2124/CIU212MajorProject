@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
 
     public float speedLimit = 6.0f;
 
-    public GameObject lightPrefab;
+    //public GameObject lightPrefab;
 
     public Animator myAnimator;
 
@@ -401,7 +401,7 @@ public class Player : MonoBehaviour
         forceFall = false;
         stopJump = false;
         leftRightDash = false;
-        Instantiate(lightPrefab, transform.position, Quaternion.identity);
+        //Instantiate(lightPrefab, transform.position, Quaternion.identity);
 
         gameObject.transform.position = spawnPoint;
         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
