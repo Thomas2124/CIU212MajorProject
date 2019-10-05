@@ -81,10 +81,30 @@ public class Player : MonoBehaviour
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, 0.6f, groundLayer);
         //RaycastHit2D hitInfo2 = Physics2D.Raycast(transform.position, Vector2.left, 4.0f, groundLayer);
         //RaycastHit2D hitInfo3 = Physics2D.Raycast(transform.position, Vector2.right, 4.0f, groundLayer);
-        RaycastHit2D hitInfo4 = Physics2D.Raycast(transform.position, Vector2.left, 0.8f, groundLayer);
-        RaycastHit2D hitInfo5 = Physics2D.Raycast(transform.position, Vector2.right, 0.8f, groundLayer);
+        RaycastHit2D hitInfo4 = Physics2D.Raycast(transform.position, Vector2.left, 0.6f, groundLayer);
+        RaycastHit2D hitInfo5 = Physics2D.Raycast(transform.position, Vector2.right, 0.6f, groundLayer);
         //RaycastHit2D hitInfo6 = Physics2D.Raycast(transform.position, Vector2.up, 4.0f, groundLayer);
         //RaycastHit2D hitInfo7 = Physics2D.Raycast(transform.position, Vector2.down, 4.0f, groundLayer);
+
+
+        if (isGrounded == false)
+        {
+            if (hitInfo4.collider != null || hitInfo5.collider != null)
+            {
+                if (hitInfo4.collider.tag == "Floor" || hitInfo5.collider.tag == "Floor")
+                {
+                    wallAttached = true;
+                }
+            }
+            else
+            {
+                wallAttached = false;
+            }
+        }
+        else
+        {
+            wallAttached = false;
+        }
 
         if (hitInfo.collider != null)
         {
@@ -141,6 +161,69 @@ public class Player : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            //wall jump
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                if (hitInfo4.collider != null || Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    wallAttached = true;
+                    secondJump = false;
+
+                    rb.velocity = Vector2.zero;
+                    rb.gravityScale = 0.2f;
+
+                    wallJumpRight = true;
+                }
+
+                if (hitInfo5.collider != null || Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    wallAttached = true;
+                    secondJump = false;
+
+                    rb.velocity = Vector2.zero;
+                    rb.gravityScale = 0.2f;
+
+                    wallJumpLeft = true;
+                }
+            }
+
+            if (hitInfo4.collider == null && hitInfo5.collider == null && wallAttached == true)
+            {
+                rb.velocity = Vector2.zero;
+                rb.gravityScale = startGravity;
+                wallJumpRight = false;
+                wallJumpLeft = false;
+                wallAttached = false;
+            }
+
+            if (Input.GetKeyUp(KeyCode.Z))
+            {
+                if (wallAttached == true)
+                {
+                    if (wallJumpLeft == true)
+                    {
+                        rb.velocity = Vector2.zero;
+                        rb.gravityScale = startGravity;
+                        Vector2 myVector = Vector2.up + Vector2.left;
+                        rb.AddForce(myVector * jumpPower);
+                        wallJumpLeft = false;
+                        wallAttached = false;
+                    }
+
+                    if (wallJumpRight == true)
+                    {
+                        rb.velocity = Vector2.zero;
+                        rb.gravityScale = startGravity;
+                        Vector2 myVector = Vector2.up + Vector2.right;
+                        rb.AddForce(myVector * jumpPower);
+                        wallJumpRight = false;
+                        wallAttached = false;
+                    }
+                }
+            }
+        }
 
         //player movement left and right
         if (wallJumped == false && wallAttached == false && isDashing == false)
@@ -187,79 +270,6 @@ public class Player : MonoBehaviour
         else
         {
             rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, Time.deltaTime * 3f), rb.velocity.y);
-        }
-
-        //wall jump
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            if (hitInfo4.collider != null)
-            {
-                /*if (Input.GetKeyDown(KeyCode.Z))
-                {
-
-                }
-
-                switchMode = true;*/
-                wallAttached = true;
-                secondJump = false;
-
-                rb.velocity = Vector2.zero;
-                rb.gravityScale = 0.2f;
-
-                wallJumpRight = true;
-            }
-
-            if (hitInfo5.collider != null)
-            {
-                /*if (Input.GetKeyDown(KeyCode.X))
-                {
-
-                }
-
-                switchMode = true;*/
-                wallAttached = true;
-                secondJump = false;
-
-                rb.velocity = Vector2.zero;
-                rb.gravityScale = 0.2f;
-
-                wallJumpLeft = true;
-            }
-        }
-
-        if (hitInfo4.collider == null && hitInfo5.collider == null && wallAttached == true)
-        {
-            rb.velocity = Vector2.zero;
-            rb.gravityScale = startGravity;
-            wallJumpRight = false;
-            wallJumpLeft = false;
-            wallAttached = false;
-        }
-
-        if (Input.GetKeyUp(KeyCode.X))
-        {
-            if (wallAttached == true)
-            {
-                if (wallJumpLeft == true)
-                {
-                    rb.velocity = Vector2.zero;
-                    rb.gravityScale = startGravity;
-                    Vector2 myVector = Vector2.up + Vector2.left;
-                    rb.AddForce(myVector * jumpPower);
-                    wallJumpLeft = false;
-                    wallAttached = false;
-                }
-
-                if (wallJumpRight == true)
-                {
-                    rb.velocity = Vector2.zero;
-                    rb.gravityScale = startGravity;
-                    Vector2 myVector = Vector2.up + Vector2.right;
-                    rb.AddForce(myVector * jumpPower);
-                    wallJumpRight = false;
-                    wallAttached = false;
-                }
-            }
         }
 
         if (Time.time > nextWallTime)
