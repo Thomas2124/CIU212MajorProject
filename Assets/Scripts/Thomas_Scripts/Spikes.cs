@@ -28,6 +28,7 @@ public class Spikes : MonoBehaviour
             player.gameObject.GetComponent<SpriteRenderer>().enabled = false;
             player.gameObject.GetComponent<Player>().enabled = false;
             player.gameObject.GetComponent<Rigidbody2D>().simulated = false;
+            Player.playerInstance.SpawnDots();
             StartCoroutine(PlayerSpawn());
             
         }

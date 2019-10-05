@@ -176,7 +176,10 @@ MonoBehaviour:
   dashDirection: {x: 0, y: 0}
   stopJump: 0
   speedLimit: 6
-  lightPrefab: {fileID: 0}
+  DeathMarker: {fileID: 2519432920468322739, guid: bebfc07aa5e79374eb3d93cb3910d63a,
+    type: 3}
+  deathDot: {fileID: 3581720003734026562, guid: 5d7b8576799227841aa83013e6063093,
+    type: 3}
   myAnimator: {fileID: 7922003450637996889}
   leftRightDash: 0
 --- !u!114 &2202710418559515406

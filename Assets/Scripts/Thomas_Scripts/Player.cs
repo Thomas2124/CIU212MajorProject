@@ -46,7 +46,8 @@ public class Player : MonoBehaviour
 
     public float speedLimit = 6.0f;
 
-    //public GameObject lightPrefab;
+    public GameObject DeathMarker;
+    public GameObject deathDot;
 
     public Animator myAnimator;
 
@@ -383,6 +384,37 @@ public class Player : MonoBehaviour
 
     #endregion
 
+    public void SpawnDots()
+    {
+        GameObject deathMarkObject = Instantiate(DeathMarker, this.transform.position, Quaternion.Euler(0f, 0f, 0f));
+
+        deathMarkObject.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+        RaycastHit2D[] hitInfo = Physics2D.CircleCastAll(transform.position, 8f, Vector2.zero);
+        GameObject[] spikes = GameObject.FindGameObjectsWithTag("Spikes");
+
+        foreach (GameObject item in spikes)
+        {
+            item.SetActive(false);
+        }
+
+        for (int i = 0; i < 359; i++)
+        {
+            deathMarkObject.transform.localRotation = Quaternion.Euler(0f, 0f, i);
+            RaycastHit2D myHit = Physics2D.Linecast(transform.position, deathMarkObject.transform.GetChild(0).transform.position);
+
+            if (myHit.collider != null)
+            {
+                Instantiate(deathDot, myHit.point, Quaternion.identity);
+            }
+        }
+
+        foreach (GameObject item in spikes)
+        {
+            item.SetActive(true);
+        }
+
+    }
+
     public void Dead()
     {
         rb.velocity = Vector2.zero;
@@ -401,7 +433,6 @@ public class Player : MonoBehaviour
         forceFall = false;
         stopJump = false;
         leftRightDash = false;
-        //Instantiate(lightPrefab, transform.position, Quaternion.identity);
 
         gameObject.transform.position = spawnPoint;
         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);

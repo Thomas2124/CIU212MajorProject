@@ -15,6 +15,7 @@ TagManager:
   - Pit
   - FallingObject
   - BackGround
+  - Marker
   layers:
   - Default
   - TransparentFX

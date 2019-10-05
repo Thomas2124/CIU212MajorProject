@@ -24,6 +24,11 @@ public class Illumination : MonoBehaviour
         once = false;
     }
 
+    void OnEnable()
+    {
+        GetObjects();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -37,17 +42,7 @@ public class Illumination : MonoBehaviour
             if (once == false)
             {
                 //detectRangeMin = detectRangeMax - 5f;
-                levelObjects = GameObject.FindObjectsOfType<GameObject>();
-
-                foreach (GameObject item in levelObjects)
-                {
-                    SpriteRenderer itemSpriteRenderer = item.GetComponent<SpriteRenderer>();
-
-                    if (item != this.gameObject && itemSpriteRenderer != null && item.tag != "BackGround")
-                    {
-                        itemSpriteRenderer.material.color = new Color(itemSpriteRenderer.material.color.r, itemSpriteRenderer.material.color.g, itemSpriteRenderer.material.color.b, 0f);
-                    }
-                }
+                GetObjects();
 
                 once = true;
             }
@@ -56,7 +51,7 @@ public class Illumination : MonoBehaviour
             {
                 SpriteRenderer itemSpriteRenderer = item.GetComponent<SpriteRenderer>();
 
-                if (itemSpriteRenderer != null && item.tag != "BackGround")
+                if (itemSpriteRenderer != null && item.tag != "BackGround" && item.tag != "Marker")
                 {
                     float alphaNum = Vector2.Distance(item.transform.position, this.gameObject.transform.position) / detectRangeMax;
                     Color farColor = new Color(itemSpriteRenderer.material.color.r, itemSpriteRenderer.material.color.g, itemSpriteRenderer.material.color.b, 0f);
@@ -83,6 +78,21 @@ public class Illumination : MonoBehaviour
         else
         {
             done = LevelGenerator.Instance.joinScript.enabled;
+        }
+    }
+
+    void GetObjects()
+    {
+        levelObjects = GameObject.FindObjectsOfType<GameObject>();
+
+        foreach (GameObject item in levelObjects)
+        {
+            SpriteRenderer itemSpriteRenderer = item.GetComponent<SpriteRenderer>();
+
+            if (item != this.gameObject && itemSpriteRenderer != null && item.tag != "BackGround" && item.tag != "Marker")
+            {
+                itemSpriteRenderer.material.color = new Color(itemSpriteRenderer.material.color.r, itemSpriteRenderer.material.color.g, itemSpriteRenderer.material.color.b, 0f);
+            }
         }
     }
 }
