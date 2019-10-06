@@ -182,6 +182,8 @@ MonoBehaviour:
     type: 3}
   myAnimator: {fileID: 7922003450637996889}
   leftRightDash: 0
+  wallGrab: 0
+  myRenderer: {fileID: 2202710418559515413}
 --- !u!114 &2202710418559515406
 MonoBehaviour:
   m_ObjectHideFlags: 0

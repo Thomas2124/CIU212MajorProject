@@ -2116,6 +2116,7 @@ MonoBehaviour:
   - {fileID: 872933322}
   - {fileID: 911784114}
   sceneName: TestLevelEditor
+  script: {fileID: 809914520}
 --- !u!114 &809914520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4146,7 +4147,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.659146, y: 0.14614815}
   m_AnchorMax: {x: 0.94600004, y: 0.23700002}
-  m_AnchoredPosition: {x: -2.5, y: 0.99993896}
+  m_AnchoredPosition: {x: -2.5, y: 0.9998779}
   m_SizeDelta: {x: -6.300003, y: -3.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1523372343

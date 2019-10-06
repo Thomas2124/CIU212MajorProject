@@ -6,18 +6,24 @@ public class TurnOnObjects : MonoBehaviour
 {
     public GameObject[] objects;
     // Start is called before the first frame update
-    void OnEvent()
+    void Awake()
     {
-        foreach (GameObject item in objects)
-        {
-            item.SetActive(false);
-            item.SetActive(true);
-        }
+        SetActiveObject(false);
+
+        SetActiveObject(true);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void SetActiveObject(bool theBool)
+    {
+        foreach (GameObject item in objects)
+        {
+            item.SetActive(theBool);
+        }
     }
 }

@@ -8,6 +8,7 @@ public class PanelManager : MonoBehaviour
     int page = 0;
     public GameObject[] panels;
     public string sceneName;
+    public TurnOnObjects script;
 
     // Start is called before the first frame update
     void Start()

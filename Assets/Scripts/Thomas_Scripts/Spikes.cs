@@ -13,6 +13,8 @@ public class Spikes : MonoBehaviour
     RaycastHit2D hitInfo2;
     RaycastHit2D hitInfo3;
     RaycastHit2D hitInfo4;
+    Vector3 myVector;
+    public BoxCollider2D collider;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +22,42 @@ public class Spikes : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         //GetComponent<BoxCollider2D>().enabled = true;
     }
+
+    /*void Update()
+    {
+        if (Player.playerInstance != null)
+        {
+            if (Player.playerInstance.myRenderer.flipX == false)
+            {
+                if (myVector.z == 270f)
+                {
+                    if (Player.playerInstance.velocity < 7f)
+                    {
+                        collider.enabled = true;
+                    }
+                    else
+                    {
+                        collider.enabled = false;
+                    }
+                }
+            }
+
+            if (Player.playerInstance.myRenderer.flipX == true)
+            {
+                if (myVector.z == 90f)
+                {
+                    if (Player.playerInstance.velocity < 7f)
+                    {
+                        collider.enabled = true;
+                    }
+                    else
+                    {
+                        collider.enabled = false;
+                    }
+                }
+            }
+        }
+    }*/
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -73,7 +111,7 @@ public class Spikes : MonoBehaviour
 
     public void GameObjectSpin()
     {
-        Vector3 myVector = transform.localEulerAngles;
+        myVector = transform.localEulerAngles;
 
         ColliderCheck();
 

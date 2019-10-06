@@ -52,6 +52,9 @@ public class Player : MonoBehaviour
     public Animator myAnimator;
 
     public bool leftRightDash = false;
+    public bool wallGrab = false;
+    public SpriteRenderer myRenderer;
+    public float velocity;
 
     #region Start/Awake
     private void Awake()
@@ -77,6 +80,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        velocity = rb.velocity.magnitude;
+
         //Ground checker
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, 0.6f, groundLayer);
         //RaycastHit2D hitInfo2 = Physics2D.Raycast(transform.position, Vector2.left, 4.0f, groundLayer);
@@ -91,23 +96,24 @@ public class Player : MonoBehaviour
         {
             if (hitInfo4.collider != null || hitInfo5.collider != null)
             {
-                if (hitInfo4.collider.tag == "Floor" || hitInfo5.collider.tag == "Floor")
-                {
-                    wallAttached = true;
-                }
+                wallGrab = true;
             }
             else
             {
-                wallAttached = false;
+                wallGrab = false;
             }
         }
         else
         {
-            wallAttached = false;
+            wallGrab = false;
         }
 
         if (hitInfo.collider != null)
         {
+            rb.gravityScale = startGravity;
+            wallAttached = false;
+            wallJumpRight = false;
+            wallJumpLeft = false;
             isGrounded = true;
             jumped = false;
             jumps = 0;
@@ -131,13 +137,14 @@ public class Player : MonoBehaviour
         }
 
         //player jump
-        if (wallAttached == false)
+        if (wallGrab == false)
         {
             if (forceFall == false)
             {
                 if (Input.GetKeyDown(KeyCode.Z) && isGrounded == true && jumped == false || Input.GetKeyDown(KeyCode.Z) && isGrounded == false && fallJump == true)
                 {
                     rb.velocity = new Vector3(rb.velocity.x, 0.0f, 0.0f);
+                    
                     rb.AddForce(Vector2.up * jumpPower);
                     jumped = true;
 
@@ -166,7 +173,7 @@ public class Player : MonoBehaviour
             //wall jump
             if (Input.GetKeyDown(KeyCode.Z))
             {
-                if (hitInfo4.collider != null || Input.GetKeyDown(KeyCode.LeftArrow))
+                if (hitInfo4.collider != null /*|| Input.GetKeyDown(KeyCode.LeftArrow)*/)
                 {
                     wallAttached = true;
                     secondJump = false;
@@ -177,7 +184,7 @@ public class Player : MonoBehaviour
                     wallJumpRight = true;
                 }
 
-                if (hitInfo5.collider != null || Input.GetKeyDown(KeyCode.RightArrow))
+                if (hitInfo5.collider != null /*|| Input.GetKeyDown(KeyCode.RightArrow)*/)
                 {
                     wallAttached = true;
                     secondJump = false;
