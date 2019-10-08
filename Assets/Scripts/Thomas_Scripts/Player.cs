@@ -218,8 +218,7 @@ public class Player : MonoBehaviour
                         wallJumpLeft = false;
                         wallAttached = false;
                     }
-
-                    if (wallJumpRight == true)
+                    else if(wallJumpRight == true)
                     {
                         rb.velocity = Vector2.zero;
                         rb.gravityScale = startGravity;

@@ -39,7 +39,7 @@ public class FallingPlatform : MonoBehaviour
 
     IEnumerator Fall()
     {
-        rb.gravityScale = 0.80f;
+        rb.gravityScale = 0.10f;
         rb.constraints = RigidbodyConstraints2D.FreezePosition;
         rb.constraints = RigidbodyConstraints2D.FreezePositionX;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;

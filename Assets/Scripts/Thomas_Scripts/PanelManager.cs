@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PanelManager : MonoBehaviour
 {
@@ -9,11 +10,48 @@ public class PanelManager : MonoBehaviour
     public GameObject[] panels;
     public string sceneName;
     public TurnOnObjects script;
+    public Image muteIcon;
+    public Sprite[] Icons;
+    public Slider soundAdjust;
+    public AudioSource mySource;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        if (PlayerPrefs.GetInt("Mute") == 0)
+        {
+            PlayerPrefs.SetInt("Mute", 1);
+            muteIcon.sprite = Icons[0];
+            mySource.mute = false;
+        }
+        else
+        {
+            if (PlayerPrefs.GetInt("Mute") == 1)
+            {
+                PlayerPrefs.SetInt("Mute", 1);
+                muteIcon.sprite = Icons[0];
+                mySource.mute = false;
+
+            }
+            else if (PlayerPrefs.GetInt("Mute") == 2)
+            {
+                PlayerPrefs.SetInt("Mute", 2);
+                muteIcon.sprite = Icons[1];
+                mySource.mute = true;
+            }
+        }
+
+        if (PlayerPrefs.GetFloat("Adjust") == 0f)
+        {
+            PlayerPrefs.SetFloat("Adjust", 1f + 1f);
+            soundAdjust.value = PlayerPrefs.GetFloat("Adjust") - 1f;
+            mySource.volume = PlayerPrefs.GetFloat("Adjust") - 1f;
+        }
+        else
+        {
+            soundAdjust.value = PlayerPrefs.GetFloat("Adjust") - 1f;
+            mySource.volume = PlayerPrefs.GetFloat("Adjust") - 1f;
+        }
     }
 
     // Update is called once per frame
@@ -80,5 +118,34 @@ public class PanelManager : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void MuteSound()
+    {
+        if (PlayerPrefs.GetInt("Mute") == 1)
+        {
+            PlayerPrefs.SetInt("Mute", 2);
+            muteIcon.sprite = Icons[1];
+            mySource.mute = true;
+        }
+        else if (PlayerPrefs.GetInt("Mute") == 2)
+        {
+            PlayerPrefs.SetInt("Mute", 1);
+            muteIcon.sprite = Icons[0];
+            mySource.mute = false;
+        }
+    }
+
+    public void AdjustSound()
+    {
+        float value;
+        value = soundAdjust.value;
+        PlayerPrefs.SetFloat("Adjust", value + 1f);
+        mySource.volume = PlayerPrefs.GetFloat("Adjust") - 1f;
+    }
+
+    public void AdjustGraphics(int quality)
+    {
+        QualitySettings.SetQualityLevel(quality);
     }
 }

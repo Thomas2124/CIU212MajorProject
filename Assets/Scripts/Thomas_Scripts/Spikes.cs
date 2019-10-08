@@ -14,7 +14,7 @@ public class Spikes : MonoBehaviour
     RaycastHit2D hitInfo3;
     RaycastHit2D hitInfo4;
     Vector3 myVector;
-    public BoxCollider2D collider;
+    public BoxCollider2D myCollider;
 
     // Start is called before the first frame update
     void Start()
@@ -201,7 +201,9 @@ public class Spikes : MonoBehaviour
         }
 
         GetComponent<BoxCollider2D>().enabled = true;
-
+        GetComponent<BoxCollider2D>().offset = new Vector2(0f, -0.33f);
         transform.rotation = Quaternion.Euler(myVector);
+
+
     }
 }
