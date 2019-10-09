@@ -11,6 +11,7 @@ public class PanelManager : MonoBehaviour
     public string sceneName;
     public TurnOnObjects script;
     public Image muteIcon;
+    public Image screenIcon;
     public Sprite[] Icons;
     public Slider soundAdjust;
     public AudioSource mySource;
@@ -147,5 +148,19 @@ public class PanelManager : MonoBehaviour
     public void AdjustGraphics(int quality)
     {
         QualitySettings.SetQualityLevel(quality);
+    }
+
+    public void FullScreen()
+    {
+        Screen.fullScreen = !Screen.fullScreen;
+
+        if (Screen.fullScreenMode == FullScreenMode.ExclusiveFullScreen)
+        {
+            screenIcon.sprite = Icons[2];
+        }
+        else if (Screen.fullScreenMode == FullScreenMode.Windowed)
+        {
+            screenIcon.sprite = Icons[3];
+        }
     }
 }
