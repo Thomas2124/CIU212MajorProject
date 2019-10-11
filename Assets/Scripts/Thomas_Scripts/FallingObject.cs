@@ -32,6 +32,7 @@ public class FallingObject : MonoBehaviour
             player.gameObject.GetComponent<SpriteRenderer>().enabled = false;
             player.gameObject.GetComponent<Player>().enabled = false;
             StartCoroutine(PlayerSpawn());
+            Player.playerInstance.DeathSound();
             Player.playerInstance.SpawnDots();
         }
 

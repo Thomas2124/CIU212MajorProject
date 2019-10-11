@@ -67,6 +67,7 @@ public class Spikes : MonoBehaviour
             player.gameObject.GetComponent<Player>().enabled = false;
             player.gameObject.GetComponent<Rigidbody2D>().simulated = false;
             Player.playerInstance.SpawnDots();
+            Player.playerInstance.DeathSound();
             StartCoroutine(PlayerSpawn());
             
         }

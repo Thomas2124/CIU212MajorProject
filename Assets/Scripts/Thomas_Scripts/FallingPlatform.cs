@@ -27,6 +27,7 @@ public class FallingPlatform : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" && stop == false)
         {
+            Player.playerInstance.FallingPlatformSound();
             StartCoroutine(Fall());
             stop = true;
         }

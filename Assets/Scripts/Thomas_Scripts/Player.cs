@@ -55,6 +55,16 @@ public class Player : MonoBehaviour
     public bool wallGrab = false;
     public SpriteRenderer myRenderer;
     public float velocity;
+    public AudioSource mySource;
+    public AudioClip jumpClip;
+    public AudioClip walkClip;
+    public AudioClip dashClip;
+    public AudioClip deathClip;
+    public AudioClip wallJumpClip;
+    public AudioClip FallingPlatformClip;
+
+    public float stepRate = 0.15f;
+    public float stepTime = 0f;
 
     #region Start/Awake
     private void Awake()
@@ -72,6 +82,7 @@ public class Player : MonoBehaviour
         baseMoveSpeed = movingSpeed;
         wallJumped = false;
         startGravity = rb.gravityScale;
+        mySource = Camera.main.GetComponent<AudioSource>();
     }
 
     #endregion
@@ -143,6 +154,7 @@ public class Player : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Z) && isGrounded == true && jumped == false || Input.GetKeyDown(KeyCode.Z) && isGrounded == false && fallJump == true)
                 {
+                    mySource.PlayOneShot(jumpClip);
                     rb.velocity = new Vector3(rb.velocity.x, 0.0f, 0.0f);
                     
                     rb.AddForce(Vector2.up * jumpPower);
@@ -159,6 +171,7 @@ public class Player : MonoBehaviour
                 }
                 else if (Input.GetKeyDown(KeyCode.Z) && secondJump == true && isGrounded == false && jumped == true)
                 {
+                    mySource.PlayOneShot(jumpClip);
                     rb.velocity = new Vector3(rb.velocity.x, 0.0f, 0.0f);
                     rb.AddForce(Vector2.up * jumpPower);
 
@@ -211,6 +224,7 @@ public class Player : MonoBehaviour
                 {
                     if (wallJumpLeft == true)
                     {
+                        mySource.PlayOneShot(wallJumpClip);
                         rb.velocity = Vector2.zero;
                         rb.gravityScale = startGravity;
                         Vector2 myVector = Vector2.up + Vector2.left;
@@ -220,6 +234,7 @@ public class Player : MonoBehaviour
                     }
                     else if(wallJumpRight == true)
                     {
+                        mySource.PlayOneShot(wallJumpClip);
                         rb.velocity = Vector2.zero;
                         rb.gravityScale = startGravity;
                         Vector2 myVector = Vector2.up + Vector2.right;
@@ -236,6 +251,12 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.LeftArrow))
             {
+                if (stepTime < Time.time && isGrounded == true)
+                {
+                    mySource.PlayOneShot(walkClip);
+                    stepTime = Time.time + stepRate;
+                }
+
                 gameObject.GetComponent<SpriteRenderer>().flipX = true;
                 if (rb.velocity.x > 0f)
                 {
@@ -253,6 +274,12 @@ public class Player : MonoBehaviour
             }
             else if (Input.GetKey(KeyCode.RightArrow))
             {
+                if (stepTime < Time.time && isGrounded == true)
+                {
+                    mySource.PlayOneShot(walkClip);
+                    stepTime = Time.time + stepRate;
+                }
+
                 gameObject.GetComponent<SpriteRenderer>().flipX = false;
                 if (rb.velocity.x < 0f)
                 {
@@ -328,6 +355,7 @@ public class Player : MonoBehaviour
         //Player Dashing
         if (Input.GetKeyDown(KeyCode.LeftShift) && Time.time > nextDashTime)
         {
+            mySource.PlayOneShot(dashClip);
             PlayerDash(dashDirection);
         }
 
@@ -429,6 +457,16 @@ public class Player : MonoBehaviour
             item.SetActive(true);
         }
 
+    }
+
+    public void DeathSound()
+    {
+        mySource.PlayOneShot(deathClip);
+    }
+
+    public void FallingPlatformSound()
+    {
+        mySource.PlayOneShot(FallingPlatformClip);
     }
 
     public void Dead()

@@ -14,6 +14,8 @@ public class PauseMenu : MonoBehaviour
     public bool isLoading = false;
     public Rigidbody2D rb;
     public float t = 0.0f;
+    public AudioSource mySource;
+    public AudioClip clip;
 
     private void Awake()
     {
@@ -34,6 +36,7 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        mySource = Camera.main.GetComponent<AudioSource>();
         if (isLoading == true)
         {
             loadingPanel.SetActive(true);
@@ -42,6 +45,7 @@ public class PauseMenu : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
+                mySource.PlayOneShot(clip);
                 isPaused = !isPaused;
             }
 

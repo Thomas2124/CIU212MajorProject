@@ -15,6 +15,9 @@ public class PanelManager : MonoBehaviour
     public Sprite[] Icons;
     public Slider soundAdjust;
     public AudioSource mySource;
+    public AudioClip pageClip;
+    public AudioClip buttonClick;
+    public bool playPage;
 
     // Start is called before the first frame update
     void Awake()
@@ -60,12 +63,17 @@ public class PanelManager : MonoBehaviour
     {
         if (page < 0)
         {
+            playPage = false;
             page = 0;
         }
-
-        if (page > 3)
+        else if (page > 3)
         {
+            playPage = false;
             page = 3;
+        }
+        else
+        {
+            playPage = true;
         }
 
         switch (page)
@@ -102,27 +110,36 @@ public class PanelManager : MonoBehaviour
 
     public void AddOne()
     {
+        if (playPage == true)
+            mySource.PlayOneShot(pageClip);
+
         page += 1;
     }
 
     public void MinusOne()
     {
+        if (playPage == true)
+            mySource.PlayOneShot(pageClip);
+
         page -= 1;
     }
 
     public void LevelSelected(int num)
     {
+        mySource.PlayOneShot(buttonClick);
         PlayerPrefs.SetInt("Level", num);
         SceneManager.LoadScene(sceneName);
     }
 
     public void QuitGame()
     {
+        mySource.PlayOneShot(buttonClick);
         Application.Quit();
     }
 
     public void MuteSound()
     {
+        mySource.PlayOneShot(buttonClick);
         if (PlayerPrefs.GetInt("Mute") == 1)
         {
             PlayerPrefs.SetInt("Mute", 2);
@@ -139,6 +156,7 @@ public class PanelManager : MonoBehaviour
 
     public void AdjustSound()
     {
+        mySource.PlayOneShot(buttonClick);
         float value;
         value = soundAdjust.value;
         PlayerPrefs.SetFloat("Adjust", value + 1f);
@@ -147,11 +165,13 @@ public class PanelManager : MonoBehaviour
 
     public void AdjustGraphics(int quality)
     {
+        mySource.PlayOneShot(buttonClick);
         QualitySettings.SetQualityLevel(quality);
     }
 
     public void FullScreen()
     {
+        mySource.PlayOneShot(buttonClick);
         Screen.fullScreen = !Screen.fullScreen;
 
         if (Screen.fullScreenMode == FullScreenMode.ExclusiveFullScreen)

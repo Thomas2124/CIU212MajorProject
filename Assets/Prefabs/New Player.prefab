@@ -185,6 +185,15 @@ MonoBehaviour:
   wallGrab: 0
   myRenderer: {fileID: 2202710418559515413}
   velocity: 0
+  mySource: {fileID: 0}
+  jumpClip: {fileID: 8300000, guid: 29f1c9b147eaeeb44877290d5e0cb142, type: 3}
+  walkClip: {fileID: 8300000, guid: 3de430e70d7d12b45bbe4a8464dbf8d0, type: 3}
+  dashClip: {fileID: 8300000, guid: 08a2edf56270ca84b826539fdd704c55, type: 3}
+  deathClip: {fileID: 8300000, guid: 54ddeeb1e387286429060cb9d413d938, type: 3}
+  wallJumpClip: {fileID: 8300000, guid: 297233601dbb36a49b8d98c5be833c76, type: 3}
+  FallingPlatformClip: {fileID: 8300000, guid: f210a77d61d3ca240adae5d8ab77187b, type: 3}
+  stepRate: 0.3
+  stepTime: 0
 --- !u!114 &2202710418559515406
 MonoBehaviour:
   m_ObjectHideFlags: 0
