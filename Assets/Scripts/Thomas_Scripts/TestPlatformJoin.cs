@@ -28,6 +28,7 @@ public class TestPlatformJoin : MonoBehaviour
     {
         for (int i = 0; i < myPlatforms.Length; i++)
         {
+            SpriteRenderer myRenderer = myPlatforms[i].GetComponent<SpriteRenderer>();
             //&& hitLeft.collider.gameObject != myPlatforms[i]
             Vector2 objectPos = myPlatforms[i].transform.position;
             Vector2 leftPos = new Vector2(objectPos.x - 0.51f, objectPos.y);
@@ -36,7 +37,7 @@ public class TestPlatformJoin : MonoBehaviour
             RaycastHit2D hitLeft = Physics2D.Raycast(leftPos, Vector2.left, 0.1f);
             RaycastHit2D hitRight = Physics2D.Raycast(rightPos, Vector2.right, 0.1f);
 
-            myPlatforms[i].gameObject.GetComponent<SpriteRenderer>().sprite = platformSprites[1];
+            myRenderer.sprite = platformSprites[1];
 
             bool isLeft = false;
             bool isRight = false;
@@ -61,12 +62,12 @@ public class TestPlatformJoin : MonoBehaviour
             {
                 startPos.Add(myPlatforms[i].transform.position);
                 startPlat.Add(myPlatforms[i]);
-                myPlatforms[i].gameObject.GetComponent<SpriteRenderer>().sprite = platformSprites[2];
+                myRenderer.sprite = platformSprites[2];
             }
             else if (isLeft == false && isRight == true)
             {
                 endPlat.Add(myPlatforms[i]);
-                myPlatforms[i].gameObject.GetComponent<SpriteRenderer>().sprite = platformSprites[0];
+                myRenderer.sprite = platformSprites[0];
             }
         }
 

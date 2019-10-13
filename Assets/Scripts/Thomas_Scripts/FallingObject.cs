@@ -12,11 +12,11 @@ public class FallingObject : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         rb.simulated = false;
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = Player.playerInstance.gameObject;
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, Mathf.Infinity);
         if (hitInfo.collider != null && hitInfo.collider.gameObject == player)
@@ -27,27 +27,28 @@ public class FallingObject : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
+        GameObject colObject = collision.gameObject;
         if (collision.gameObject.tag == "Player")
         {
-            player.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            player.gameObject.GetComponent<Player>().enabled = false;
-            StartCoroutine(PlayerSpawn());
-            Player.playerInstance.DeathSound();
+            Player.playerInstance.myRenderer.enabled = false;
+            Player.playerInstance.rb.simulated = false;
             Player.playerInstance.SpawnDots();
+            Player.playerInstance.PlayersDeath();
+            StartCoroutine(PlayerSpawn());
         }
 
-        if (collision.gameObject.tag != "Player" && collision.gameObject != this.gameObject)
+        if (colObject.tag != "Player" && colObject != gameObject)
         {
-            this.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 
     IEnumerator PlayerSpawn()
     {
         yield return new WaitForSeconds(2.0f);
-        player.gameObject.GetComponent<SpriteRenderer>().enabled = true;
-        player.gameObject.GetComponent<Player>().enabled = true;
-        player.gameObject.GetComponent<Rigidbody2D>().simulated = true;
-        player.gameObject.GetComponent<Player>().Dead();
+        Player.playerInstance.enabled = true;
+        Player.playerInstance.myRenderer.enabled = true;
+        Player.playerInstance.rb.simulated = true;
+        Player.playerInstance.Dead();
     }
 }

@@ -63,11 +63,10 @@ public class Spikes : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            player.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            player.gameObject.GetComponent<Player>().enabled = false;
-            player.gameObject.GetComponent<Rigidbody2D>().simulated = false;
+            Player.playerInstance.myRenderer.enabled = false;
+            Player.playerInstance.rb.simulated = false;
             Player.playerInstance.SpawnDots();
-            Player.playerInstance.DeathSound();
+            Player.playerInstance.PlayersDeath();
             StartCoroutine(PlayerSpawn());
             
         }
@@ -76,10 +75,10 @@ public class Spikes : MonoBehaviour
     IEnumerator PlayerSpawn()
     {
         yield return new WaitForSeconds(2.0f);
-        player.gameObject.GetComponent<SpriteRenderer>().enabled = true;
-        player.gameObject.GetComponent<Player>().enabled = true;
-        player.gameObject.GetComponent<Rigidbody2D>().simulated = true;
-        player.gameObject.GetComponent<Player>().Dead();
+        Player.playerInstance.enabled = true;
+        Player.playerInstance.myRenderer.enabled = true;
+        Player.playerInstance.rb.simulated = true;
+        Player.playerInstance.Dead();
     }
 
     void ColliderCheck()

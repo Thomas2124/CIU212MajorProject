@@ -28,15 +28,15 @@ public class PauseMenu : MonoBehaviour
 
     void Start()
     {
-        rb = Player.playerInstance.gameObject.GetComponent<Rigidbody2D>();
         StartCoroutine(FadeDown());
+        rb = Player.playerInstance.gameObject.GetComponent<Rigidbody2D>();
         rb.simulated = false;
+        mySource = Camera.main.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        mySource = Camera.main.GetComponent<AudioSource>();
         if (isLoading == true)
         {
             loadingPanel.SetActive(true);

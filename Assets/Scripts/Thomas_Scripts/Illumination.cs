@@ -22,12 +22,13 @@ public class Illumination : MonoBehaviour
     void Start()
     {
         once = false;
-    }
-
-    void OnEnable()
-    {
         GetObjects();
     }
+
+    /*void OnEnable()
+    {
+        GetObjects();
+    }*/
 
     // Update is called once per frame
     void Update()
@@ -39,36 +40,38 @@ public class Illumination : MonoBehaviour
 
         if (done == true)
         {
-            if (once == false)
+            /*if (once == false)
             {
                 //detectRangeMin = detectRangeMax - 5f;
                 GetObjects();
 
                 once = true;
-            }
+            }*/
 
             foreach (GameObject item in levelObjects)
             {
+                Vector3 itemPos = item.transform.position;
+                Vector3 thisPos = transform.position;
+
                 SpriteRenderer itemSpriteRenderer = item.GetComponent<SpriteRenderer>();
 
                 if (itemSpriteRenderer != null && item.tag != "BackGround" && item.tag != "Marker")
                 {
-                    float alphaNum = Vector2.Distance(item.transform.position, this.gameObject.transform.position) / detectRangeMax;
-                    Color farColor = new Color(itemSpriteRenderer.material.color.r, itemSpriteRenderer.material.color.g, itemSpriteRenderer.material.color.b, 0f);
-                    Color fadeColor = new Color(itemSpriteRenderer.material.color.r, itemSpriteRenderer.material.color.g, itemSpriteRenderer.material.color.b, Mathf.Lerp(1.0f, 0.0f, alphaNum));
-                    Color nearColor = new Color(itemSpriteRenderer.material.color.r, itemSpriteRenderer.material.color.g, itemSpriteRenderer.material.color.b, 1f);
+                    Color renderColor = itemSpriteRenderer.material.color;
+                    float alphaNum = Vector2.Distance(itemPos, thisPos) / detectRangeMax;
+                    Color farColor = new Color(renderColor.r, renderColor.g, renderColor.b, 0f);
+                    Color fadeColor = new Color(renderColor.r, renderColor.g, renderColor.b, Mathf.Lerp(1.0f, 0.0f, alphaNum));
+                    Color nearColor = new Color(renderColor.r, renderColor.g, renderColor.b, 1f);
 
-                    if (Vector2.Distance(item.transform.position, this.gameObject.transform.position) >= detectRangeMax)
+                    if (Vector2.Distance(itemPos, thisPos) >= detectRangeMax)
                     {
                         itemSpriteRenderer.material.color = farColor;
                     }
-
-                    if (Vector2.Distance(item.transform.position, this.gameObject.transform.position) < detectRangeMax && Vector2.Distance(item.transform.position, this.gameObject.transform.position) > detectRangeMin)
+                    else if (Vector2.Distance(itemPos, thisPos) < detectRangeMax && Vector2.Distance(itemPos, thisPos) > detectRangeMin)
                     {
                         itemSpriteRenderer.material.color = fadeColor;
                     }
-
-                    if (Vector2.Distance(item.transform.position, this.gameObject.transform.position) <= detectRangeMin)
+                    else if (Vector2.Distance(itemPos, thisPos) <= detectRangeMin)
                     {
                         itemSpriteRenderer.material.color = nearColor;
                     }
@@ -91,7 +94,8 @@ public class Illumination : MonoBehaviour
 
             if (item != this.gameObject && itemSpriteRenderer != null && item.tag != "BackGround" && item.tag != "Marker")
             {
-                itemSpriteRenderer.material.color = new Color(itemSpriteRenderer.material.color.r, itemSpriteRenderer.material.color.g, itemSpriteRenderer.material.color.b, 0f);
+                Color renderColor = itemSpriteRenderer.material.color;
+                itemSpriteRenderer.material.color = new Color(renderColor.r, renderColor.g, renderColor.b, 0f);
             }
         }
     }

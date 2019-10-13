@@ -433,7 +433,7 @@ public class Player : MonoBehaviour
         GameObject deathMarkObject = Instantiate(DeathMarker, this.transform.position, Quaternion.Euler(0f, 0f, 0f));
 
         deathMarkObject.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
-        RaycastHit2D[] hitInfo = Physics2D.CircleCastAll(transform.position, 8f, Vector2.zero);
+        /*RaycastHit2D[] hitInfo = Physics2D.CircleCastAll(transform.position, 8f, Vector2.zero);
         GameObject[] spikes = GameObject.FindGameObjectsWithTag("Spikes");
 
         foreach (GameObject item in spikes)
@@ -455,13 +455,17 @@ public class Player : MonoBehaviour
         foreach (GameObject item in spikes)
         {
             item.SetActive(true);
-        }
+        }*/
 
     }
 
-    public void DeathSound()
+    public void PlayersDeath()
     {
         mySource.PlayOneShot(deathClip);
+        myRenderer.enabled = false;
+        rb.simulated = false;
+        SpawnDots();
+        this.enabled = false;
     }
 
     public void FallingPlatformSound()
@@ -488,7 +492,7 @@ public class Player : MonoBehaviour
         stopJump = false;
         leftRightDash = false;
 
-        gameObject.transform.position = spawnPoint;
+        transform.position = spawnPoint;
         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         
     }
