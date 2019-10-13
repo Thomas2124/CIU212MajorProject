@@ -84,10 +84,10 @@ public class Spikes : MonoBehaviour
 
     void ColliderCheck()
     {
-        hitInfo1 = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + 0.45f), Vector2.up, 1f);
-        hitInfo2 = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - 0.45f), Vector2.down, 1f);
-        hitInfo3 = Physics2D.Raycast(new Vector2(transform.position.x - 0.45f, transform.position.y), Vector2.left, 1f);
-        hitInfo4 = Physics2D.Raycast(new Vector2(transform.position.x + 0.45f, transform.position.y), Vector2.right, 1f);
+        hitInfo1 = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + 0.21f), Vector2.up, 1f);
+        hitInfo2 = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - 0.21f), Vector2.down, 1f);
+        hitInfo3 = Physics2D.Raycast(new Vector2(transform.position.x - 0.21f, transform.position.y), Vector2.left, 1f);
+        hitInfo4 = Physics2D.Raycast(new Vector2(transform.position.x + 0.21f, transform.position.y), Vector2.right, 1f);
 
         if (hitInfo1.collider != null)
         {
@@ -202,9 +202,15 @@ public class Spikes : MonoBehaviour
         }
 
         GetComponent<BoxCollider2D>().enabled = true;
-        GetComponent<BoxCollider2D>().offset = new Vector2(0f, -0.33f);
         transform.rotation = Quaternion.Euler(myVector);
 
+        StartCoroutine(wait());
+    }
 
+    IEnumerator wait()
+    {
+        yield return new WaitForSeconds(2f);
+        GetComponent<BoxCollider2D>().size = new Vector2(0.6f, 0.3f);
+        GetComponent<BoxCollider2D>().offset = new Vector2(0f, -0.33f);
     }
 }

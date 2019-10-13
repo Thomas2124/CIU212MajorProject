@@ -20,6 +20,8 @@ public class LevelGenerator : MonoBehaviour
 
     public int longestNum = 0;
 
+    public GameObject backGround;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -36,6 +38,7 @@ public class LevelGenerator : MonoBehaviour
         {
             for (int y = 0; y < map.height; y++)
             {
+                //Instantiate(backGround, new Vector3(x, y, 0f), Quaternion.identity, this.gameObject.transform);
                 GenerateTile(x, y);
             }
         }
@@ -48,10 +51,17 @@ public class LevelGenerator : MonoBehaviour
     void GenerateTile(int x, int y)
     {
         Color pixelColor = map.GetPixel(x, y);
+        Vector3 pos = new Vector3(x, y, 0f);
 
         if (pixelColor.a == 0)
         {
+            Instantiate(backGround, pos, Quaternion.identity, this.gameObject.transform);
             return;
+        }
+
+        if (pixelColor != Color.black)
+        {
+            Instantiate(backGround, pos, Quaternion.identity, this.gameObject.transform);
         }
 
         //print(x.ToString() + ", " + y.ToString());
@@ -60,7 +70,6 @@ public class LevelGenerator : MonoBehaviour
         {
             if (item.color.Equals(pixelColor))
             {
-                Vector3 pos = new Vector3(x, y, 0f);
                 Instantiate(item.prefab, pos, Quaternion.identity, this.gameObject.transform);
             }
         }

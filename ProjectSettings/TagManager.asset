@@ -28,7 +28,7 @@ TagManager:
   - ground
   - wall
   - spikes
-  - 
+  - background
   - 
   - 
   - 
@@ -61,4 +61,10 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 978058859
+    locked: 0
+  - name: background
+    uniqueID: 739865191
+    locked: 0
+  - name: New Layer
+    uniqueID: 632667425
     locked: 0

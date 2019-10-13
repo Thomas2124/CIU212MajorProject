@@ -3843,7 +3843,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 91eed1f0d8a83ca4db8015c71081f696, type: 3}
   soundAdjust: {fileID: 1657854790}
   mySource: {fileID: 254016636}
-  pageClip: {fileID: 8300000, guid: 377ffff7ea6b69541865f507acdbb785, type: 3}
+  pageClip: {fileID: 8300000, guid: c2d9aa85a82bbe94e963a034cb6b9fdd, type: 3}
   buttonClick: {fileID: 8300000, guid: b313076d030863841925741da5ea62c7, type: 3}
   playPage: 0
 --- !u!114 &809914520

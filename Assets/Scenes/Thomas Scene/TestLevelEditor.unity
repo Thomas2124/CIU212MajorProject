@@ -431,6 +431,8 @@ MonoBehaviour:
   isDone: 0
   highestNum: 0
   longestNum: 0
+  backGround: {fileID: 117515920541227176, guid: f46b639d8e906034c986f347f9f807f9,
+    type: 3}
 --- !u!4 &324705467
 Transform:
   m_ObjectHideFlags: 0
