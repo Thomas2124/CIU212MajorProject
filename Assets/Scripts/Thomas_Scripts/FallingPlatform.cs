@@ -11,6 +11,7 @@ public class FallingPlatform : MonoBehaviour
     public float waitTime = 0.5f;
     public Vector3 resetPoint;
     public float theGravity;
+    public BoxCollider2D myCollider;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,11 +46,12 @@ public class FallingPlatform : MonoBehaviour
         rb.constraints = RigidbodyConstraints2D.FreezePositionX;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         yield return new WaitForSeconds(waitTime);
-        transform.parent.GetComponent<BoxCollider2D>().enabled = false;
+        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1f);
+        myCollider.enabled = false;
         rb.gravityScale = theGravity;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         yield return new WaitForSeconds(6f);
-        transform.parent.GetComponent<BoxCollider2D>().enabled = true;
+        myCollider.enabled = true;
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
         gameObject.transform.parent.position = resetPoint;
         stop = false;

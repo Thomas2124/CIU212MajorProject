@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
 
     public GameObject DeathMarker;
     public GameObject deathDot;
+    public GameObject deathLight;
 
     public Animator myAnimator;
 
@@ -76,6 +77,9 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        mySource = Camera.main.GetComponent<AudioSource>();
+        PanelManager.Instance.mySource = mySource;
+        PanelManager.Instance.SetValues();
         dashDirection = Vector2.right;
         spawnPoint = new Vector3(transform.position.x, transform.position.y, 0.0f);
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -461,6 +465,7 @@ public class Player : MonoBehaviour
 
     public void PlayersDeath()
     {
+        Instantiate(deathLight, transform.position, Quaternion.identity);
         mySource.PlayOneShot(deathClip);
         myRenderer.enabled = false;
         rb.simulated = false;

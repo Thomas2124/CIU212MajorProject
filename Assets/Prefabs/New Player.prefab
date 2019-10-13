@@ -180,6 +180,8 @@ MonoBehaviour:
     type: 3}
   deathDot: {fileID: 3581720003734026562, guid: 5d7b8576799227841aa83013e6063093,
     type: 3}
+  deathLight: {fileID: 2169673058249337965, guid: 0ccd1725bd3ce1f4ea2bf9aa964c072a,
+    type: 3}
   myAnimator: {fileID: 7922003450637996889}
   leftRightDash: 0
   wallGrab: 0

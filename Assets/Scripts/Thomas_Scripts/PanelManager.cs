@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class PanelManager : MonoBehaviour
 {
+    public static PanelManager Instance;
+
     int page = 0;
     public GameObject[] panels;
     public string sceneName;
@@ -19,42 +21,17 @@ public class PanelManager : MonoBehaviour
     public AudioClip buttonClick;
     public bool playPage;
 
-    // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
-        if (PlayerPrefs.GetInt("Mute") == 0)
-        {
-            PlayerPrefs.SetInt("Mute", 1);
-            muteIcon.sprite = Icons[0];
-            mySource.mute = false;
-        }
-        else
-        {
-            if (PlayerPrefs.GetInt("Mute") == 1)
-            {
-                PlayerPrefs.SetInt("Mute", 1);
-                muteIcon.sprite = Icons[0];
-                mySource.mute = false;
+        Instance = this;
+    }
 
-            }
-            else if (PlayerPrefs.GetInt("Mute") == 2)
-            {
-                PlayerPrefs.SetInt("Mute", 2);
-                muteIcon.sprite = Icons[1];
-                mySource.mute = true;
-            }
-        }
-
-        if (PlayerPrefs.GetFloat("Adjust") == 0f)
+    // Start is called before the first frame update
+    void Start()
+    {
+        if (mySource)
         {
-            PlayerPrefs.SetFloat("Adjust", 1f + 1f);
-            soundAdjust.value = PlayerPrefs.GetFloat("Adjust") - 1f;
-            mySource.volume = PlayerPrefs.GetFloat("Adjust") - 1f;
-        }
-        else
-        {
-            soundAdjust.value = PlayerPrefs.GetFloat("Adjust") - 1f;
-            mySource.volume = PlayerPrefs.GetFloat("Adjust") - 1f;
+            SetValues();
         }
     }
 
@@ -95,22 +72,25 @@ public class PanelManager : MonoBehaviour
 
     void ActiveObjects(int num)
     {
-        for (int i = 0; i < panels.Length; i++)
+        if (panels != null)
         {
-            if (i == num)
+            for (int i = 0; i < panels.Length; i++)
             {
-                panels[i].SetActive(true);
-            }
-            else
-            {
-                panels[i].SetActive(false);
+                if (i == num)
+                {
+                    panels[i].SetActive(true);
+                }
+                else
+                {
+                    panels[i].SetActive(false);
+                }
             }
         }
     }
 
     public void AddOne()
     {
-        if (playPage == true)
+        if (mySource != null && playPage == true)
             mySource.PlayOneShot(pageClip);
 
         page += 1;
@@ -118,7 +98,7 @@ public class PanelManager : MonoBehaviour
 
     public void MinusOne()
     {
-        if (playPage == true)
+        if (mySource != null && playPage == true)
             mySource.PlayOneShot(pageClip);
 
         page -= 1;
@@ -156,7 +136,7 @@ public class PanelManager : MonoBehaviour
 
     public void AdjustSound()
     {
-        mySource.PlayOneShot(buttonClick);
+        //mySource.PlayOneShot(buttonClick);
         float value;
         value = soundAdjust.value;
         PlayerPrefs.SetFloat("Adjust", value + 1f);
@@ -181,6 +161,44 @@ public class PanelManager : MonoBehaviour
         else if (Screen.fullScreenMode == FullScreenMode.Windowed)
         {
             screenIcon.sprite = Icons[3];
+        }
+    }
+
+    public void SetValues()
+    {
+        if (PlayerPrefs.GetInt("Mute") == 0)
+        {
+            PlayerPrefs.SetInt("Mute", 1);
+            muteIcon.sprite = Icons[0];
+            mySource.mute = false;
+        }
+        else
+        {
+            if (PlayerPrefs.GetInt("Mute") == 1)
+            {
+                PlayerPrefs.SetInt("Mute", 1);
+                muteIcon.sprite = Icons[0];
+                mySource.mute = false;
+
+            }
+            else if (PlayerPrefs.GetInt("Mute") == 2)
+            {
+                PlayerPrefs.SetInt("Mute", 2);
+                muteIcon.sprite = Icons[1];
+                mySource.mute = true;
+            }
+        }
+
+        if (PlayerPrefs.GetFloat("Adjust") == 0f)
+        {
+            PlayerPrefs.SetFloat("Adjust", 1f + 1f);
+            soundAdjust.value = PlayerPrefs.GetFloat("Adjust") - 1f;
+            mySource.volume = PlayerPrefs.GetFloat("Adjust") - 1f;
+        }
+        else
+        {
+            soundAdjust.value = PlayerPrefs.GetFloat("Adjust") - 1f;
+            mySource.volume = PlayerPrefs.GetFloat("Adjust") - 1f;
         }
     }
 }
