@@ -15,7 +15,7 @@ public class NewDeadLight : MonoBehaviour
 
         foreach (Collider2D item in hit)
         {
-            if (item.tag != "BackGround" && item.gameObject.GetComponent<SpriteRenderer>() != null)
+            if (item.tag != "BackGround" && item.tag != "FallingPlatform" && item.gameObject.GetComponent<SpriteRenderer>() != null)
             {
                 GameObject theObject = Instantiate(item.gameObject);
                 theObject.isStatic = false;
@@ -25,6 +25,7 @@ public class NewDeadLight : MonoBehaviour
                 {
                     theObject.GetComponent<BoxCollider2D>().enabled = false;
                 }
+
                 theObject.GetComponent<SpriteRenderer>().sortingLayerID = 0;
                 theObject.GetComponent<SpriteRenderer>().sortingOrder = 2;
                 listObjects.Add(theObject);
