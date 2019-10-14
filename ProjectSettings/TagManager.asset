@@ -16,6 +16,8 @@ TagManager:
   - FallingObject
   - BackGround
   - Marker
+  - DeadLight
+  - Blocks
   layers:
   - Default
   - TransparentFX

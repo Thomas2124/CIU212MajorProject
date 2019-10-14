@@ -55,7 +55,7 @@ public class Illumination : MonoBehaviour
 
                 SpriteRenderer itemSpriteRenderer = item.GetComponent<SpriteRenderer>();
 
-                if (itemSpriteRenderer != null && item.tag != "BackGround" && item.tag != "Marker")
+                if (itemSpriteRenderer != null && item.tag != "BackGround" && item.tag != "Marker" && item.tag != "Blocks")
                 {
                     Color renderColor = itemSpriteRenderer.material.color;
                     float alphaNum = Vector2.Distance(itemPos, thisPos) / detectRangeMax;
