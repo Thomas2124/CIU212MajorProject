@@ -73,7 +73,6 @@ public class Player : MonoBehaviour
         playerInstance = this;
     }
 
-    //public bool walljumpReset = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -99,12 +98,8 @@ public class Player : MonoBehaviour
 
         //Ground checker
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, 0.6f, groundLayer);
-        //RaycastHit2D hitInfo2 = Physics2D.Raycast(transform.position, Vector2.left, 4.0f, groundLayer);
-        //RaycastHit2D hitInfo3 = Physics2D.Raycast(transform.position, Vector2.right, 4.0f, groundLayer);
         RaycastHit2D hitInfo4 = Physics2D.Raycast(transform.position, Vector2.left, 0.6f, groundLayer);
         RaycastHit2D hitInfo5 = Physics2D.Raycast(transform.position, Vector2.right, 0.6f, groundLayer);
-        //RaycastHit2D hitInfo6 = Physics2D.Raycast(transform.position, Vector2.up, 4.0f, groundLayer);
-        //RaycastHit2D hitInfo7 = Physics2D.Raycast(transform.position, Vector2.down, 4.0f, groundLayer);
 
 
         if (isGrounded == false)
@@ -190,7 +185,7 @@ public class Player : MonoBehaviour
             //wall jump
             if (Input.GetKeyDown(KeyCode.Z))
             {
-                if (hitInfo4.collider != null /*|| Input.GetKeyDown(KeyCode.LeftArrow)*/)
+                if (hitInfo4.collider != null)
                 {
                     wallAttached = true;
                     secondJump = false;
@@ -201,7 +196,7 @@ public class Player : MonoBehaviour
                     wallJumpRight = true;
                 }
 
-                if (hitInfo5.collider != null /*|| Input.GetKeyDown(KeyCode.RightArrow)*/)
+                if (hitInfo5.collider != null)
                 {
                     wallAttached = true;
                     secondJump = false;

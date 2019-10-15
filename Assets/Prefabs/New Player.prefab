@@ -209,7 +209,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelObjects: []
-  detectRangeMax: 15
+  renderObjects: []
+  detectRangeMax: 10
   detectRangeMin: 2
   done: 0
   lightScript: {fileID: 0}
@@ -586,6 +587,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300336261969412369, guid: 1e34b01dc4cd5a243bb0c9fcdc6f008f,
+        type: 3}
+      propertyPath: startValue
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300336261969412369, guid: 1e34b01dc4cd5a243bb0c9fcdc6f008f,
+        type: 3}
+      propertyPath: endValue
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300336261969412369, guid: 1e34b01dc4cd5a243bb0c9fcdc6f008f,
+        type: 3}
+      propertyPath: changeRate
+      value: 0.015
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e34b01dc4cd5a243bb0c9fcdc6f008f, type: 3}
