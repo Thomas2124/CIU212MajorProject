@@ -10,6 +10,10 @@ public class ReplaceSprites : MonoBehaviour
     private GameObject[] fallingPlatformGameObject;
     private GameObject[] spikesGameObject;
     private GameObject finishGameObject;
+    [Header("Left")]
+    [Header("Right")]
+    [Header("Up")]
+    [Header("Down")]
     public Sprite[] oneSprites;
     public Sprite[] twoSprites;
     public Sprite[] threeSprites;
