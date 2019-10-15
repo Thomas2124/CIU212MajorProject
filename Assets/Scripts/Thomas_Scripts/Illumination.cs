@@ -37,17 +37,18 @@ public class Illumination : MonoBehaviour
         {
             foreach (GameObject item in renderObjects)
             {
+                SpriteRenderer itemSpriteRenderer = item.GetComponent<SpriteRenderer>();
+
                 if (Vector3.Distance(Player.playerInstance.transform.position, item.transform.position) > detectRangeMax)
                 {
-                    item.SetActive(false);
+                    itemSpriteRenderer.enabled = false;
                     continue;
                 }
                 else
                 {
-                    item.SetActive(true);
+                    itemSpriteRenderer.enabled = true;
                 }
 
-                SpriteRenderer itemSpriteRenderer = item.GetComponent<SpriteRenderer>();
                 if (itemSpriteRenderer != null && item.tag != "BackGround" && item.tag != "Marker" && item.tag != "Blocks")
                 {
                     Color renderColor = itemSpriteRenderer.material.color;
@@ -58,10 +59,6 @@ public class Illumination : MonoBehaviour
                     Color fadeColor = new Color(renderColor.r, renderColor.g, renderColor.b, Mathf.Lerp(1.0f, 0.0f, alphaNum));
                     Color nearColor = new Color(renderColor.r, renderColor.g, renderColor.b, 1f);
 
-                    /*if (Vector2.Distance(itemPos, thisPos) >= detectRangeMax)
-                    {
-                        itemSpriteRenderer.material.color = farColor;
-                    }*/
                     if (Vector2.Distance(itemPos, thisPos) < detectRangeMax && Vector2.Distance(itemPos, thisPos) > detectRangeMin)
                     {
                         itemSpriteRenderer.material.color = fadeColor;

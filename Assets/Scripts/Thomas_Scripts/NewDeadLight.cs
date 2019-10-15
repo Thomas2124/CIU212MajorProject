@@ -60,6 +60,7 @@ public class NewDeadLight : MonoBehaviour
                 if (make == true)
                 {
                     GameObject theObject = Instantiate(item.gameObject);
+                    theObject.isStatic = false;
                     Vector3 objectPos = theObject.transform.position;
                     BoxCollider2D objectCollider = theObject.GetComponent<BoxCollider2D>();
                     SpriteRenderer objectRenderer = theObject.GetComponent<SpriteRenderer>();
@@ -68,7 +69,7 @@ public class NewDeadLight : MonoBehaviour
                     objectCollider.enabled = false;
                     objectRenderer.sortingLayerID = 0;
                     objectRenderer.sortingOrder = 2;
-
+                    theObject.isStatic = true;
                     listObjects.Add(theObject);
                 }
             } 
