@@ -867,7 +867,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.16800001, y: 0.37785187}
   m_AnchorMax: {x: 0.5, y: 0.43985188}
-  m_AnchoredPosition: {x: 3, y: -0.9001465}
+  m_AnchoredPosition: {x: 3.0500488, y: -69.97992}
   m_SizeDelta: {x: 6.0999756, y: 1.9000244}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &141219917
@@ -1521,7 +1521,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.3301887, g: 0.3301887, b: 0.3301887, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2213,7 +2213,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1978854495}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -7.6440005}
   m_AnchorMin: {x: 0.67368746, y: 0.18585186}
   m_AnchorMax: {x: 0.8897499, y: 0.41477782}
@@ -2828,7 +2828,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.16800001, y: 0.28066665}
   m_AnchorMax: {x: 0.5, y: 0.35185188}
-  m_AnchoredPosition: {x: 2.5, y: 2.5}
+  m_AnchoredPosition: {x: 2.5, y: 174.33008}
   m_SizeDelta: {x: 5.0999756, y: 4.5999756}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &501167062
@@ -3965,7 +3965,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1978854495}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 9.311001}
   m_AnchorMin: {x: 0.52525, y: 0.69937044}
   m_AnchorMax: {x: 0.74600005, y: 0.92544454}
@@ -4475,7 +4475,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &948951222
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5569,7 +5569,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1978854495}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 7.4470005}
   m_AnchorMin: {x: 0.1652917, y: 0.717889}
   m_AnchorMax: {x: 0.3844375, y: 0.94762963}
@@ -7524,7 +7524,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.16800001, y: 0.2147778}
   m_AnchorMax: {x: 0.5, y: 0.28066665}
-  m_AnchoredPosition: {x: 2.5, y: 1.1699219}
+  m_AnchoredPosition: {x: 2.5, y: 173}
   m_SizeDelta: {x: 5.0999756, y: -2.0999756}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1577569022
@@ -7805,7 +7805,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1978854495}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -9.5130005}
   m_AnchorMin: {x: 0.24258335, y: 0.21662961}
   m_AnchorMax: {x: 0.462, y: 0.4498148}
@@ -9213,10 +9213,10 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 384180983}
-  - {fileID: 846310825}
-  - {fileID: 1599776299}
   - {fileID: 1240598944}
+  - {fileID: 1599776299}
+  - {fileID: 846310825}
+  - {fileID: 384180983}
   m_Father: {fileID: 152347648}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9262,6 +9262,64 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1978854494}
   m_CullTransparentMesh: 0
+--- !u!1 &2033383213
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2033383215}
+  - component: {fileID: 2033383214}
+  m_Layer: 0
+  m_Name: EGO Level Unlock
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2033383214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033383213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee8d1e9f564ab584b82b7a7317254270, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttons:
+  - {fileID: 1240598943}
+  - {fileID: 1599776298}
+  - {fileID: 846310824}
+  - {fileID: 384180982}
+  - {fileID: 133274825}
+  - {fileID: 410484916}
+  - {fileID: 1397817440}
+  - {fileID: 1620458706}
+  - {fileID: 1502109978}
+  - {fileID: 1599232512}
+  - {fileID: 1836859657}
+  - {fileID: 1931503224}
+  prefsNum: 0
+  levelNum: 0
+--- !u!4 &2033383215
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033383213}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1226.8251, y: 365.8628, z: -199.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2042619302
 GameObject:
   m_ObjectHideFlags: 0

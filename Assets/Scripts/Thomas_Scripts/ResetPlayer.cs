@@ -15,6 +15,11 @@ public class ResetPlayer : MonoBehaviour
             PauseMenu.Instance.isLoading = true;
             PlayerPrefs.SetInt("Level", PlayerPrefs.GetInt("Level") + 1);
 
+            if (PlayerPrefs.GetInt("Level") > PlayerPrefs.GetInt("Unlock"))
+            {
+                PlayerPrefs.SetInt("Unlock", PlayerPrefs.GetInt("Level"));
+            }
+
             if (PlayerPrefs.GetInt("Level") > 11)
             {
                 SceneManager.LoadScene("MainMenu");
