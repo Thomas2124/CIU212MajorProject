@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
 
     public int jumps = 0;
     public Vector3 spawnPoint = Vector3.zero;
-    public float startGravity;
+    public static float startGravity;
     public bool fallJump;
     public bool forceFall;
 
@@ -62,6 +62,7 @@ public class Player : MonoBehaviour
     public AudioClip dashClip;
     public AudioClip deathClip;
     public AudioClip wallJumpClip;
+    public AudioClip wallGrabClip;
     public AudioClip FallingPlatformClip;
 
     public float stepRate = 0.15f;
@@ -116,6 +117,15 @@ public class Player : MonoBehaviour
         else
         {
             wallGrab = false;
+        }
+
+        if (hitInfo4.collider == null && hitInfo5.collider == null && wallAttached == true)
+        {
+            rb.velocity = Vector2.zero;
+            rb.gravityScale = startGravity;
+            wallJumpRight = false;
+            wallJumpLeft = false;
+            wallAttached = false;
         }
 
         if (hitInfo.collider != null)
@@ -182,11 +192,21 @@ public class Player : MonoBehaviour
         }
         else
         {
-            //wall jump
-            if (Input.GetKeyDown(KeyCode.Z))
+            /*if (hitInfo4.collider == null && hitInfo5.collider == null&& wallAttached == true)
             {
-                if (hitInfo4.collider != null)
+                rb.velocity = Vector2.zero;
+                rb.gravityScale = startGravity;
+                wallJumpRight = false;
+                wallJumpLeft = false;
+                wallAttached = false;
+            }*/
+
+            //wall jump
+            if (hitInfo4.collider != null)
+            {
+                if (Input.GetKeyDown(KeyCode.Z))
                 {
+                    mySource.PlayOneShot(wallGrabClip);
                     wallAttached = true;
                     secondJump = false;
 
@@ -195,9 +215,13 @@ public class Player : MonoBehaviour
 
                     wallJumpRight = true;
                 }
+            }
 
-                if (hitInfo5.collider != null)
+            if (hitInfo5.collider != null)
+            {
+                if (Input.GetKeyDown(KeyCode.Z))
                 {
+                    mySource.PlayOneShot(wallGrabClip);
                     wallAttached = true;
                     secondJump = false;
 
@@ -207,16 +231,6 @@ public class Player : MonoBehaviour
                     wallJumpLeft = true;
                 }
             }
-
-            if (hitInfo4.collider == null && hitInfo5.collider == null && wallAttached == true)
-            {
-                rb.velocity = Vector2.zero;
-                rb.gravityScale = startGravity;
-                wallJumpRight = false;
-                wallJumpLeft = false;
-                wallAttached = false;
-            }
-
             if (Input.GetKeyUp(KeyCode.Z))
             {
                 if (wallAttached == true)
