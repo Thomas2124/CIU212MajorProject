@@ -37,18 +37,17 @@ public class Illumination : MonoBehaviour
         {
             foreach (GameObject item in renderObjects)
             {
-                SpriteRenderer itemSpriteRenderer = item.GetComponent<SpriteRenderer>();
-
                 if (Vector3.Distance(Player.playerInstance.transform.position, item.transform.position) > detectRangeMax)
                 {
-                    itemSpriteRenderer.enabled = false;
+                    item.SetActive(false);
                     continue;
                 }
                 else
                 {
-                    itemSpriteRenderer.enabled = true;
+                    item.SetActive(true);
                 }
 
+                SpriteRenderer itemSpriteRenderer = item.GetComponent<SpriteRenderer>();
                 if (itemSpriteRenderer != null && item.tag != "BackGround" && item.tag != "Marker" && item.tag != "Blocks")
                 {
                     Color renderColor = itemSpriteRenderer.material.color;

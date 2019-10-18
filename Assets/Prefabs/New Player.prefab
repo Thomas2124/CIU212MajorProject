@@ -170,7 +170,6 @@ MonoBehaviour:
   switchMode: 0
   jumps: 0
   spawnPoint: {x: 0, y: 0, z: 0}
-  startGravity: 0
   fallJump: 0
   forceFall: 0
   dashDirection: {x: 0, y: 0}
@@ -269,6 +268,7 @@ GameObject:
   - component: {fileID: 6438143306856260165}
   - component: {fileID: 6649465065847022601}
   - component: {fileID: 5815372424986523451}
+  - component: {fileID: 2480829066808433066}
   - component: {fileID: 5585959784166139888}
   m_Layer: 0
   m_Name: Main Camera
@@ -394,6 +394,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: 6e22e03bdda1c7b40b96a5526e48d76b, type: 2}
+--- !u!114 &2480829066808433066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6438143306856260161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a611553acf9e1fe499ffa105f3a953fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myTracks:
+  - {fileID: 8300000, guid: 207d21d86db3e2a42a472c8a94457541, type: 3}
+  - {fileID: 8300000, guid: 48b40dbdd5e3f194bb682eefaa9ac6bd, type: 3}
+  - {fileID: 8300000, guid: caf4800dd23d6e1498d24e3a7f6c260a, type: 3}
+  - {fileID: 8300000, guid: b3b8a503295122a499890035d16894b9, type: 3}
+  - {fileID: 8300000, guid: ea4081857b29c27408404fadd034637a, type: 3}
+  - {fileID: 8300000, guid: 646f0a8c8f504584ea29c29824cf7dfa, type: 3}
+  mySource: {fileID: 5585959784166139888}
 --- !u!82 &5585959784166139888
 AudioSource:
   m_ObjectHideFlags: 0
@@ -405,10 +425,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 9d0c788ed5d599643887cc9c1e0919bd, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

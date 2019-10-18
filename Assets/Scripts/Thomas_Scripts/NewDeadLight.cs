@@ -9,7 +9,7 @@ public class NewDeadLight : MonoBehaviour
     public GameObject[] lights;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         if (GameObject.FindGameObjectsWithTag("DeadLight") != null)
         {
