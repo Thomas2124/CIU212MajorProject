@@ -135,7 +135,7 @@ public class Player : MonoBehaviour
         // Checks and sets variables for when the player is touching the ground.
         if (hitInfo.collider != null)
         {
-            myAnimator.SetBool("IsJumping", false);
+            myAnimator.SetBool("Hold", false);
             rb.gravityScale = startGravity;
             wallAttached = false;
             wallJumpRight = false;
@@ -170,7 +170,7 @@ public class Player : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Z) && isGrounded == true && jumped == false || Input.GetKeyDown(KeyCode.Z) && isGrounded == false && fallJump == true) // Normal jump
                 {
-                    myAnimator.SetBool("IsJumping", true);
+                    myAnimator.SetFloat("Speed", 0);
                     mySource.PlayOneShot(jumpClip);
                     rb.velocity = new Vector3(rb.velocity.x, 0.0f, 0.0f);
                     
@@ -188,6 +188,7 @@ public class Player : MonoBehaviour
                 }
                 else if (Input.GetKeyDown(KeyCode.Z) && secondJump == true && isGrounded == false && jumped == true) // Second jump
                 {
+                    myAnimator.SetFloat("Speed", 0);
                     mySource.PlayOneShot(jumpClip);
                     rb.velocity = new Vector3(rb.velocity.x, 0.0f, 0.0f);
                     rb.AddForce(Vector2.up * jumpPower);
@@ -244,7 +245,6 @@ public class Player : MonoBehaviour
                     if (wallJumpLeft == true) 
                     {
                         myAnimator.SetBool("Hold", false);
-                        myAnimator.SetBool("IsJumping", true);
                         mySource.PlayOneShot(wallJumpClip);
                         rb.velocity = Vector2.zero;
                         rb.gravityScale = startGravity;
@@ -256,7 +256,6 @@ public class Player : MonoBehaviour
                     else if(wallJumpRight == true)
                     {
                         myAnimator.SetBool("Hold", false);
-                        myAnimator.SetBool("IsJumping", true);
                         mySource.PlayOneShot(wallJumpClip);
                         rb.velocity = Vector2.zero;
                         rb.gravityScale = startGravity;
@@ -272,7 +271,6 @@ public class Player : MonoBehaviour
         //player movement/Walking left and right.
         if (wallJumped == false && wallAttached == false && isDashing == false)
         {
-            myAnimator.SetFloat("Speed", rb.velocity.magnitude);
             if (Input.GetKey(KeyCode.LeftArrow))
             {
                 if (stepTime < Time.time && isGrounded == true) // Plays walking sound.
@@ -326,7 +324,6 @@ public class Player : MonoBehaviour
         }
         else // This is used to prevent the player from sliding along the ground. Only in situations where the player isn't walking.
         {
-            myAnimator.SetFloat("Speed", rb.velocity.magnitude);
             rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, Time.deltaTime * 3f), rb.velocity.y);
         }
 
@@ -386,9 +383,18 @@ public class Player : MonoBehaviour
         }
 
         //sets animations bools
+        if (jumped == true)
+        {
+            myAnimator.SetFloat("Speed", 0);
+        }
+        else
+        {
+            myAnimator.SetFloat("Speed", rb.velocity.magnitude);
+        }
+
+        myAnimator.SetBool("IsJumping", jumped);
         //myAnimator.SetBool("Hold", wallAttached);
         //myAnimator.SetBool("Dashing", isDashing);
-
     }
 
     #endregion
