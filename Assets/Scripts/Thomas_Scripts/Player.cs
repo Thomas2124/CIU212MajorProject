@@ -124,6 +124,7 @@ public class Player : MonoBehaviour
         // if their is not walls next to the player, this forces them to fall down.
         if (hitInfo4.collider == null && hitInfo5.collider == null && wallAttached == true)
         {
+            myAnimator.SetBool("Hold", false);
             rb.velocity = Vector2.zero;
             rb.gravityScale = startGravity;
             wallJumpRight = false;
@@ -134,6 +135,7 @@ public class Player : MonoBehaviour
         // Checks and sets variables for when the player is touching the ground.
         if (hitInfo.collider != null)
         {
+            myAnimator.SetBool("IsJumping", false);
             rb.gravityScale = startGravity;
             wallAttached = false;
             wallJumpRight = false;
@@ -168,6 +170,7 @@ public class Player : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Z) && isGrounded == true && jumped == false || Input.GetKeyDown(KeyCode.Z) && isGrounded == false && fallJump == true) // Normal jump
                 {
+                    myAnimator.SetBool("IsJumping", true);
                     mySource.PlayOneShot(jumpClip);
                     rb.velocity = new Vector3(rb.velocity.x, 0.0f, 0.0f);
                     
@@ -185,6 +188,7 @@ public class Player : MonoBehaviour
                 }
                 else if (Input.GetKeyDown(KeyCode.Z) && secondJump == true && isGrounded == false && jumped == true) // Second jump
                 {
+                    myAnimator.SetBool("IsJumping", true);
                     mySource.PlayOneShot(jumpClip);
                     rb.velocity = new Vector3(rb.velocity.x, 0.0f, 0.0f);
                     rb.AddForce(Vector2.up * jumpPower);
@@ -202,6 +206,7 @@ public class Player : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Z))
                 {
+                    myAnimator.SetBool("Hold", true);
                     mySource.PlayOneShot(wallGrabClip);
                     wallAttached = true;
                     secondJump = false;
@@ -218,6 +223,7 @@ public class Player : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Z))
                 {
+                    myAnimator.SetBool("Hold", true);
                     mySource.PlayOneShot(wallGrabClip);
                     wallAttached = true;
                     secondJump = false;
@@ -237,6 +243,7 @@ public class Player : MonoBehaviour
                 {
                     if (wallJumpLeft == true) 
                     {
+                        myAnimator.SetBool("Hold", false);
                         mySource.PlayOneShot(wallJumpClip);
                         rb.velocity = Vector2.zero;
                         rb.gravityScale = startGravity;
@@ -247,6 +254,7 @@ public class Player : MonoBehaviour
                     }
                     else if(wallJumpRight == true)
                     {
+                        myAnimator.SetBool("Hold", false);
                         mySource.PlayOneShot(wallJumpClip);
                         rb.velocity = Vector2.zero;
                         rb.gravityScale = startGravity;
@@ -270,7 +278,7 @@ public class Player : MonoBehaviour
                     stepTime = Time.time + stepRate;
                 }
 
-                gameObject.GetComponent<SpriteRenderer>().flipX = true;
+                gameObject.GetComponent<SpriteRenderer>().flipX = false;
                 if (rb.velocity.x > 0f) // Checks and limits the players speed.
                 {
                     SlowDown(-1f);
@@ -293,7 +301,7 @@ public class Player : MonoBehaviour
                     stepTime = Time.time + stepRate;
                 }
 
-                gameObject.GetComponent<SpriteRenderer>().flipX = false;
+                gameObject.GetComponent<SpriteRenderer>().flipX = true;
                 if (rb.velocity.x < 0f) // Checks and limits the players speed.
                 {
                     SlowDown(1f);
@@ -368,14 +376,15 @@ public class Player : MonoBehaviour
         //Player Dashing
         if (Input.GetKeyDown(KeyCode.LeftShift) && Time.time > nextDashTime)
         {
+            myAnimator.SetBool("Dashing", true);
             mySource.PlayOneShot(dashClip);
             PlayerDash(dashDirection);
         }
 
         //sets animations bools
-        myAnimator.SetBool("IsJumping", jumped);
-        myAnimator.SetBool("Hold", wallAttached);
-        myAnimator.SetBool("Dashing", isDashing);
+        //myAnimator.SetBool("IsJumping", jumped);
+        //myAnimator.SetBool("Hold", wallAttached);
+        //myAnimator.SetBool("Dashing", isDashing);
         myAnimator.SetFloat("Speed", rb.velocity.magnitude);
 
     }
@@ -426,6 +435,7 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
 
+        myAnimator.SetBool("Dashing", false);
         // Removes player constraints
         if (leftRightDash == true)
         {
