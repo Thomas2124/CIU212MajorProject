@@ -8,7 +8,8 @@ public class Player : MonoBehaviour
 {
     public static Player playerInstance;
 
-    public float health = 100f;
+
+    //public float health = 100f;
     public float movingSpeed = 10f;
     public float jumpPower = 10f;
     public float wallJumpPower = 10f;
@@ -56,6 +57,7 @@ public class Player : MonoBehaviour
     public bool wallGrab = false;
     public SpriteRenderer myRenderer;
     public float velocity;
+
     public AudioSource mySource;
     public AudioClip jumpClip;
     public AudioClip walkClip;
@@ -97,12 +99,12 @@ public class Player : MonoBehaviour
     {
         velocity = rb.velocity.magnitude;
 
-        //Ground checker
+        // collider checker
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, 0.6f, groundLayer);
         RaycastHit2D hitInfo4 = Physics2D.Raycast(transform.position, Vector2.left, 0.6f, groundLayer);
         RaycastHit2D hitInfo5 = Physics2D.Raycast(transform.position, Vector2.right, 0.6f, groundLayer);
 
-
+        // Checks if the player is still able to grab the wall.
         if (isGrounded == false)
         {
             if (hitInfo4.collider != null || hitInfo5.collider != null)
@@ -119,6 +121,7 @@ public class Player : MonoBehaviour
             wallGrab = false;
         }
 
+        // if their is not walls next to the player, this forces them to fall down.
         if (hitInfo4.collider == null && hitInfo5.collider == null && wallAttached == true)
         {
             rb.velocity = Vector2.zero;
@@ -128,6 +131,7 @@ public class Player : MonoBehaviour
             wallAttached = false;
         }
 
+        // Checks and sets variables for when the player is touching the ground.
         if (hitInfo.collider != null)
         {
             rb.gravityScale = startGravity;
@@ -147,6 +151,7 @@ public class Player : MonoBehaviour
             isGrounded = false;
         }
 
+        // Checks the number of times the player has jumps. forcing them to fall down after a specific amount of jumps.
         if (jumps >= 2)
         {
             forceFall = true;
@@ -156,12 +161,12 @@ public class Player : MonoBehaviour
             forceFall = false;
         }
 
-        //player jump
+        //player jump. Is true if the player is not grabbing onto a wall and is within the set amount of jumps.
         if (wallGrab == false)
         {
             if (forceFall == false)
             {
-                if (Input.GetKeyDown(KeyCode.Z) && isGrounded == true && jumped == false || Input.GetKeyDown(KeyCode.Z) && isGrounded == false && fallJump == true)
+                if (Input.GetKeyDown(KeyCode.Z) && isGrounded == true && jumped == false || Input.GetKeyDown(KeyCode.Z) && isGrounded == false && fallJump == true) // Normal jump
                 {
                     mySource.PlayOneShot(jumpClip);
                     rb.velocity = new Vector3(rb.velocity.x, 0.0f, 0.0f);
@@ -178,7 +183,7 @@ public class Player : MonoBehaviour
                         jumps++;
                     }
                 }
-                else if (Input.GetKeyDown(KeyCode.Z) && secondJump == true && isGrounded == false && jumped == true)
+                else if (Input.GetKeyDown(KeyCode.Z) && secondJump == true && isGrounded == false && jumped == true) // Second jump
                 {
                     mySource.PlayOneShot(jumpClip);
                     rb.velocity = new Vector3(rb.velocity.x, 0.0f, 0.0f);
@@ -192,16 +197,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            /*if (hitInfo4.collider == null && hitInfo5.collider == null&& wallAttached == true)
-            {
-                rb.velocity = Vector2.zero;
-                rb.gravityScale = startGravity;
-                wallJumpRight = false;
-                wallJumpLeft = false;
-                wallAttached = false;
-            }*/
-
-            //wall jump
+            // Checks if the player is able to grab the right wall for a wall jump.
             if (hitInfo4.collider != null)
             {
                 if (Input.GetKeyDown(KeyCode.Z))
@@ -217,6 +213,7 @@ public class Player : MonoBehaviour
                 }
             }
 
+            // Checks if the player is able to grab the left wall for a wall jump.
             if (hitInfo5.collider != null)
             {
                 if (Input.GetKeyDown(KeyCode.Z))
@@ -231,11 +228,14 @@ public class Player : MonoBehaviour
                     wallJumpLeft = true;
                 }
             }
+
+            // Performs wall jump if the Z key is up and player is grabbing a wall.
+            // Zeros and sets new velocity.
             if (Input.GetKeyUp(KeyCode.Z))
             {
                 if (wallAttached == true)
                 {
-                    if (wallJumpLeft == true)
+                    if (wallJumpLeft == true) 
                     {
                         mySource.PlayOneShot(wallJumpClip);
                         rb.velocity = Vector2.zero;
@@ -259,19 +259,19 @@ public class Player : MonoBehaviour
             }
         }
 
-        //player movement left and right
+        //player movement/Walking left and right.
         if (wallJumped == false && wallAttached == false && isDashing == false)
         {
             if (Input.GetKey(KeyCode.LeftArrow))
             {
-                if (stepTime < Time.time && isGrounded == true)
+                if (stepTime < Time.time && isGrounded == true) // Plays walking sound.
                 {
                     mySource.PlayOneShot(walkClip);
                     stepTime = Time.time + stepRate;
                 }
 
                 gameObject.GetComponent<SpriteRenderer>().flipX = true;
-                if (rb.velocity.x > 0f)
+                if (rb.velocity.x > 0f) // Checks and limits the players speed.
                 {
                     SlowDown(-1f);
                 }
@@ -287,14 +287,14 @@ public class Player : MonoBehaviour
             }
             else if (Input.GetKey(KeyCode.RightArrow))
             {
-                if (stepTime < Time.time && isGrounded == true)
+                if (stepTime < Time.time && isGrounded == true) // Plays walking sound.
                 {
                     mySource.PlayOneShot(walkClip);
                     stepTime = Time.time + stepRate;
                 }
 
                 gameObject.GetComponent<SpriteRenderer>().flipX = false;
-                if (rb.velocity.x < 0f)
+                if (rb.velocity.x < 0f) // Checks and limits the players speed.
                 {
                     SlowDown(1f);
                 }
@@ -308,12 +308,12 @@ public class Player : MonoBehaviour
                     }
                 }
             }
-            else
+            else // Lerps the players velocity to zero if the player is not walking.
             {
                 rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, 0.1f), rb.velocity.y);
             }
         }
-        else
+        else // This is used to prevent the player from sliding along the ground. Only in situations where the player isn't walking.
         {
             rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, Time.deltaTime * 3f), rb.velocity.y);
         }
@@ -323,7 +323,7 @@ public class Player : MonoBehaviour
             wallJumped = false;
         }
 
-        // Dash one directions set
+        // Sets directions for dashing up, down, left and right.
         if (Input.GetKey(KeyCode.RightArrow))
         {
             dashDirection = Vector2.right * 1.4f;
@@ -344,7 +344,7 @@ public class Player : MonoBehaviour
             dashDirection = Vector2.down / 1.1f;
         }
 
-        // Dash two directions set
+        // Sets directions for dashing diagonally 
         if (Input.GetKey(KeyCode.RightArrow) && Input.GetKey(KeyCode.UpArrow))
         {
             dashDirection = Vector2.right + Vector2.up * 1.2f;
@@ -372,6 +372,7 @@ public class Player : MonoBehaviour
             PlayerDash(dashDirection);
         }
 
+        //sets animations bools
         myAnimator.SetBool("IsJumping", jumped);
         myAnimator.SetBool("Hold", wallAttached);
         myAnimator.SetBool("Dashing", isDashing);
@@ -382,6 +383,8 @@ public class Player : MonoBehaviour
     #endregion
 
     #region wait
+
+    // waits a set amount of time.
     IEnumerator waitTime()
     {
         yield return new WaitForSeconds(0.5f);
@@ -397,12 +400,15 @@ public class Player : MonoBehaviour
     #endregion
 
     #region Dash/SlowDown
+    
+    // Adds force in the set directions
     void PlayerDash(Vector2 dir)
     {
         isDashing = true;
         rb.velocity = Vector2.zero;
         float power = jumpPower;
 
+        // Prevents player from moving in the Y axis.
         if (dashDirection == Vector2.left * 1.4f || dashDirection == Vector2.right * 1.4f)
         {
             rb.constraints = RigidbodyConstraints2D.FreezePositionY;
@@ -415,25 +421,31 @@ public class Player : MonoBehaviour
         nextDashTime = Time.time + DashTimeIncrease;
     }
 
+    // Returns the player back to a normal
     IEnumerator NormalMoveSpeed()
     {
         yield return new WaitForSeconds(0.2f);
+
+        // Removes player constraints
         if (leftRightDash == true)
         {
             rb.constraints = RigidbodyConstraints2D.None;
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             leftRightDash = false;
         }
+
         rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, Time.deltaTime), rb.velocity.y);
         yield return new WaitForSeconds(0.15f);
         DashSlowDown(rb.velocity.x);
     }
 
+    // Slows player down to zero for walking or jumping
     void SlowDown(float speed)
     {
         rb.velocity = new Vector2(Mathf.Lerp(speed, 0f, Time.deltaTime), rb.velocity.y);
     }
 
+    // Slows player down after dashing while in the air.
     void DashSlowDown(float speed)
     {
         isDashing = false;
@@ -441,52 +453,32 @@ public class Player : MonoBehaviour
 
     #endregion
 
-    public void SpawnDots()
+    // Spawn a marker that indicates where the player as died.
+    public void SpawnDeathMarker()
     {
         GameObject deathMarkObject = Instantiate(DeathMarker, this.transform.position, Quaternion.Euler(0f, 0f, 0f));
 
         deathMarkObject.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
-        /*RaycastHit2D[] hitInfo = Physics2D.CircleCastAll(transform.position, 8f, Vector2.zero);
-        GameObject[] spikes = GameObject.FindGameObjectsWithTag("Spikes");
-
-        foreach (GameObject item in spikes)
-        {
-            item.SetActive(false);
-        }
-
-        for (int i = 0; i < 359; i++)
-        {
-            deathMarkObject.transform.localRotation = Quaternion.Euler(0f, 0f, i);
-            RaycastHit2D myHit = Physics2D.Linecast(transform.position, deathMarkObject.transform.GetChild(0).transform.position);
-
-            if (myHit.collider != null)
-            {
-                Instantiate(deathDot, myHit.point, Quaternion.identity);
-            }
-        }
-
-        foreach (GameObject item in spikes)
-        {
-            item.SetActive(true);
-        }*/
-
     }
 
+    // Spawns light on death and turns off components including this script.
     public void PlayersDeath()
     {
         Instantiate(deathLight, transform.position, Quaternion.identity);
         mySource.PlayOneShot(deathClip);
         myRenderer.enabled = false;
         rb.simulated = false;
-        SpawnDots();
+        SpawnDeathMarker();
         this.enabled = false;
     }
 
+    // Plays Sound for falling platforms.
     public void FallingPlatformSound()
     {
         mySource.PlayOneShot(FallingPlatformClip);
     }
 
+    // Sets variables and resets player spawn position when death occurs.
     public void Dead()
     {
         rb.velocity = Vector2.zero;
@@ -507,150 +499,5 @@ public class Player : MonoBehaviour
         leftRightDash = false;
 
         transform.position = spawnPoint;
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        
     }
 }
-
-//BackUp Code
-/*public float health = 100f;
-public float movingSpeed = 10f;
-public float jumpPower = 10f;
-public float baseMoveSpeed;
-public Rigidbody2D rb;
-public GameObject attackPoint;
-public GameObject hitBox;
-public bool isGrounded = false;
-public LayerMask groundLayer;
-public Vector2 moving = Vector2.zero;
-public float fireRate = 0.5f;
-public float nextTime;
-public bool slowStop;
-public bool isLeft;
-public bool isRight;
-public bool isCrouching;
-public Text healthText;
-public GameObject underObject;
-// Start is called before the first frame update
-void Awake()
-{
-    healthText = GameObject.Find("Health").GetComponent<Text>();
-    rb = gameObject.GetComponent<Rigidbody2D>();
-    baseMoveSpeed = movingSpeed;
-}
-
-// Update is called once per frame
-void Update()
-{
-    healthText.text = "Health: " + health.ToString();
-    //player movement left and right
-    if (Input.GetKey(KeyCode.A))
-    {
-        if (rb.velocity.x > 0f)
-        {
-            SlowDown(-1f);
-        }
-        else
-        {
-            attackPoint.transform.localPosition = new Vector3(-1.5f, attackPoint.transform.localPosition.y, attackPoint.transform.localPosition.z);
-            rb.AddForce(Vector2.left * movingSpeed * Time.deltaTime);
-
-            if (rb.velocity.magnitude > 6f)
-            {
-                rb.AddForce(Vector2.right * movingSpeed * Time.deltaTime);
-            }
-        }
-    }
-    else if (Input.GetKey(KeyCode.D))
-    {
-        if (rb.velocity.x < 0f)
-        {
-            SlowDown(1f);
-        }
-        else
-        {
-            attackPoint.transform.localPosition = new Vector3(1.5f, attackPoint.transform.localPosition.y, attackPoint.transform.localPosition.z);
-            rb.AddForce(Vector2.right * movingSpeed * Time.deltaTime);
-
-            if (rb.velocity.magnitude > 6f)
-            {
-                rb.AddForce(Vector2.left * movingSpeed * Time.deltaTime);
-            }
-        }
-    }
-    else
-    {
-        rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0f, 0.1f), rb.velocity.y);
-    }
-
-    //player crouch
-    if (Input.GetKeyDown(KeyCode.S))
-    {
-        if (underObject != null)
-        {
-            if (underObject.GetComponent<crouchCheck>().isOutside == false)
-            {
-                isCrouching = true;
-                movingSpeed /= 2f;
-            }
-        }
-        else
-        {
-            isCrouching = true;
-            movingSpeed /= 2f;
-        }
-    }
-    else
-    {
-        if (underObject != null)
-        {
-            if (underObject.GetComponent<crouchCheck>().isOutside == true)
-            {
-                isCrouching = false;
-                movingSpeed = baseMoveSpeed;
-            }
-        }
-        else
-        {
-            isCrouching = false;
-            movingSpeed = baseMoveSpeed;
-        }
-    }
-
-    //player jump
-    if (Input.GetKeyDown(KeyCode.W) && isGrounded == true && isCrouching == false)
-    {
-        rb.AddForce(Vector2.up * jumpPower);
-    }
-
-    //Player Attack
-    if (Input.GetKey(KeyCode.Mouse0) && nextTime < Time.time)
-    {
-        Instantiate(hitBox, attackPoint.transform.position, Quaternion.identity);
-        nextTime = Time.time + fireRate;
-    }
-
-    //Ground checker
-    RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, 0.55f, groundLayer);
-
-    if (hitInfo.collider != null)
-    {
-        isGrounded = true;
-        rb.velocity = new Vector2(rb.velocity.x, 0f);
-    }
-    else
-    {
-        isGrounded = false;
-    }
-
-}
-
-void SlowDown(float speed)
-{
-    rb.velocity = new Vector2(Mathf.Lerp(speed, 0f, 0.1f), rb.velocity.y);
-}
-
-public void TakeDamage(float amount)
-{
-    health -= amount;
-}*/

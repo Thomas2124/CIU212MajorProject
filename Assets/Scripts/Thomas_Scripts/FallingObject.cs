@@ -32,7 +32,7 @@ public class FallingObject : MonoBehaviour
         {
             Player.playerInstance.myRenderer.enabled = false;
             Player.playerInstance.rb.simulated = false;
-            Player.playerInstance.SpawnDots();
+            Player.playerInstance.SpawnDeathMarker();
             Player.playerInstance.PlayersDeath();
             StartCoroutine(PlayerSpawn());
         }

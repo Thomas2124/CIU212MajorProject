@@ -65,7 +65,7 @@ public class Spikes : MonoBehaviour
         {
             Player.playerInstance.myRenderer.enabled = false;
             Player.playerInstance.rb.simulated = false;
-            Player.playerInstance.SpawnDots();
+            Player.playerInstance.SpawnDeathMarker();
             Player.playerInstance.PlayersDeath();
             StartCoroutine(PlayerSpawn());
             
@@ -200,7 +200,7 @@ public class Spikes : MonoBehaviour
             //Destroy(gameObject);
         }
 
-        GetComponent<BoxCollider2D>().enabled = true;
+        //GetComponent<BoxCollider2D>().enabled = true;
         transform.rotation = Quaternion.Euler(myVector);
 
         StartCoroutine(wait());
