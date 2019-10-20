@@ -119,7 +119,7 @@ public class Player : MonoBehaviour
         else
         {
             wallGrab = false;
-        }
+        }  
 
         // if their is not walls next to the player, this forces them to fall down.
         if (hitInfo4.collider == null && hitInfo5.collider == null && wallAttached == true)
@@ -135,6 +135,7 @@ public class Player : MonoBehaviour
         // Checks and sets variables for when the player is touching the ground.
         if (hitInfo.collider != null)
         {
+            myAnimator.SetFloat("Speed", rb.velocity.magnitude);
             myAnimator.SetBool("Hold", false);
             rb.gravityScale = startGravity;
             wallAttached = false;
@@ -149,6 +150,7 @@ public class Player : MonoBehaviour
         }
         else
         {
+            myAnimator.SetFloat("Speed", 0);
             fallJump = true;
             isGrounded = false;
         }
@@ -268,6 +270,8 @@ public class Player : MonoBehaviour
             }
         }
 
+        myAnimator.SetBool("IsJumping", jumped);
+
         //player movement/Walking left and right.
         if (wallJumped == false && wallAttached == false && isDashing == false)
         {
@@ -383,16 +387,7 @@ public class Player : MonoBehaviour
         }
 
         //sets animations bools
-        if (jumped == true)
-        {
-            myAnimator.SetFloat("Speed", 0);
-        }
-        else
-        {
-            myAnimator.SetFloat("Speed", rb.velocity.magnitude);
-        }
 
-        myAnimator.SetBool("IsJumping", jumped);
         //myAnimator.SetBool("Hold", wallAttached);
         //myAnimator.SetBool("Dashing", isDashing);
     }
