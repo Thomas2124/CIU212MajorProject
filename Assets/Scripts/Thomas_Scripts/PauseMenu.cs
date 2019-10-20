@@ -37,18 +37,21 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Check if its the loading screen.
         if (isLoading == true)
         {
             loadingPanel.SetActive(true);
         }
         else
         {
+            // Toggle pause menu
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 mySource.PlayOneShot(clip);
                 isPaused = !isPaused;
             }
 
+            // Sets menu on and off
             if (isPaused == true)
             {
                 Time.timeScale = 0.0f;
@@ -62,7 +65,8 @@ public class PauseMenu : MonoBehaviour
             }
         }
     }
-
+    
+    // Makes loading screen fade down.
     public IEnumerator FadeDown()
     {
         yield return new WaitForSeconds(0.5f);
@@ -72,11 +76,13 @@ public class PauseMenu : MonoBehaviour
         rb.simulated = true;
     }
 
+    // Conitnues the current play session.
     public void Resume()
     {
         isPaused = false;
     }
 
+    // Reset the current level.
     public void Restart()
     {
         Time.timeScale = 1.0f;
@@ -84,12 +90,14 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
+    // Returns to the main menu.
     public void MainMenu()
     {
         Time.timeScale = 1.0f;
         SceneManager.LoadScene("MainMenu");
     }
 
+    // Closes the application
     public void QuitGame()
     {
         Application.Quit();

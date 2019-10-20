@@ -26,31 +26,33 @@ public class FallingPlatform : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
+        // Checks if player touchs the platform. If so fall down.
         if (collision.gameObject.tag == "Player" && stop == false)
         {
             Player.playerInstance.FallingPlatformSound();
             StartCoroutine(Fall());
             stop = true;
         }
-
-        /*if (collision.gameObject.tag != "Player" && collision.gameObject != gameObject.transform.parent)
-        {
-            StartCoroutine(Reset());
-        }*/
     }
 
+    // Makes platform fall down and reset after a specific amount of time.
     IEnumerator Fall()
     {
+        // Slow fall
         rb.gravityScale = 0.10f;
         rb.constraints = RigidbodyConstraints2D.FreezePosition;
         rb.constraints = RigidbodyConstraints2D.FreezePositionX;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         yield return new WaitForSeconds(waitTime);
+
+        // Hard fall
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1f);
         myCollider.enabled = false;
         rb.gravityScale = theGravity;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         yield return new WaitForSeconds(6f);
+
+        // Reset platform
         myCollider.enabled = true;
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
         gameObject.transform.parent.position = resetPoint;

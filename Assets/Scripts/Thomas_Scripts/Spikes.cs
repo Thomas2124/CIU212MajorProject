@@ -20,47 +20,11 @@ public class Spikes : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        //GetComponent<BoxCollider2D>().enabled = true;
     }
-
-    /*void Update()
-    {
-        if (Player.playerInstance != null)
-        {
-            if (Player.playerInstance.myRenderer.flipX == false)
-            {
-                if (myVector.z == 270f)
-                {
-                    if (Player.playerInstance.velocity < 7f)
-                    {
-                        collider.enabled = true;
-                    }
-                    else
-                    {
-                        collider.enabled = false;
-                    }
-                }
-            }
-
-            if (Player.playerInstance.myRenderer.flipX == true)
-            {
-                if (myVector.z == 90f)
-                {
-                    if (Player.playerInstance.velocity < 7f)
-                    {
-                        collider.enabled = true;
-                    }
-                    else
-                    {
-                        collider.enabled = false;
-                    }
-                }
-            }
-        }
-    }*/
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
+        // Checks if the player touchs the collider, if so player is dead.
         if (collision.gameObject.tag == "Player")
         {
             Player.playerInstance.myRenderer.enabled = false;
@@ -72,6 +36,7 @@ public class Spikes : MonoBehaviour
         }
     }
 
+    // Respawn player after set amount of time.
     IEnumerator PlayerSpawn()
     {
         yield return new WaitForSeconds(2.0f);
@@ -81,13 +46,16 @@ public class Spikes : MonoBehaviour
         Player.playerInstance.Dead();
     }
 
+    // Checks surrounding gameobjects.
     void ColliderCheck()
     {
+        // Rays for each direction.
         hitInfo1 = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + 0.21f), Vector2.up, 1f);
         hitInfo2 = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - 0.21f), Vector2.down, 1f);
         hitInfo3 = Physics2D.Raycast(new Vector2(transform.position.x - 0.21f, transform.position.y), Vector2.left, 1f);
         hitInfo4 = Physics2D.Raycast(new Vector2(transform.position.x + 0.21f, transform.position.y), Vector2.right, 1f);
 
+        // Checks if the rays hit anything.
         if (hitInfo1.collider != null)
         {
             up = true;
@@ -108,7 +76,7 @@ public class Spikes : MonoBehaviour
             right = true;
         }
     }
-
+    // rotates gameobject to fit the environment.
     public void GameObjectSpin()
     {
         myVector = transform.localEulerAngles;
@@ -200,12 +168,12 @@ public class Spikes : MonoBehaviour
             //Destroy(gameObject);
         }
 
-        //GetComponent<BoxCollider2D>().enabled = true;
         transform.rotation = Quaternion.Euler(myVector);
 
         StartCoroutine(wait());
     }
 
+    // Waits for set amount of time before adjusting the colliders.
     IEnumerator wait()
     {
         yield return new WaitForSeconds(2f);

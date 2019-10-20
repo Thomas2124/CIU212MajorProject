@@ -26,10 +26,11 @@ public class TestPlatformJoin : MonoBehaviour
 
     void CheckAndSetPlatform()
     {
+        // Cycles through all the platforms in the array.
+        // Determines which objects are the left (Starting side) or right (Ending side) side on the platform.
         for (int i = 0; i < myPlatforms.Length; i++)
         {
             SpriteRenderer myRenderer = myPlatforms[i].GetComponent<SpriteRenderer>();
-            //&& hitLeft.collider.gameObject != myPlatforms[i]
             Vector2 objectPos = myPlatforms[i].transform.position;
             Vector2 leftPos = new Vector2(objectPos.x - 0.51f, objectPos.y);
             Vector2 rightPos = new Vector2(objectPos.x + 0.51f, objectPos.y);
@@ -42,6 +43,7 @@ public class TestPlatformJoin : MonoBehaviour
             bool isLeft = false;
             bool isRight = false;
 
+            // Uses raycasts to check if something is next to it.
             if (hitLeft.collider != null)
             {
                 if (hitLeft.collider.tag == "FallingPlatform")
@@ -58,19 +60,21 @@ public class TestPlatformJoin : MonoBehaviour
                 }
             }
 
-            if (isLeft == true && isRight == false)
+
+            if (isLeft == true && isRight == false) // If there is no platform on the right, add to starting list.
             {
                 startPos.Add(myPlatforms[i].transform.position);
                 startPlat.Add(myPlatforms[i]);
                 myRenderer.sprite = platformSprites[2];
             }
-            else if (isLeft == false && isRight == true)
+            else if (isLeft == false && isRight == true) // If there is no platform on the left, add to ending list.
             {
                 endPlat.Add(myPlatforms[i]);
                 myRenderer.sprite = platformSprites[0];
             }
         }
 
+        // Cycles through all platforms and check if its a start or end platform else turn of the collider.
         foreach (GameObject item in myPlatforms)
         {
             bool not1 = false;
@@ -92,12 +96,13 @@ public class TestPlatformJoin : MonoBehaviour
                 }
             }
 
-            if (not1 == false && not2 == false)
+            if (not1 == false && not2 == false) // Turns collider off if it doesnt match anything.
             {
                 item.GetComponent<BoxCollider2D>().enabled = false;
             }
         }
 
+        // Checks what end platform is next to the start platform.
         for (int i = 0; i < startPlat.Count; i++)
         {
             for (int j = 0; j < endPlat.Count; j++)
@@ -106,16 +111,17 @@ public class TestPlatformJoin : MonoBehaviour
                 Vector2 leftPos = new Vector2(objectPos.x - 0.51f, objectPos.y);
                 Vector2 rightPos = new Vector2(objectPos.x + 0.51f, objectPos.y);
 
-                RaycastHit2D hitRight = Physics2D.Raycast(rightPos, Vector2.right);
+                //RaycastHit2D hitRight = Physics2D.Raycast(rightPos, Vector2.right);
                 RaycastHit2D hitLeft = Physics2D.Raycast(leftPos, Vector2.left);
 
-                if (hitLeft.collider.gameObject == endPlat[j])
+                if (hitLeft.collider.gameObject == endPlat[j]) // Adds position of end platform to a list.
                 {
                     endPos.Add(hitLeft.collider.transform.position);
                 }
             }
         }
 
+        // Spawns a new larger platform for each starting position.
         for (int i = 0; i < startPos.Count; i++)
         {
             Vector3 combinePos = startPos[i] + endPos[i];
@@ -124,6 +130,7 @@ public class TestPlatformJoin : MonoBehaviour
             newPlatform.GetComponent<SpriteRenderer>().enabled = false;
             newPlatform.GetComponent<BoxCollider2D>().size = new Vector2(Vector2.Distance(startPos[i], endPos[i]) + 1f, 1f);
 
+            // Cycles through each platform and turns everything off.
             foreach (GameObject item in myPlatforms)
             {
                 if (newPlatform.GetComponent<BoxCollider2D>().bounds.Contains(item.transform.position))

@@ -32,28 +32,28 @@ public class LevelGenerator : MonoBehaviour
         GenerateLevel();
     }
 
+    // Checks every pixel on image.
     void GenerateLevel()
     {
         for (int x = 0; x < map.width; x++)
         {
             for (int y = 0; y < map.height; y++)
             {
-                //Instantiate(backGround, new Vector3(x, y, 0f), Quaternion.identity, this.gameObject.transform);
                 GenerateTile(x, y);
             }
         }
 
-        //joinScript.enabled = true;
         spriteScript.enabled = true;
         isDone = true;
     }
 
+    // Spawns a tile based on pixel colour.
     void GenerateTile(int x, int y)
     {
         Color pixelColor = map.GetPixel(x, y);
         Vector3 pos = new Vector3(x, y, 0f);
 
-        if (pixelColor.a == 0)
+        if (pixelColor.a == 0) // Spawns a background sprite.
         {
             Instantiate(backGround, pos, Quaternion.identity, this.gameObject.transform);
             return;
@@ -63,10 +63,8 @@ public class LevelGenerator : MonoBehaviour
         {
             Instantiate(backGround, pos, Quaternion.identity, this.gameObject.transform);
         }
-
-        //print(x.ToString() + ", " + y.ToString());
         
-        foreach (ColorToPrefab item in colorMappings)
+        foreach (ColorToPrefab item in colorMappings) // Spawns object based on colour.
         {
             if (item.color.Equals(pixelColor))
             {

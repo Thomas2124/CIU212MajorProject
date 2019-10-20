@@ -8,14 +8,16 @@ public class NewDeadLight : MonoBehaviour
     public float radius = 6f;
     public GameObject[] lights;
 
-    // Start is called before the first frame update
+
     void OnEnable()
     {
+        // Check if objects can be found.
         if (GameObject.FindGameObjectsWithTag("DeadLight") != null)
         {
             lights = GameObject.FindGameObjectsWithTag("DeadLight");
         }
 
+        // Get all collider within a radius.
         Collider2D[] hit = Physics2D.OverlapCircleAll(transform.position, radius);
 
         foreach (Collider2D item in hit)
@@ -24,22 +26,23 @@ public class NewDeadLight : MonoBehaviour
             GameObject currentObject = item.gameObject;
             SpriteRenderer currentrenderer = currentObject.GetComponent<SpriteRenderer>();
 
-            if (currentObject.tag != "FallingPlatform" && currentrenderer != null)
+            if (currentObject.tag != "FallingPlatform" && currentrenderer != null) 
             {
-                if (lights != null && lights.Length > 1)
+                if (lights != null && lights.Length > 1) // If the array has more than two elements.
                 {
                     for (int i = 0; i < lights.Length; i++)
                     {
                         GameObject currentLight = lights[i];
 
-                        if (currentLight != gameObject)
+                        if (currentLight != gameObject) // Checks if the current element doesn't equal this gameobject
                         {
+                            // Cycles through all the objects and checks if an object is already in the same position.
                             for (int j = 0; j < currentLight.GetComponent<NewDeadLight>().listObjects.Count; j++)
                             {
                                 GameObject listedObject = currentLight.GetComponent<NewDeadLight>().listObjects[j];
                                 SpriteRenderer listedRenderer = listedObject.GetComponent<SpriteRenderer>();
 
-                                if (currentObject.transform.position == listedObject.transform.position)
+                                if (currentObject.transform.position == listedObject.transform.position) // resets the alpha value of the renderer.
                                 {
                                     print("match");
                                     Color myColor = listedRenderer.material.color;
@@ -57,7 +60,7 @@ public class NewDeadLight : MonoBehaviour
                     }
                 }
 
-                if (make == true)
+                if (make == true) // If there is no match, create an object and add it to a list.
                 {
                     GameObject theObject = Instantiate(item.gameObject);
                     theObject.isStatic = false;
@@ -75,7 +78,7 @@ public class NewDeadLight : MonoBehaviour
             } 
         }
 
-
+        // After checking all the objects in the Hit array, set the alpha values in the listObjects array based on distance.
         if (listObjects != null)
         {
             foreach (GameObject item in listObjects)

@@ -25,10 +25,11 @@ public class FallingObject : MonoBehaviour
         }
     }
 
+    // Checks if player hits collider. If so player is dead.
     public void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject colObject = collision.gameObject;
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player") // If collider is player.
         {
             Player.playerInstance.myRenderer.enabled = false;
             Player.playerInstance.rb.simulated = false;
@@ -37,12 +38,13 @@ public class FallingObject : MonoBehaviour
             StartCoroutine(PlayerSpawn());
         }
 
-        if (colObject.tag != "Player" && colObject != gameObject)
+        if (colObject.tag != "Player" && colObject != gameObject) // If collider is not the player.
         {
             gameObject.SetActive(false);
         }
     }
 
+    // Kill player and respawn.
     IEnumerator PlayerSpawn()
     {
         yield return new WaitForSeconds(2.0f);

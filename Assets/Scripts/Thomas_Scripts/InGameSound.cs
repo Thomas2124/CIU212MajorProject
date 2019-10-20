@@ -5,9 +5,11 @@ using UnityEngine;
 public class InGameSound : MonoBehaviour
 {
     public AudioSource mySource;
+
     // Start is called before the first frame update
     void Start()
     {
+        // Sets mute bool
         if (PlayerPrefs.GetInt("Mute") == 0)
         {
             PlayerPrefs.SetInt("Mute", 1);
@@ -28,6 +30,7 @@ public class InGameSound : MonoBehaviour
             }
         }
 
+        // Sets adjust value.
         if (PlayerPrefs.GetFloat("Adjust") == 0f)
         {
             PlayerPrefs.SetFloat("Adjust", 1f + 1f);

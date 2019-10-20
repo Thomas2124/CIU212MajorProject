@@ -20,6 +20,7 @@ public class LevelUnlock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // These keys are for debugging only
         if (Input.GetKeyDown(KeyCode.Z))
         {
             SetLevels(12);
@@ -31,6 +32,7 @@ public class LevelUnlock : MonoBehaviour
         }
     }
 
+    // Turns buttons on and off based on what levels the player has finished.
     void SetLevels(int num)
     {
         for (int i = 0; i < buttons.Length; i++)

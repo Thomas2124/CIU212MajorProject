@@ -43,6 +43,7 @@ public class ReplaceSprites : MonoBehaviour
         SetFallingPlatforms(false);
         finishGameObject.SetActive(false);
 
+        // Sets renderer sprite based on the position of the object.
         foreach (GameObject item in floorGameObject)
         {
             RaycastDirections(item.transform.localPosition);
@@ -130,6 +131,7 @@ public class ReplaceSprites : MonoBehaviour
 
     void SetSpikes(bool myBool)
     {
+        // Makes spikes rotate
         foreach (GameObject item in spikesGameObject)
         {
             item.SetActive(myBool);
@@ -149,6 +151,7 @@ public class ReplaceSprites : MonoBehaviour
         }
     }
 
+    // Turns falling platforms on and off.
     void SetFallingPlatforms(bool myBool)
     {
         foreach (GameObject item in fallingPlatformGameObject)
@@ -157,6 +160,7 @@ public class ReplaceSprites : MonoBehaviour
         }
     }
 
+    // Enables script to start joining the platforms.
     IEnumerator NewSetFallingPlatform()
     {
         yield return new WaitForSeconds(0.2f);
@@ -164,6 +168,7 @@ public class ReplaceSprites : MonoBehaviour
         joinScript.enabled = true;
     }
 
+    // Start to make the screen fade.
     void FadeNow()
     {
         if (PauseMenu.Instance != null)

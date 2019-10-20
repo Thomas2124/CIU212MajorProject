@@ -23,6 +23,7 @@ public class CameraFollow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Sets offset values.
         target = GameObject.FindGameObjectWithTag("Player").transform;
         targetRb = target.GetComponent<Rigidbody2D>();
         offsetRight = new Vector3(target.position.x + 2f, target.position.y, -10f);
@@ -36,9 +37,11 @@ public class CameraFollow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Gets highest and longest point on the generated level.
         highestPoint = LevelGenerator.Instance.highestNum;
         longestPoint = LevelGenerator.Instance.longestNum;
 
+        // Sets offset and limits the position of the camera based on level size.
         offset = new Vector3(target.position.x, target.position.y, -10f);
         offset.x = Mathf.Clamp(target.position.x, xMinus, longestPoint - xMinus);
         offset.y = Mathf.Clamp(target.position.y, yMinus, highestPoint - yMinus);
@@ -49,40 +52,5 @@ public class CameraFollow : MonoBehaviour
 
         transform.position = smoothedPosition;
     }
-
-    /*if (target.position.y > yMinus && target.position.y < highestPoint - yMinus)
-        {
-            if (targetRb.velocity.normalized == Vector2.up)
-            {
-                desiredPosition = offset + Vector3.up * 3f;
-            }
-            else if (targetRb.velocity.normalized == Vector2.down)
-            {
-                desiredPosition = offset + Vector3.down * 3f;
-            }
-            else
-            {
-                desiredPosition = offset;
-            }
-        }
-        else if(target.position.x > xMinus && target.position.x < longestPoint - xMinus)
-        {
-            if (targetRb.velocity.normalized == Vector2.left)
-            {
-                desiredPosition = offset + Vector3.left * 3f;
-            }
-            else if (targetRb.velocity.normalized == Vector2.right)
-            {
-                desiredPosition = offset + Vector3.right * 3f;
-            }
-            else
-            {
-                desiredPosition = offset;
-            }
-        }
-        else
-        {
-            desiredPosition = offset;
-        }*/
 }
 

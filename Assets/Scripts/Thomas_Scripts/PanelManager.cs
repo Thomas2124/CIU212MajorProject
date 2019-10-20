@@ -38,6 +38,7 @@ public class PanelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Checks if the page limit is reached.
         if (page < 0)
         {
             playPage = false;
@@ -70,6 +71,7 @@ public class PanelManager : MonoBehaviour
         }
     }
 
+    // Turns panels on and off.
     void ActiveObjects(int num)
     {
         if (panels != null)
@@ -88,6 +90,7 @@ public class PanelManager : MonoBehaviour
         }
     }
 
+    // Increases page variable by 1.
     public void AddOne()
     {
         if (mySource != null && playPage == true)
@@ -96,6 +99,7 @@ public class PanelManager : MonoBehaviour
         page += 1;
     }
 
+    // Decreases page variable by 1.
     public void MinusOne()
     {
         if (mySource != null && playPage == true)
@@ -104,6 +108,7 @@ public class PanelManager : MonoBehaviour
         page -= 1;
     }
 
+    // Loaded the level picked by the player.
     public void LevelSelected(int num)
     {
         mySource.PlayOneShot(buttonClick);
@@ -111,12 +116,14 @@ public class PanelManager : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
+    // Closes the application.
     public void QuitGame()
     {
         mySource.PlayOneShot(buttonClick);
         Application.Quit();
     }
 
+    // Sets playerpref to mute the audio.
     public void MuteSound()
     {
         mySource.PlayOneShot(buttonClick);
@@ -134,6 +141,7 @@ public class PanelManager : MonoBehaviour
         }
     }
 
+    // Uses a slider to adjust the audio
     public void AdjustSound()
     {
         //mySource.PlayOneShot(buttonClick);
@@ -143,12 +151,14 @@ public class PanelManager : MonoBehaviour
         mySource.volume = PlayerPrefs.GetFloat("Adjust") - 1f;
     }
 
+    // Uses drop down to display quality options.
     public void AdjustGraphics(int quality)
     {
         mySource.PlayOneShot(buttonClick);
         QualitySettings.SetQualityLevel(quality);
     }
 
+    // Player can make toggle fullscreen.
     public void FullScreen()
     {
         mySource.PlayOneShot(buttonClick);
@@ -164,8 +174,10 @@ public class PanelManager : MonoBehaviour
         }
     }
 
+    // sets values for the script.
     public void SetValues()
     {
+        // Checks if the playerpref exists.
         if (PlayerPrefs.GetInt("Mute") == 0)
         {
             PlayerPrefs.SetInt("Mute", 1);
@@ -189,6 +201,7 @@ public class PanelManager : MonoBehaviour
             }
         }
 
+        // Checks if the playerpref exists.
         if (PlayerPrefs.GetFloat("Adjust") == 0f)
         {
             PlayerPrefs.SetFloat("Adjust", 1f + 1f);

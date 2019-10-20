@@ -32,6 +32,7 @@ public class PlayerLight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Lerps up to maximum set range and holds.
         if (lightUp == true)
         {
             objectLight.range = Mathf.Lerp(startValue, endValue, speed);
@@ -46,6 +47,7 @@ public class PlayerLight : MonoBehaviour
             }
         }
 
+        // Lerps down to minimum set range and holds.
         if (lightDown == true)
         {
             speed -= changeRate;
@@ -59,6 +61,7 @@ public class PlayerLight : MonoBehaviour
         }
     }
 
+    // Delays lerp up
     IEnumerator HoldLightUp()
     {
         lightUp = false;
@@ -68,6 +71,7 @@ public class PlayerLight : MonoBehaviour
         lightDown = true;
     }
 
+    // Delays lerp down
     IEnumerator HoldLightDown()
     {
         yield return new WaitForSeconds(waitTime);
@@ -76,33 +80,3 @@ public class PlayerLight : MonoBehaviour
         lightUp = true;
     }
 }
-
-/*objectLight.range = Mathf.Lerp(startValue, endValue, speed);
-
-        if (doneTask == false)
-        {
-            if (objectLight.range >= 10f)
-            {
-                doneTask = true;
-            }
-            else
-            {
-                speed += changeRate;
-            }
-        }
-
-        yield return new WaitForSeconds(waitTime);
-
-        if (doneTask == true)
-        {
-            speed -= changeRate;
-        }
-
-        objectLight.range = Mathf.Lerp(startValue, endValue, speed);
-
-        if (objectLight.range <= startValue && doneTask == true)
-        {
-            isRunning = false;
-            doneTask = false;
-        }
-    }*/
