@@ -209,6 +209,7 @@ public class Player : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Z))
                 {
+                    gameObject.GetComponent<SpriteRenderer>().flipX = false;
                     myAnimator.SetBool("Hold", true);
                     mySource.PlayOneShot(wallGrabClip);
                     wallAttached = true;
@@ -226,6 +227,7 @@ public class Player : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Z))
                 {
+                    gameObject.GetComponent<SpriteRenderer>().flipX = true;
                     myAnimator.SetBool("Hold", true);
                     mySource.PlayOneShot(wallGrabClip);
                     wallAttached = true;
