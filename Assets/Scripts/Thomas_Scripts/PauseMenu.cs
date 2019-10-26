@@ -9,6 +9,7 @@ public class PauseMenu : MonoBehaviour
     public static PauseMenu Instance;
     public GameObject myMenu;
     public GameObject loadingPanel;
+    public Text levelText;
     public GameObject blackPanel;
     public bool isPaused = false;
     public bool isLoading = false;
