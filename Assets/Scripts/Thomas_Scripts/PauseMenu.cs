@@ -9,6 +9,7 @@ public class PauseMenu : MonoBehaviour
     public static PauseMenu Instance;
     public GameObject myMenu;
     public GameObject loadingPanel;
+    public GameObject nextlevelPanel;
     public Text levelText;
     public GameObject blackPanel;
     public bool isPaused = false;
@@ -24,6 +25,7 @@ public class PauseMenu : MonoBehaviour
         myMenu.SetActive(false);
         loadingPanel.SetActive(false);
         blackPanel.SetActive(true);
+        nextlevelPanel.SetActive(false);
         isPaused = false;
     }
 
@@ -102,5 +104,12 @@ public class PauseMenu : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+
+    // loads next level
+    public void LoadNextLevel()
+    {
+        ResetPlayer.Instance.NextLevel();
     }
 }

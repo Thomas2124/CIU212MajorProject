@@ -8,6 +8,7 @@ public class ResetPlayer : MonoBehaviour
     public static ResetPlayer Instance;
     public string sceneName = "PlatformerScene";
     public GameObject loadingPanel;
+    public GameObject endLevelPanel;
 
     private void Awake()
     {
@@ -19,23 +20,31 @@ public class ResetPlayer : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            PlayerPrefs.SetInt("Level", PlayerPrefs.GetInt("Level") + 1);
-            PauseMenu.Instance.isLoading = true;
-            PauseMenu.Instance.levelText.text = LevelText(PlayerPrefs.GetInt("Level") + 1);
+            endLevelPanel = PauseMenu.Instance.nextlevelPanel;
+            endLevelPanel.SetActive(true);
+            Time.timeScale = 0f;
+        }
+    }
 
-            if (PlayerPrefs.GetInt("Level") > PlayerPrefs.GetInt("Unlock")) // Unlocks current level in main menu.
-            {
-                PlayerPrefs.SetInt("Unlock", PlayerPrefs.GetInt("Level"));
-            }
+    public void NextLevel()
+    {
+        Time.timeScale = 1f;
+        PlayerPrefs.SetInt("Level", PlayerPrefs.GetInt("Level") + 1);
+        PauseMenu.Instance.isLoading = true;
+        PauseMenu.Instance.levelText.text = LevelText(PlayerPrefs.GetInt("Level") + 1);
 
-            if (PlayerPrefs.GetInt("Level") > 11) // Checks if a level can be loaded if not return to main menu.
-            {
-                SceneManager.LoadScene("MainMenu");
-            }
-            else
-            {
-                SceneManager.LoadScene(sceneName);
-            }
+        if (PlayerPrefs.GetInt("Level") > PlayerPrefs.GetInt("Unlock")) // Unlocks current level in main menu.
+        {
+            PlayerPrefs.SetInt("Unlock", PlayerPrefs.GetInt("Level"));
+        }
+
+        if (PlayerPrefs.GetInt("Level") > 11) // Checks if a level can be loaded if not return to main menu.
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+        else
+        {
+            SceneManager.LoadScene(sceneName);
         }
     }
 
