@@ -479,6 +479,7 @@ public class Player : MonoBehaviour
     // Spawns light on death and turns off components including this script.
     public void PlayersDeath()
     {
+        PauseMenu.Instance.AddDeathCounter();
         Instantiate(deathLight, transform.position, Quaternion.identity);
         mySource.PlayOneShot(deathClip);
         myRenderer.enabled = false;

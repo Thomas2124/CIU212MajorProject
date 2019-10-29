@@ -9,6 +9,7 @@ public class PanelManager : MonoBehaviour
     public static PanelManager Instance;
 
     int page = 0;
+    public Text deathCounter;
     public GameObject[] panels;
     public string sceneName;
     public TurnOnObjects script;
@@ -29,6 +30,7 @@ public class PanelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        deathCounter.text = PlayerPrefs.GetInt("DeathCounter").ToString();
         if (mySource)
         {
             SetValues();

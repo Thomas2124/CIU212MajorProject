@@ -11,6 +11,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject loadingPanel;
     public GameObject nextlevelPanel;
     public Text levelText;
+    public Text deathCounterText;
     public GameObject blackPanel;
     public bool isPaused = false;
     public bool isLoading = false;
@@ -18,6 +19,7 @@ public class PauseMenu : MonoBehaviour
     public float t = 0.0f;
     public AudioSource mySource;
     public AudioClip clip;
+    public int deathCount = 0;
 
     private void Awake()
     {
@@ -77,6 +79,13 @@ public class PauseMenu : MonoBehaviour
         myImage.CrossFadeAlpha(0, 2.0f, true);
         yield return new WaitForSeconds(0.5f);
         rb.simulated = true;
+    }
+
+    public void AddDeathCounter()
+    {
+        deathCount++;
+        deathCounterText.text = deathCount.ToString();
+        PlayerPrefs.SetInt("DeathCounter", PlayerPrefs.GetInt("DeathCounter") + 1);
     }
 
     // Conitnues the current play session.
