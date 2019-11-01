@@ -20,6 +20,8 @@ public class ResetPlayer : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            PauseMenu.Instance.timeText.text = Timer.instance.timerText.text;
+            PauseMenu.Instance.deathText.text = PauseMenu.Instance.deathCounterText.text;
             endLevelPanel = PauseMenu.Instance.nextlevelPanel;
             endLevelPanel.SetActive(true);
             Time.timeScale = 0f;

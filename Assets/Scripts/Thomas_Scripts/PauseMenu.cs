@@ -10,6 +10,8 @@ public class PauseMenu : MonoBehaviour
     public GameObject myMenu;
     public GameObject loadingPanel;
     public GameObject nextlevelPanel;
+    public Text deathText;
+    public Text timeText;
     public Text levelText;
     public Text deathCounterText;
     public GameObject blackPanel;
