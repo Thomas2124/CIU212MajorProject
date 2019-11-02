@@ -38,6 +38,7 @@ public class Timer : MonoBehaviour
 
                 if (seconds >= 59f)
                 {
+                    seconds = 0;
                     minutes++;
                 }
                 stopTick = false;
