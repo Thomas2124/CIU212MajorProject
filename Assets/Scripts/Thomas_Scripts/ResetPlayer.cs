@@ -20,12 +20,57 @@ public class ResetPlayer : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            CompareTime();
             PauseMenu.Instance.timeText.text = Timer.instance.timerText.text;
             PauseMenu.Instance.deathText.text = PauseMenu.Instance.deathCounterText.text;
             endLevelPanel = PauseMenu.Instance.nextlevelPanel;
             endLevelPanel.SetActive(true);
             Time.timeScale = 0f;
         }
+    }
+
+    public void CompareTime()
+    {
+        Vector3 myTime = new Vector3(Timer.instance.minutes, Timer.instance.seconds, Timer.instance.milliseconds);
+        Vector3 fastestTime = PlayerPrefsX.GetVector3(PlayerPrefs.GetInt("Level").ToString());
+
+        if (fastestTime != Vector3.zero)
+        {
+            if (myTime.x < fastestTime.x)
+            {
+                fastestTime = myTime;
+                SaveTime(fastestTime.x, fastestTime.y, fastestTime.z);
+            }
+            else
+            {
+                if (myTime.y < fastestTime.y)
+                {
+                    fastestTime = myTime;
+                    SaveTime(fastestTime.x, fastestTime.y, fastestTime.z);
+                }
+                else
+                {
+                    if (myTime.z < fastestTime.z)
+                    {
+                        fastestTime = myTime;
+                        SaveTime(fastestTime.x, fastestTime.y, fastestTime.z);
+                    }
+                }
+            }
+        }
+        else
+        {
+            SaveTime(myTime.x, myTime.y, myTime.z);
+        }
+    }
+
+    void SaveTime(float minutes, float seconds, float milliseconds)
+    {
+        Vector3 saveTime = new Vector3(minutes, seconds, milliseconds);
+        //float combineSeconds = milliseconds + seconds;
+        //string timeString = minutes.ToString("00:") + combineSeconds.ToString("00.000");
+
+        PlayerPrefsX.SetVector3(PlayerPrefs.GetInt("Level").ToString(), saveTime);
     }
 
     public void NextLevel()

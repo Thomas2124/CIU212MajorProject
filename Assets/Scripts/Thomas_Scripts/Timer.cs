@@ -9,6 +9,7 @@ public class Timer : MonoBehaviour
     public Text timerText;
     public float minutes = 0f;
     public float seconds = 0f;
+    public float milliseconds = 0f;
     public float currentTime = 0f;
     public float timeStamp = 0f;
     public bool stopTimer = false;
@@ -23,7 +24,7 @@ public class Timer : MonoBehaviour
     void Update()
     {
         currentTime = Time.time;
-        float milliseconds = currentTime % 1;
+        milliseconds = currentTime % 1;
 
         if (stopTimer == false)
         {
