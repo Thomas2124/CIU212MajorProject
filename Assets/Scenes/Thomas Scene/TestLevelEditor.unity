@@ -937,9 +937,9 @@ MonoBehaviour:
   endPlat: []
   isDone: 0
   platformSprites:
-  - {fileID: 344133086103696181, guid: ef65ad0257f5e0d41bbe381569aece94, type: 3}
-  - {fileID: -241324512819430573, guid: ef65ad0257f5e0d41bbe381569aece94, type: 3}
-  - {fileID: -3897112165904982107, guid: ef65ad0257f5e0d41bbe381569aece94, type: 3}
+  - {fileID: -6338015953997913737, guid: abf0def45fa205e43bad8e39109d8b96, type: 3}
+  - {fileID: 8700864423527427134, guid: abf0def45fa205e43bad8e39109d8b96, type: 3}
+  - {fileID: 5665441546858395762, guid: abf0def45fa205e43bad8e39109d8b96, type: 3}
 --- !u!114 &324705469
 MonoBehaviour:
   m_ObjectHideFlags: 0

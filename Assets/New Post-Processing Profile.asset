@@ -56,7 +56,7 @@ MonoBehaviour:
       reflection:
         blendType: 0
         reflectionQuality: 2
-        maxDistance: 100
+        maxDistance: 155
         iterationCount: 256
         stepSize: 3
         widthModifier: 0.5
@@ -72,17 +72,17 @@ MonoBehaviour:
   depthOfField:
     m_Enabled: 0
     m_Settings:
-      focusDistance: 3.7
+      focusDistance: 0.79
       aperture: 5.6
       focalLength: 50
       useCameraFov: 1
       kernelSize: 1
   motionBlur:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
-      shutterAngle: 270
-      sampleCount: 10
-      frameBlending: 0.385
+      shutterAngle: 103
+      sampleCount: 9
+      frameBlending: 0.094
   eyeAdaptation:
     m_Enabled: 0
     m_Settings:
@@ -104,24 +104,24 @@ MonoBehaviour:
         intensity: 12.17
         threshold: 1.1
         softKnee: 0.5
-        radius: 7
+        radius: 5.08
         antiFlicker: 0
       lensDirt:
         texture: {fileID: 0}
         intensity: 3
   colorGrading:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
       tonemapping:
         tonemapper: 2
-        neutralBlackIn: 0.02
-        neutralWhiteIn: 10
+        neutralBlackIn: 0.0486
+        neutralWhiteIn: 10.93
         neutralBlackOut: 0
-        neutralWhiteOut: 10
+        neutralWhiteOut: 12.94
         neutralWhiteLevel: 5.3
-        neutralWhiteClip: 10
+        neutralWhiteClip: 8.86
       basic:
-        postExposure: 0
+        postExposure: 0.2
         temperature: 0
         tint: 0
         hueShift: 0
@@ -139,9 +139,9 @@ MonoBehaviour:
           power: {r: 1, g: 1, b: 1, a: 0}
           offset: {r: 1, g: 1, b: 1, a: 0}
         linear:
-          lift: {r: 0, g: 0, b: 0, a: 0}
-          gamma: {r: 0, g: 0, b: 0, a: 0}
-          gain: {r: 0, g: 0, b: 0, a: 0}
+          lift: {r: 1, g: 1, b: 1, a: 0}
+          gamma: {r: 1, g: 1, b: 1, a: 0}
+          gain: {r: 1, g: 1, b: 1, a: 0}
       curves:
         master:
           curve:
