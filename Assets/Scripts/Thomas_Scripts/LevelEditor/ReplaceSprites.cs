@@ -34,6 +34,12 @@ public class ReplaceSprites : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        oneSprites = myBlockSprites.instance.oneSpritesSet;
+        twoSprites = myBlockSprites.instance.twoSpritesSet;
+        threeSprites = myBlockSprites.instance.threeSpritesSet;
+        fourSprite = myBlockSprites.instance.fourSpriteSet;
+        otherSprite = myBlockSprites.instance.otherSpriteSet;
+
         floorGameObject = GameObject.FindGameObjectsWithTag("Floor");
         fallingPlatformGameObject = GameObject.FindGameObjectsWithTag("FallingPlatform");
         spikesGameObject = GameObject.FindGameObjectsWithTag("Spikes");

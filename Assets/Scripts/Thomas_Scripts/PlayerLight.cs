@@ -25,7 +25,7 @@ public class PlayerLight : MonoBehaviour
         Illumination.Instance.lightScript = this;
         objectLight = gameObject.transform.GetChild(0).gameObject.GetComponent<Light>();
         objectLight.range = endValue;
-        objectLight.intensity = 2f;
+        objectLight.intensity = 3f;
         objectLight.range = startValue;
     }
 
