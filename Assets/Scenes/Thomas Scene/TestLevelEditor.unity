@@ -888,6 +888,10 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 787d566b397b1f84f8295e31ce6c7fdc, type: 3}
   - {fileID: 2800000, guid: 4cbb3f5a024b75b4fb7ff549fc813916, type: 3}
   - {fileID: 2800000, guid: e52100ebc96d6ff4ca8f9d34b1b937c6, type: 3}
+  - {fileID: 2800000, guid: 0e4b1841bd91f43459dea906d9463514, type: 3}
+  - {fileID: 2800000, guid: 0e4b1841bd91f43459dea906d9463514, type: 3}
+  - {fileID: 2800000, guid: 0e4b1841bd91f43459dea906d9463514, type: 3}
+  - {fileID: 2800000, guid: 0e4b1841bd91f43459dea906d9463514, type: 3}
   joinScript: {fileID: 324705468}
   spriteScript: {fileID: 324705469}
   isDone: 0
@@ -1043,6 +1047,7 @@ MonoBehaviour:
   timerText: {fileID: 1459396498}
   minutes: 0
   seconds: 0
+  milliseconds: 0
   currentTime: 0
   timeStamp: 0
   stopTimer: 0
@@ -3194,7 +3199,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.0796875, y: 0.7491111}
   m_AnchorMax: {x: 0.2954375, y: 0.8555556}
-  m_AnchoredPosition: {x: 0.8499756, y: -2.5}
+  m_AnchoredPosition: {x: 0.85009766, y: -2.5}
   m_SizeDelta: {x: 0.2999878, y: 7.1948853}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1725514602

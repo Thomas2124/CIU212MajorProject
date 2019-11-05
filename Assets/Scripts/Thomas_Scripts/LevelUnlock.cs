@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class LevelUnlock : MonoBehaviour
 {
     public GameObject[] buttons;
+    public Sprite[] images;
+    public Sprite lockSprite;
     public int prefsNum = 0;
     public int levelNum = 0;
 
@@ -23,7 +25,7 @@ public class LevelUnlock : MonoBehaviour
         // These keys are for debugging only
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            SetLevels(12);
+            SetLevels(buttons.Length);
         }
 
         if (Input.GetKeyDown(KeyCode.X))
@@ -40,12 +42,12 @@ public class LevelUnlock : MonoBehaviour
             if (i <= num)
             {
                 buttons[i].GetComponent<Button>().enabled = true;
-                buttons[i].GetComponent<Image>().color = Color.black;
+                buttons[i].GetComponent<Image>().sprite = images[i];
             }
             else
             {
                 buttons[i].GetComponent<Button>().enabled = false;
-                buttons[i].GetComponent<Image>().color = Color.clear;
+                buttons[i].GetComponent<Image>().sprite = lockSprite;
             }
         }
     }

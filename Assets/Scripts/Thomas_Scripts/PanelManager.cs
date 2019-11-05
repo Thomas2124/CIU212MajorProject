@@ -46,10 +46,10 @@ public class PanelManager : MonoBehaviour
             playPage = false;
             page = 0;
         }
-        else if (page > 2)
+        else if (page > 3)
         {
             playPage = false;
-            page = 2;
+            page = 3;
         }
         else
         {

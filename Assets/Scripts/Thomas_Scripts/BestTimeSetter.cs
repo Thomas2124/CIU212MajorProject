@@ -14,13 +14,19 @@ public class BestTimeSetter : MonoBehaviour
 
     void SetTimes()
     {
-        for (int i = 0; i < 12; i++)
+        for (int i = 0; i < myTimeTexts.Length; i++)
         {
+            string timeString;
             Vector3 fastestTime = PlayerPrefsX.GetVector3(i.ToString());
             float combineSeconds = fastestTime.z + fastestTime.y;
-            string timeString = fastestTime.x.ToString("00:") + combineSeconds.ToString("00.000");
+            timeString = "Best Time: " + fastestTime.x.ToString("00:") + combineSeconds.ToString("00.000");
 
-            myTimeTexts[i].text = "Best Time: " + timeString;
+            if (timeString == "Best Time: 00:00.000")
+            {
+                timeString = "Best Time: Never Played";
+            }
+
+            myTimeTexts[i].text = timeString;
         }
     }
 }
