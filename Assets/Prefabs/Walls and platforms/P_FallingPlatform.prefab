@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2132362243203022234}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 53.2, y: 30.02, z: 0}
-  m_LocalScale: {x: 1.0434783, y: 1.0434783, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7922592455774300737}
   m_Father: {fileID: 0}
@@ -73,10 +73,10 @@ SpriteRenderer:
   m_SortingOrder: 1
   m_Sprite: {fileID: 8700864423527427134, guid: abf0def45fa205e43bad8e39109d8b96,
     type: 3}
-  m_Color: {r: 0.6037736, g: 0.58778226, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.85492396, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 2
+  m_DrawMode: 0
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -96,18 +96,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0019643903, y: 0}
+  m_Offset: {x: 0, y: 0.002118051}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
-    drawMode: 2
+    drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9724847, y: 1}
+  m_Size: {x: 1, y: 0.62299573}
   m_EdgeRadius: 0
 --- !u!50 &2132362243203022235
 Rigidbody2D:
@@ -175,7 +175,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.40819532}
+  m_Offset: {x: 0, y: 0.26856488}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -186,7 +186,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.1836094}
+  m_Size: {x: 1, y: 0.23709026}
   m_EdgeRadius: 0
 --- !u!114 &7922592455774300738
 MonoBehaviour:
@@ -201,7 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  rb: {fileID: 0}
+  rb: {fileID: 2132362243203022235}
   detectionRange: 10
   stop: 0
   waitTime: 0.5
