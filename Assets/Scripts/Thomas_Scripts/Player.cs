@@ -483,7 +483,7 @@ public class Player : MonoBehaviour
         Instantiate(deathLight, transform.position, Quaternion.identity);
         mySource.PlayOneShot(deathClip);
         myRenderer.enabled = false;
-        rb.simulated = false;
+        this.rb.simulated = false;
         SpawnDeathMarker();
         this.enabled = false;
     }

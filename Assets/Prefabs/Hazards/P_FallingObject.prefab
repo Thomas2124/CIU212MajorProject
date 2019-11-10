@@ -11,14 +11,14 @@ GameObject:
   - component: {fileID: 7968523938325631786}
   - component: {fileID: 3344050287917299944}
   - component: {fileID: 425464331880620142}
-  - component: {fileID: 4270938345958699604}
   - component: {fileID: 4270938345958699605}
+  - component: {fileID: 3824897876315857235}
   m_Layer: 0
   m_Name: P_FallingObject
-  m_TagString: Untagged
+  m_TagString: FallingObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7968523938325631786
 Transform:
@@ -70,7 +70,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 10
   m_Sprite: {fileID: 2244771151391397234, guid: ef65ad0257f5e0d41bbe381569aece94,
     type: 3}
   m_Color: {r: 0.9585639, g: 1, b: 0.43867922, a: 1}
@@ -96,7 +96,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0017929077, y: 0.07253808}
+  m_Offset: {x: 0.0054092407, y: 0.13400811}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -107,23 +107,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.645813, y: 0.5812677}
+  m_Size: {x: 0.39993286, y: 0.45832765}
   m_EdgeRadius: 0
---- !u!114 &4270938345958699604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4270938345958699606}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdf4557b1f983294c94ed01e94c4295c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  rb: {fileID: 0}
-  detectionRange: 10
 --- !u!50 &4270938345958699605
 Rigidbody2D:
   serializedVersion: 4
@@ -133,7 +118,7 @@ Rigidbody2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4270938345958699606}
   m_BodyType: 0
-  m_Simulated: 0
+  m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
@@ -145,3 +130,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3824897876315857235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4270938345958699606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdf4557b1f983294c94ed01e94c4295c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 4270938345958699605}
+  resetPoint: {x: 0, y: 0, z: 0}

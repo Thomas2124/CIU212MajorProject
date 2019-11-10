@@ -28,7 +28,7 @@ public class NewDeadLight : MonoBehaviour
             GameObject currentObject = item.gameObject;
             SpriteRenderer currentrenderer = currentObject.GetComponent<SpriteRenderer>();
 
-            if (currentObject.tag == "FallingPlatform" || currentrenderer == null)
+            if (currentObject.tag == "FallingPlatform" || currentObject.tag == "FallingObject" || currentrenderer == null)
             {
                 continue;
             }

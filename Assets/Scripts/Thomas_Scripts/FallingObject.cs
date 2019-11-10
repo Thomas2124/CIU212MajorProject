@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class FallingObject : MonoBehaviour
 {
-    public GameObject player;
     public Rigidbody2D rb;
-    public float detectionRange = 10f;
+    public Vector3 resetPoint;
+
     // Start is called before the first frame update
     void Start()
     {
-        rb = gameObject.GetComponent<Rigidbody2D>();
         rb.simulated = false;
-        player = Player.playerInstance.gameObject;
+        resetPoint = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
     }
 
     // Update is called once per frame
     void Update()
     {
-        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, Mathf.Infinity);
-        if (hitInfo.collider != null && hitInfo.collider.gameObject == player)
+        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, 100f);
+
+        if (hitInfo.collider != null && hitInfo.collider.gameObject == Player.playerInstance.gameObject)
         {
             rb.simulated = true;
         }
@@ -28,8 +28,8 @@ public class FallingObject : MonoBehaviour
     // Checks if player hits collider. If so player is dead.
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        GameObject colObject = collision.gameObject;
-        if (collision.gameObject.tag == "Player") // If collider is player.
+        // Checks if the player touchs the collider, if so player is dead.
+        if (collision.gameObject.tag == "Player")
         {
             Player.playerInstance.myRenderer.enabled = false;
             Player.playerInstance.rb.simulated = false;
@@ -38,13 +38,13 @@ public class FallingObject : MonoBehaviour
             StartCoroutine(PlayerSpawn());
         }
 
-        if (colObject.tag != "Player" && colObject != gameObject) // If collider is not the player.
+        if (collision.gameObject.tag != "Player")
         {
-            gameObject.SetActive(false);
+            StartCoroutine(Wait());
         }
     }
 
-    // Kill player and respawn.
+    // Respawn player after set amount of time.
     IEnumerator PlayerSpawn()
     {
         yield return new WaitForSeconds(2.0f);
@@ -52,5 +52,15 @@ public class FallingObject : MonoBehaviour
         Player.playerInstance.myRenderer.enabled = true;
         Player.playerInstance.rb.simulated = true;
         Player.playerInstance.Dead();
+        StartCoroutine(Wait());
+    }
+
+    // Respawn player after set amount of time.
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(6f);
+        rb.velocity = Vector3.zero;
+        rb.simulated = false;
+        transform.position = resetPoint;
     }
 }

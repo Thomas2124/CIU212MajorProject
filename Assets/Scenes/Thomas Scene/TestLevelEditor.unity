@@ -890,9 +890,9 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 4cbb3f5a024b75b4fb7ff549fc813916, type: 3}
   - {fileID: 2800000, guid: e52100ebc96d6ff4ca8f9d34b1b937c6, type: 3}
   - {fileID: 2800000, guid: 28ba06efcb1749043bed0fdef06efe31, type: 3}
-  - {fileID: 2800000, guid: 28ba06efcb1749043bed0fdef06efe31, type: 3}
-  - {fileID: 2800000, guid: 28ba06efcb1749043bed0fdef06efe31, type: 3}
-  - {fileID: 2800000, guid: 28ba06efcb1749043bed0fdef06efe31, type: 3}
+  - {fileID: 2800000, guid: 2fcda254ce6af7846be86df428c8b634, type: 3}
+  - {fileID: 2800000, guid: 1855340ee642f5943be7b9c4f6b16b25, type: 3}
+  - {fileID: 2800000, guid: 4752879d7aa40234ca92baed5c309ae5, type: 3}
   joinScript: {fileID: 324705468}
   spriteScript: {fileID: 324705469}
   isDone: 0
