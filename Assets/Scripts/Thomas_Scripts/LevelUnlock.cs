@@ -23,12 +23,12 @@ public class LevelUnlock : MonoBehaviour
     void Update()
     {
         // These keys are for debugging only
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Alpha8))
         {
             SetLevels(buttons.Length);
         }
 
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             SetLevels(0);
         }

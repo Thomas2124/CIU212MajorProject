@@ -35,6 +35,8 @@ public class PauseMenu : MonoBehaviour
 
     void Start()
     {
+        deathCount = 0;
+        deathCounterText.text = deathCount.ToString();
         StartCoroutine(FadeDown());
         rb = Player.playerInstance.gameObject.GetComponent<Rigidbody2D>();
         rb.simulated = false;

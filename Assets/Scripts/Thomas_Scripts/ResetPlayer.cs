@@ -84,7 +84,7 @@ public class ResetPlayer : MonoBehaviour
         PauseMenu.Instance.isLoading = true;
         PauseMenu.Instance.levelText.text = LevelText(PlayerPrefs.GetInt("Level") + 1);
 
-        if (PlayerPrefs.GetInt("Level") > 11) // Checks if a level can be loaded if not return to main menu.
+        if (PlayerPrefs.GetInt("Level") > 15) // Checks if a level can be loaded if not return to main menu.
         {
             SceneManager.LoadScene("MainMenu");
         }
@@ -135,6 +135,18 @@ public class ResetPlayer : MonoBehaviour
                 break;
             case 12:
                 myString = "Level 3-4";
+                break;
+            case 13:
+                myString = "Challenge 1";
+                break;
+            case 14:
+                myString = "Challenge 2";
+                break;
+            case 15:
+                myString = "Challenge 3";
+                break;
+            case 16:
+                myString = "Challenge 4";
                 break;
             default:
                 myString = "Main Menu";

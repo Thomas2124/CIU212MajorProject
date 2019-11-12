@@ -30,7 +30,11 @@ public class PanelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        deathCounter.text = PlayerPrefs.GetInt("DeathCounter").ToString();
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            deathCounter.text = PlayerPrefs.GetInt("DeathCounter").ToString();
+        }
+
         if (mySource)
         {
             SetValues();
