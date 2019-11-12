@@ -204,7 +204,7 @@ MonoBehaviour:
   rb: {fileID: 2132362243203022235}
   detectionRange: 10
   stop: 0
-  waitTime: 0.5
+  waitTime: 1
   resetPoint: {x: 0, y: 0, z: 0}
   theGravity: 0
   myCollider: {fileID: 2537015791479664546}
