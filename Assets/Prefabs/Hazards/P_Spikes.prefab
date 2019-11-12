@@ -121,4 +121,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  myCollider: {fileID: 0}
+  myCollider: {fileID: 7100558318859508492}
+  leftSide: {fileID: 3131322577615518117, guid: 287c27e2e6b482247ba312eedd0e8325,
+    type: 3}
+  rightSide: {fileID: 1229736663977868274, guid: 287c27e2e6b482247ba312eedd0e8325,
+    type: 3}
+  cornerSide: {fileID: -4138980140308923138, guid: 287c27e2e6b482247ba312eedd0e8325,
+    type: 3}
+  flatSide: {fileID: 1271722272082522542, guid: ef65ad0257f5e0d41bbe381569aece94,
+    type: 3}
+  myRenderer: {fileID: 5261815842447639434}

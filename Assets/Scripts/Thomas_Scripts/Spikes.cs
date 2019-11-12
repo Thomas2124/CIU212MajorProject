@@ -15,11 +15,17 @@ public class Spikes : MonoBehaviour
     RaycastHit2D hitInfo4;
     Vector3 myVector;
     public BoxCollider2D myCollider;
+    public Sprite leftSide;
+    public Sprite rightSide;
+    public Sprite cornerSide;
+    public Sprite flatSide;
+    public SpriteRenderer myRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        myRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
@@ -85,22 +91,27 @@ public class Spikes : MonoBehaviour
 
         if (up == true && down == false && left == false && right == false) //up
         {
+            myRenderer.sprite = flatSide;
             myVector.z = 180f;
         }
         else if (up == false && down == true && left == false && right == false) //down
         {
+            myRenderer.sprite = flatSide;
             myVector.z = 0f;
         }
         else if (up == false && down == false && left == true && right == false) //left
         {
+            myRenderer.sprite = flatSide;
             myVector.z = 270f;
         }
         else if (up == false && down == false && left == false && right == true) //right
         {
+            myRenderer.sprite = flatSide;
             myVector.z = 90f;
         }
         else if (up == true && down == false && left == true && right == false) //up left
         {
+            myRenderer.sprite = rightSide;
             if (hitInfo1.collider.tag == "Floor")
             {
                 myVector.z = 180f;
@@ -112,6 +123,7 @@ public class Spikes : MonoBehaviour
         }
         else if (up == true && down == false && left == false && right == true) //up right
         {
+            myRenderer.sprite = leftSide;
             if (hitInfo1.collider.tag == "Floor")
             {
                 myVector.z = 180f;
@@ -123,6 +135,7 @@ public class Spikes : MonoBehaviour
         }
         else if (up == false && down == true && left == true && right == false) //down left
         {
+            myRenderer.sprite = rightSide;
             if (hitInfo2.collider.tag == "Floor")
             {
                 myVector.z = 0f;
@@ -134,6 +147,7 @@ public class Spikes : MonoBehaviour
         }
         else if (up == false && down == true && left == false && right == true) //down right
         {
+            myRenderer.sprite = leftSide;
             if (hitInfo2.collider.tag == "Floor")
             {
                 myVector.z = 0f;
@@ -145,32 +159,58 @@ public class Spikes : MonoBehaviour
         }
         else if (up == true && down == true && left == true && right == false) //up down left
         {
+            myRenderer.sprite = flatSide;
             myVector.z = 270f;
         }
         else if (up == true && down == true && left == false && right == true) //up down right
         {
+            myRenderer.sprite = flatSide;
             myVector.z = 90f;
         }
         else if (up == true && down == false && left == true && right == true) //left right up
         {
+            myRenderer.sprite = flatSide;
             myVector.z = 180f;
         }
         else if (up == false && down == true && left == true && right == true) //left right down
         {
+            myRenderer.sprite = flatSide;
             myVector.z = 0f;
         }
         else if (up == true && down == true && left == true && right == true) //surrounded
         {
+            CheckCorner();
             //Destroy(gameObject);
         }
         else if (up == false && down == false && left == false && right == false) //nothing around it
         {
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
 
         transform.rotation = Quaternion.Euler(myVector);
 
         StartCoroutine(wait());
+    }
+
+    void CheckCorner()
+    {
+        myRenderer.sprite = cornerSide;
+        if (hitInfo1.collider.tag == "Floor" && hitInfo3.collider.tag == "Floor") // up left
+        {
+            myVector.z = 0f;
+        }
+        else if (hitInfo1.collider.tag == "Floor" && hitInfo4.collider.tag == "Floor") // up right
+        {
+            myVector.z = 90f;
+        }
+        else if (hitInfo2.collider.tag == "Floor" && hitInfo3.collider.tag == "Floor") // down left
+        {
+            myVector.z = 180f;
+        }
+        else if (hitInfo2.collider.tag == "Floor" && hitInfo4.collider.tag == "Floor") // down right
+        {
+            myVector.z = 270f;
+        }
     }
 
     // Waits for set amount of time before adjusting the colliders.
