@@ -23,6 +23,18 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PauseMenu.Instance.isLoading == false)
+        {
+            MyTimer();
+        }
+        else 
+        {
+            timerText.text = "00:00.000";
+        }
+    }
+
+    void MyTimer() 
+    {
         currentTime = Time.time;
         milliseconds = currentTime % 1;
 

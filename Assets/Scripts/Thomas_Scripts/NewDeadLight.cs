@@ -49,7 +49,7 @@ public class NewDeadLight : MonoBehaviour
                     {
                         listedObject.isStatic = false;
                         listedRenderer.enabled = true;
-                        print("match");
+                        //print("match");
                         Color myColor = listedRenderer.material.color;
                         Color myColor2 = currentrenderer.material.color;
                         float newAlpha = myColor.a + myColor2.a;

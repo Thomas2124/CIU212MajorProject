@@ -9,6 +9,10 @@ public class PauseMenu : MonoBehaviour
     public static PauseMenu Instance;
     public GameObject myMenu;
     public GameObject loadingPanel;
+    public Text loadingPanelText;
+    public Text mainLoadingPanelText;
+    public Text endLevelText;
+    public GameObject mainmenuButton;
     public GameObject nextlevelPanel;
     public Text deathText;
     public Text timeText;
@@ -25,21 +29,29 @@ public class PauseMenu : MonoBehaviour
 
     private void Awake()
     {
+        Time.timeScale = 1.0f;
+        isLoading = true;
         Instance = this;
         myMenu.SetActive(false);
         loadingPanel.SetActive(false);
         blackPanel.SetActive(true);
-        nextlevelPanel.SetActive(false);
+        nextlevelPanel.SetActive(true);
         isPaused = false;
     }
 
     void Start()
     {
+        if (PlayerPrefs.GetInt("Level") > 14)
+        {
+            endLevelText.text = "Main Menu";
+            mainmenuButton.SetActive(false);
+        }
+
+        nextlevelPanel.SetActive(false);
         deathCount = 0;
         deathCounterText.text = deathCount.ToString();
-        StartCoroutine(FadeDown());
         rb = Player.playerInstance.gameObject.GetComponent<Rigidbody2D>();
-        rb.simulated = false;
+        StartCoroutine(FadeDown());
         mySource = Camera.main.GetComponent<AudioSource>();
     }
 
@@ -47,11 +59,7 @@ public class PauseMenu : MonoBehaviour
     void Update()
     {
         // Check if its the loading screen.
-        if (isLoading == true)
-        {
-            loadingPanel.SetActive(true);
-        }
-        else
+        if (isLoading == false)
         {
             // Toggle pause menu
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -78,11 +86,15 @@ public class PauseMenu : MonoBehaviour
     // Makes loading screen fade down.
     public IEnumerator FadeDown()
     {
+        isLoading = true;
+        rb.simulated = true;
         yield return new WaitForSeconds(0.5f);
+        rb.simulated = false;
         Image myImage = blackPanel.GetComponent<Image>();
         myImage.CrossFadeAlpha(0, 2.0f, true);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2.0f);
         rb.simulated = true;
+        isLoading = false;
     }
 
     public void AddDeathCounter()
@@ -101,6 +113,9 @@ public class PauseMenu : MonoBehaviour
     // Reset the current level.
     public void Restart()
     {
+        loadingPanel.SetActive(true);
+        loadingPanelText.enabled = false;
+        mainLoadingPanelText.text = "Restarting";
         Time.timeScale = 1.0f;
         string sceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(sceneName);

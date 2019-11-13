@@ -97,6 +97,11 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PauseMenu.Instance.isPaused == true || PauseMenu.Instance.isLoading == true)
+        {
+            return;
+        }
+
         velocity = rb.velocity.magnitude;
 
         // collider checker

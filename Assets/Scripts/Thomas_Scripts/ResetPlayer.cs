@@ -20,6 +20,8 @@ public class ResetPlayer : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            endLevelPanel = PauseMenu.Instance.nextlevelPanel;
+
             if (PlayerPrefs.GetInt("Level") >= PlayerPrefs.GetInt("Unlock") && PlayerPrefs.GetInt("Level") + 1 < 16) // Unlocks current level in main menu.
             {
                 PlayerPrefs.SetInt("Unlock", PlayerPrefs.GetInt("Level") + 1);
@@ -27,8 +29,8 @@ public class ResetPlayer : MonoBehaviour
             CompareTime();
             PauseMenu.Instance.timeText.text = Timer.instance.timerText.text;
             PauseMenu.Instance.deathText.text = PauseMenu.Instance.deathCounterText.text;
-            endLevelPanel = PauseMenu.Instance.nextlevelPanel;
             endLevelPanel.SetActive(true);
+
             Time.timeScale = 0f;
         }
     }
@@ -94,7 +96,7 @@ public class ResetPlayer : MonoBehaviour
         }
     }
 
-    string LevelText(int level)
+    public string LevelText(int level)
     {
         string myString = "";
 

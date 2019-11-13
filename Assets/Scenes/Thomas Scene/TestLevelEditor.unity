@@ -1108,6 +1108,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myMenu: {fileID: 280030841}
   loadingPanel: {fileID: 1730671345}
+  loadingPanelText: {fileID: 1163524576}
+  mainLoadingPanelText: {fileID: 1882095883}
+  endLevelText: {fileID: 230406492}
+  mainmenuButton: {fileID: 827662735}
   nextlevelPanel: {fileID: 838249280}
   deathText: {fileID: 50125767}
   timeText: {fileID: 413342977}
@@ -3511,6 +3515,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1865617213}
   m_CullTransparentMesh: 0
+--- !u!114 &1882095883 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 143501010560110247, guid: 02bb79c197326af47bd33e01b9b4934f,
+    type: 3}
+  m_PrefabInstance: {fileID: 143501010830999992}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1914272925
 GameObject:
   m_ObjectHideFlags: 0
@@ -4155,6 +4171,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Loading Panel
+      objectReference: {fileID: 0}
+    - target: {fileID: 143501011248100169, guid: 02bb79c197326af47bd33e01b9b4934f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 143501011248100170, guid: 02bb79c197326af47bd33e01b9b4934f,
         type: 3}
