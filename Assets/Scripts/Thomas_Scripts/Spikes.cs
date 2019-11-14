@@ -111,18 +111,6 @@ public class Spikes : MonoBehaviour
         }
         else if (up == true && down == false && left == true && right == false) //up left
         {
-            myRenderer.sprite = rightSide;
-            if (hitInfo1.collider.tag == "Floor")
-            {
-                myVector.z = 180f;
-            }
-            else
-            {
-                myVector.z = 270f;
-            }
-        }
-        else if (up == true && down == false && left == false && right == true) //up right
-        {
             myRenderer.sprite = leftSide;
             if (hitInfo1.collider.tag == "Floor")
             {
@@ -130,6 +118,20 @@ public class Spikes : MonoBehaviour
             }
             else
             {
+                myRenderer.sprite = rightSide;
+                myVector.z = 270f;
+            }
+        }
+        else if (up == true && down == false && left == false && right == true) //up right
+        {
+            myRenderer.sprite = rightSide;
+            if (hitInfo1.collider.tag == "Floor")
+            {
+                myVector.z = 180f;
+            }
+            else
+            {
+                myRenderer.sprite = leftSide;
                 myVector.z = 90f;
             }
         }
@@ -142,6 +144,7 @@ public class Spikes : MonoBehaviour
             }
             else
             {
+                myRenderer.sprite = leftSide;
                 myVector.z = 270f;
             }
         }
@@ -154,6 +157,7 @@ public class Spikes : MonoBehaviour
             }
             else
             {
+                myRenderer.sprite = rightSide;
                 myVector.z = 90f;
             }
         }
@@ -197,11 +201,11 @@ public class Spikes : MonoBehaviour
         myRenderer.sprite = cornerSide;
         if (hitInfo1.collider.tag == "Floor" && hitInfo3.collider.tag == "Floor") // up left
         {
-            myVector.z = 0f;
+            myVector.z = 90f;
         }
         else if (hitInfo1.collider.tag == "Floor" && hitInfo4.collider.tag == "Floor") // up right
         {
-            myVector.z = 90f;
+            myVector.z = 0f;
         }
         else if (hitInfo2.collider.tag == "Floor" && hitInfo3.collider.tag == "Floor") // down left
         {

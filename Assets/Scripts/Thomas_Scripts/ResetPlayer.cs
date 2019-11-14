@@ -20,6 +20,7 @@ public class ResetPlayer : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            PauseMenu.Instance.isLoading = true;
             endLevelPanel = PauseMenu.Instance.nextlevelPanel;
 
             if (PlayerPrefs.GetInt("Level") >= PlayerPrefs.GetInt("Unlock") && PlayerPrefs.GetInt("Level") + 1 < 16) // Unlocks current level in main menu.
