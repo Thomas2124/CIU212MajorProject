@@ -213,6 +213,7 @@ MonoBehaviour:
   detectRangeMin: 2
   done: 0
   lightScript: {fileID: 0}
+  gotItems: 0
 --- !u!50 &2202710418559515411
 Rigidbody2D:
   serializedVersion: 4
@@ -284,7 +285,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6438143306856260161}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -12.5}
+  m_LocalPosition: {x: 0, y: 0, z: -14}
   m_LocalScale: {x: 5.3125, y: 5.3125, z: 5.3125}
   m_Children: []
   m_Father: {fileID: 6438143308024090864}
@@ -356,7 +357,7 @@ MonoBehaviour:
   target: {fileID: 2202710418559515410}
   targetRb: {fileID: 0}
   smoothSpeed: 6
-  offset: {x: 0, y: 0, z: -12}
+  offset: {x: 0, y: 0, z: -14}
   offsetRight: {x: 0, y: 0, z: 0}
   offsetLeft: {x: 0, y: 0, z: 0}
   highestPoint: 0
@@ -367,6 +368,9 @@ MonoBehaviour:
   offsetMoveRight: {x: 0, y: 0, z: 0}
   yMinus: 5.5
   xMinus: 10
+  zMinus: -10
+  deathCounter: 0
+  changed: 0
 --- !u!114 &6649465065847022601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -611,12 +615,12 @@ PrefabInstance:
     - target: {fileID: 7300336261969412369, guid: 1e34b01dc4cd5a243bb0c9fcdc6f008f,
         type: 3}
       propertyPath: startValue
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7300336261969412369, guid: 1e34b01dc4cd5a243bb0c9fcdc6f008f,
         type: 3}
       propertyPath: endValue
-      value: 15
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 7300336261969412369, guid: 1e34b01dc4cd5a243bb0c9fcdc6f008f,
         type: 3}
@@ -632,6 +636,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Intensity
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300336262014417215, guid: 1e34b01dc4cd5a243bb0c9fcdc6f008f,
+        type: 3}
+      propertyPath: m_Range
+      value: 8.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e34b01dc4cd5a243bb0c9fcdc6f008f, type: 3}

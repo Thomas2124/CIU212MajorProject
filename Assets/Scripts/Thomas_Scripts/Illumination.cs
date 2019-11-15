@@ -13,6 +13,7 @@ public class Illumination : MonoBehaviour
     public float detectRangeMin;
     public bool done;
     public PlayerLight lightScript;
+    public bool gotItems = false;
 
     private void Awake()
     {
@@ -35,10 +36,13 @@ public class Illumination : MonoBehaviour
         }
 
         // statement will run if joinscript is enabled.
-        if (done == true)
+        if (done == true && gotItems == true)
         {
             foreach (GameObject item in renderObjects)
             {
+                if (item == null)
+                    continue;
+
                 SpriteRenderer itemSpriteRenderer = item.GetComponent<SpriteRenderer>();
 
                 // Checks if the object is outside the light range. If so deactivate the renderer and skip this object.
@@ -53,7 +57,7 @@ public class Illumination : MonoBehaviour
                 }
 
                 // Set alpha value of object renderer base on the distance to the player.
-                if (itemSpriteRenderer != null && item.tag != "BackGround" && item.tag != "Marker" && item.tag != "Blocks")
+                if (item.tag != "BackGround" && item.tag != "Marker" && item.tag != "Blocks")
                 {
                     Color renderColor = itemSpriteRenderer.material.color;
                     Color farColor = new Color(renderColor.r, renderColor.g, renderColor.b, 0f);
@@ -84,6 +88,7 @@ public class Illumination : MonoBehaviour
     // Gets all gameobjects within the scene.
     void GetObjects()
     {
+        gotItems = false;
         levelObjects = GameObject.FindObjectsOfType<GameObject>();
 
         // Checks each object in the array and adds it to a list if specific conditions are met.
@@ -92,12 +97,20 @@ public class Illumination : MonoBehaviour
         {
             SpriteRenderer itemSpriteRenderer = item.GetComponent<SpriteRenderer>();
 
-            if (item != this.gameObject && itemSpriteRenderer != null && item.tag != "BackGround" && item.tag != "Marker") 
+            if (itemSpriteRenderer != null)
             {
-                Color renderColor = itemSpriteRenderer.material.color;
-                itemSpriteRenderer.material.color = new Color(renderColor.r, renderColor.g, renderColor.b, 0f);
-                renderObjects.Add(item);
+                if (item != this.gameObject)
+                {
+                    if (item.tag != "BackGround" && item.tag != "Marker")
+                    {
+                        Color renderColor = itemSpriteRenderer.material.color;
+                        itemSpriteRenderer.material.color = new Color(renderColor.r, renderColor.g, renderColor.b, 0f);
+                        renderObjects.Add(item);
+                    }
+                }
             }
         }
+
+        gotItems = true;
     }
 }

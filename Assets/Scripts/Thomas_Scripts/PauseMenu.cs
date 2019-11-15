@@ -25,6 +25,7 @@ public class PauseMenu : MonoBehaviour
     public float t = 0.0f;
     public AudioSource mySource;
     public AudioClip clip;
+    public GameObject trollMessage;
     public int deathCount = 0;
 
     private void Awake()

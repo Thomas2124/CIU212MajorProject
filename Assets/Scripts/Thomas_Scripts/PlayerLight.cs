@@ -12,7 +12,8 @@ public class PlayerLight : MonoBehaviour
     public float changeRate = 0.01f;
     //private bool doneTask = false;
     //private bool isRunning = false;
-    public float waitTime = 3f;
+    public float lightUpTime = 1.5f;
+    public float lightDownTime = 1f;
 
     public bool lightUp = false;
     public bool lightDown = false;
@@ -66,7 +67,7 @@ public class PlayerLight : MonoBehaviour
     {
         lightUp = false;
 
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSeconds(lightUpTime);
 
         lightDown = true;
     }
@@ -74,7 +75,7 @@ public class PlayerLight : MonoBehaviour
     // Delays lerp down
     IEnumerator HoldLightDown()
     {
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSeconds(lightDownTime);
 
         lightDown = false;
         lightUp = true;
