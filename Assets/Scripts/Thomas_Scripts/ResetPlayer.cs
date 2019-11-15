@@ -15,13 +15,25 @@ public class ResetPlayer : MonoBehaviour
         Instance = this;
     }
 
+    private void Update()
+    {
+        if (loadingPanel == null)
+        {
+            loadingPanel = PauseMenu.Instance.loadingPanel;
+        }
+
+        if (endLevelPanel == null)
+        {
+            endLevelPanel = PauseMenu.Instance.nextlevelPanel;
+        }
+    }
+
     // If player touchs end goal.
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
             PauseMenu.Instance.isLoading = true;
-            endLevelPanel = PauseMenu.Instance.nextlevelPanel;
 
             if (PlayerPrefs.GetInt("Level") >= PlayerPrefs.GetInt("Unlock") && PlayerPrefs.GetInt("Level") + 1 < 16) // Unlocks current level in main menu.
             {
@@ -82,6 +94,7 @@ public class ResetPlayer : MonoBehaviour
 
     public void NextLevel()
     {
+        loadingPanel.SetActive(true);
         Time.timeScale = 1f;
         PlayerPrefs.SetInt("Level", PlayerPrefs.GetInt("Level") + 1);
         PauseMenu.Instance.isLoading = true;

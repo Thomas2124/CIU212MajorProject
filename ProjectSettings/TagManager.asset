@@ -18,6 +18,8 @@ TagManager:
   - Marker
   - DeadLight
   - Blocks
+  - Loading
+  - EndScreen
   layers:
   - Default
   - TransparentFX

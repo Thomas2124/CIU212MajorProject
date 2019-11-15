@@ -93,6 +93,14 @@ public class Player : MonoBehaviour
 
     #endregion
 
+    IEnumerator AfterFall()
+    {
+        yield return new WaitForSeconds(0.15f);
+        myAnimator.SetFloat("Speed", 0);
+        fallJump = true;
+        isGrounded = false;
+    }
+
     #region Update
     // Update is called once per frame
     void Update()
@@ -105,7 +113,8 @@ public class Player : MonoBehaviour
         velocity = rb.velocity.magnitude;
 
         // collider checker
-        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, 0.6f, groundLayer);
+        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, 0.7f, groundLayer);
+
         RaycastHit2D hitInfo4 = Physics2D.Raycast(transform.position, Vector2.left, 0.6f, groundLayer);
         RaycastHit2D hitInfo5 = Physics2D.Raycast(transform.position, Vector2.right, 0.6f, groundLayer);
 
@@ -155,9 +164,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            myAnimator.SetFloat("Speed", 0);
-            fallJump = true;
-            isGrounded = false;
+            StartCoroutine(AfterFall());
         }
 
         // Checks the number of times the player has jumps. forcing them to fall down after a specific amount of jumps.
@@ -258,7 +265,7 @@ public class Player : MonoBehaviour
                         rb.velocity = Vector2.zero;
                         rb.gravityScale = startGravity;
                         Vector2 myVector = Vector2.up + Vector2.left;
-                        rb.AddForce(myVector * jumpPower);
+                        rb.AddForce(myVector * jumpPower / 1.1f);
                         wallJumpLeft = false;
                         wallAttached = false;
                     }
@@ -269,7 +276,7 @@ public class Player : MonoBehaviour
                         rb.velocity = Vector2.zero;
                         rb.gravityScale = startGravity;
                         Vector2 myVector = Vector2.up + Vector2.right;
-                        rb.AddForce(myVector * jumpPower);
+                        rb.AddForce(myVector * jumpPower / 1.1f);
                         wallJumpRight = false;
                         wallAttached = false;
                     }
