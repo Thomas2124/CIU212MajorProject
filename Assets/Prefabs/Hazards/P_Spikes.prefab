@@ -70,9 +70,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 1271722272082522542, guid: ef65ad0257f5e0d41bbe381569aece94,
-    type: 3}
-  m_Color: {r: 0.8117647, g: 0.1254902, b: 0.2784314, a: 1}
+  m_Sprite: {fileID: 21300000, guid: c0e04469b5b7d7b40a836cebcdf845b9, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -122,12 +121,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   myCollider: {fileID: 7100558318859508492}
-  leftSide: {fileID: 3131322577615518117, guid: 287c27e2e6b482247ba312eedd0e8325,
-    type: 3}
-  rightSide: {fileID: 1229736663977868274, guid: 287c27e2e6b482247ba312eedd0e8325,
-    type: 3}
-  cornerSide: {fileID: -4138980140308923138, guid: 287c27e2e6b482247ba312eedd0e8325,
-    type: 3}
-  flatSide: {fileID: 1271722272082522542, guid: ef65ad0257f5e0d41bbe381569aece94,
-    type: 3}
+  leftSide: {fileID: 21300000, guid: 57276870ab5a8164f977b2f94f48670c, type: 3}
+  rightSide: {fileID: 21300000, guid: 34186004762914f4b84eb71bf04f9b87, type: 3}
+  cornerSide: {fileID: 21300000, guid: b99e8b4f1f7a9324d93ca31ca7cf9b28, type: 3}
+  flatSide: {fileID: 21300000, guid: c0e04469b5b7d7b40a836cebcdf845b9, type: 3}
   myRenderer: {fileID: 5261815842447639434}

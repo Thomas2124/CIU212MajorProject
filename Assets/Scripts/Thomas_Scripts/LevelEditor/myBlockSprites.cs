@@ -11,6 +11,7 @@ public class myBlockSprites : MonoBehaviour
     public Sprite[] threeSpritesSet;
     public Sprite fourSpriteSet;
     public Sprite otherSpriteSet;
+    public Sprite cornerSpriteSet;
 
     [Header("World 1")]
     public Sprite[] oneSprites1;
@@ -18,6 +19,7 @@ public class myBlockSprites : MonoBehaviour
     public Sprite[] threeSprites1;
     public Sprite fourSprite1;
     public Sprite otherSprite1;
+    public Sprite cornerSpriteSet1;
 
     [Header("World 2")]
     public Sprite[] oneSprites2;
@@ -25,6 +27,7 @@ public class myBlockSprites : MonoBehaviour
     public Sprite[] threeSprites2;
     public Sprite fourSprite2;
     public Sprite otherSprite2;
+    public Sprite cornerSpriteSet2;
 
     [Header("World 3")]
     public Sprite[] oneSprites3;
@@ -32,6 +35,7 @@ public class myBlockSprites : MonoBehaviour
     public Sprite[] threeSprites3;
     public Sprite fourSprite3;
     public Sprite otherSprite3;
+    public Sprite cornerSpriteSet3;
 
     [Header("World 4")]
     public Sprite[] oneSprites4;
@@ -39,6 +43,7 @@ public class myBlockSprites : MonoBehaviour
     public Sprite[] threeSprites4;
     public Sprite fourSprite4;
     public Sprite otherSprite4;
+    public Sprite cornerSpriteSet4;
 
     void Awake()
     {
@@ -53,6 +58,7 @@ public class myBlockSprites : MonoBehaviour
             threeSpritesSet = threeSprites1;
             fourSpriteSet = fourSprite1;
             otherSpriteSet = otherSprite1;
+            cornerSpriteSet = cornerSpriteSet1;
         }
         else if (currentLevel >= 4 && currentLevel < 8)
         {
@@ -61,6 +67,7 @@ public class myBlockSprites : MonoBehaviour
             threeSpritesSet = threeSprites2;
             fourSpriteSet = fourSprite2;
             otherSpriteSet = otherSprite2;
+            cornerSpriteSet = cornerSpriteSet2;
         }
         else if (currentLevel >= 8 && currentLevel < 12)
         {
@@ -69,6 +76,7 @@ public class myBlockSprites : MonoBehaviour
             threeSpritesSet = threeSprites3;
             fourSpriteSet = fourSprite3;
             otherSpriteSet = otherSprite3;
+            cornerSpriteSet = cornerSpriteSet3;
         }
         else if (currentLevel >= 12)
         {
@@ -77,6 +85,7 @@ public class myBlockSprites : MonoBehaviour
             threeSpritesSet = threeSprites4;
             fourSpriteSet = fourSprite4;
             otherSpriteSet = otherSprite4;
+            cornerSpriteSet = cornerSpriteSet4;
         }
     }
 }

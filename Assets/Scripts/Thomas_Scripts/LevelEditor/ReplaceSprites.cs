@@ -19,6 +19,7 @@ public class ReplaceSprites : MonoBehaviour
     public Sprite[] threeSprites;
     public Sprite fourSprite;
     public Sprite otherSprite;
+    public Sprite cornerSprite;
     public TestPlatformJoin joinScript;
 
     RaycastHit2D hitLeft;
@@ -39,6 +40,7 @@ public class ReplaceSprites : MonoBehaviour
         threeSprites = myBlockSprites.instance.threeSpritesSet;
         fourSprite = myBlockSprites.instance.fourSpriteSet;
         otherSprite = myBlockSprites.instance.otherSpriteSet;
+        cornerSprite = myBlockSprites.instance.cornerSpriteSet;
 
         floorGameObject = GameObject.FindGameObjectsWithTag("Floor");
         fallingPlatformGameObject = GameObject.FindGameObjectsWithTag("FallingPlatform");
@@ -115,9 +117,42 @@ public class ReplaceSprites : MonoBehaviour
             {
                 itemSpriteRenderer.sprite = fourSprite;
             }
-            else
+            else if(hitLeft.collider == true && hitRight.collider == true && hitUp.collider == true && hitDown.collider == true)
             {
                 itemSpriteRenderer.sprite = otherSprite;
+
+                Sprite leftObject = hitLeft.collider.gameObject.GetComponent<SpriteRenderer>().sprite;
+                Sprite rightObject = hitRight.collider.gameObject.GetComponent<SpriteRenderer>().sprite;
+                Sprite upObject = hitUp.collider.gameObject.GetComponent<SpriteRenderer>().sprite;
+                Sprite downObject = hitDown.collider.gameObject.GetComponent<SpriteRenderer>().sprite;
+
+                Vector3 myVector = item.transform.localEulerAngles;
+
+                if (upObject == oneSprites[0])
+                {
+                    itemSpriteRenderer.sprite = cornerSprite;
+                    myVector.z = 0f;
+                }
+
+                if (upObject == oneSprites[1])
+                {
+                    itemSpriteRenderer.sprite = cornerSprite;
+                    myVector.z = 180f;
+                }
+
+                if (downObject == oneSprites[0])
+                {
+                    itemSpriteRenderer.sprite = cornerSprite;
+                    myVector.z = 90f;
+                }
+
+                if (downObject == oneSprites[1])
+                {
+                    itemSpriteRenderer.sprite = cornerSprite;
+                    myVector.z = 180f;
+                }
+
+                item.transform.localEulerAngles = myVector;
             }
 
             SetSpikes(true);
