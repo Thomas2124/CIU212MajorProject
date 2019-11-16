@@ -45,6 +45,7 @@ public class myBlockSprites : MonoBehaviour
     public Sprite otherSprite4;
     public Sprite cornerSpriteSet4;
 
+    //Sets sprites based on levels.
     void Awake()
     {
         instance = this;

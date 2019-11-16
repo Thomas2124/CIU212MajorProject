@@ -120,39 +120,6 @@ public class ReplaceSprites : MonoBehaviour
             else if(hitLeft.collider == true && hitRight.collider == true && hitUp.collider == true && hitDown.collider == true)
             {
                 itemSpriteRenderer.sprite = otherSprite;
-
-                Sprite leftObject = hitLeft.collider.gameObject.GetComponent<SpriteRenderer>().sprite;
-                Sprite rightObject = hitRight.collider.gameObject.GetComponent<SpriteRenderer>().sprite;
-                Sprite upObject = hitUp.collider.gameObject.GetComponent<SpriteRenderer>().sprite;
-                Sprite downObject = hitDown.collider.gameObject.GetComponent<SpriteRenderer>().sprite;
-
-                Vector3 myVector = item.transform.localEulerAngles;
-
-                if (upObject == oneSprites[0])
-                {
-                    itemSpriteRenderer.sprite = cornerSprite;
-                    myVector.z = 0f;
-                }
-
-                if (upObject == oneSprites[1])
-                {
-                    itemSpriteRenderer.sprite = cornerSprite;
-                    myVector.z = 180f;
-                }
-
-                if (downObject == oneSprites[0])
-                {
-                    itemSpriteRenderer.sprite = cornerSprite;
-                    myVector.z = 90f;
-                }
-
-                if (downObject == oneSprites[1])
-                {
-                    itemSpriteRenderer.sprite = cornerSprite;
-                    myVector.z = 180f;
-                }
-
-                item.transform.localEulerAngles = myVector;
             }
 
             SetSpikes(true);
@@ -170,6 +137,7 @@ public class ReplaceSprites : MonoBehaviour
         hitDown = Physics2D.Raycast(new Vector2(pos.x, pos.y - 0.51f), Vector2.right, 0.1f);
     }
 
+    //set collider and rotation of spikes.
     void SetSpikes(bool myBool)
     {
         // Makes spikes rotate

@@ -17,19 +17,4 @@ public class HitBox : MonoBehaviour
     {
         Destroy(gameObject, 0.01f);
     }
-
-    /*void OnTriggerEnter2D(Collider2D col)
-    {
-        if (isHit == false)
-        {
-            print("Swag");
-
-            if (col.gameObject.CompareTag("enemy"))
-            {
-                print("Hit");
-                col.gameObject.GetComponent<Enemy>().TakeDamage(damage);
-            }
-            isHit = true;
-        }
-    }*/
 }

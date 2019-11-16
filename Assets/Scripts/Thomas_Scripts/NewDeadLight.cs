@@ -63,6 +63,7 @@ public class NewDeadLight : MonoBehaviour
                 }
             }
             
+            //creates object if theres no match
             if(make == true)
             {
                 GameObject theObject = Instantiate(item.gameObject);
