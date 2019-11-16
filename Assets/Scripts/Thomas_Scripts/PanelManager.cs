@@ -99,7 +99,7 @@ public class PanelManager : MonoBehaviour
     // Increases page variable by 1.
     public void AddOne()
     {
-        if (mySource != null && playPage == true)
+        if (mySource != null && playPage == true && page < 3)
             mySource.PlayOneShot(pageClip);
 
         page += 1;
@@ -108,7 +108,7 @@ public class PanelManager : MonoBehaviour
     // Decreases page variable by 1.
     public void MinusOne()
     {
-        if (mySource != null && playPage == true)
+        if (mySource != null && playPage == true && page > 0)
             mySource.PlayOneShot(pageClip);
 
         page -= 1;
