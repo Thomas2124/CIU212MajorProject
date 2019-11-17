@@ -199,21 +199,21 @@ public class Spikes : MonoBehaviour
     void CheckCorner()
     {
         myRenderer.sprite = cornerSide;
-        if (hitInfo1.collider.tag == "Floor" && hitInfo3.collider.tag == "Floor") // up left
-        {
-            myVector.z = 90f;
-        }
-        else if (hitInfo1.collider.tag == "Floor" && hitInfo4.collider.tag == "Floor") // up right
+        if (hitInfo2.collider.tag == "Floor" && hitInfo3.collider.tag == "Floor") // down left
         {
             myVector.z = 0f;
         }
-        else if (hitInfo2.collider.tag == "Floor" && hitInfo3.collider.tag == "Floor") // down left
+        else if (hitInfo1.collider.tag == "Floor" && hitInfo3.collider.tag == "Floor") // up left
+        {
+            myVector.z = 270f;
+        }
+        else if (hitInfo1.collider.tag == "Floor" && hitInfo4.collider.tag == "Floor") // up right
         {
             myVector.z = 180f;
         }
         else if (hitInfo2.collider.tag == "Floor" && hitInfo4.collider.tag == "Floor") // down right
         {
-            myVector.z = 270f;
+            myVector.z = 90f;
         }
     }
 
