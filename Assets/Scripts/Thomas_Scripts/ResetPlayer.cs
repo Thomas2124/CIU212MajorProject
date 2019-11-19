@@ -9,10 +9,13 @@ public class ResetPlayer : MonoBehaviour
     public string sceneName = "PlatformerScene";
     public GameObject loadingPanel;
     public GameObject endLevelPanel;
+    public Vector3 myTime;
+    public Vector3 fastestTime;
 
     private void Awake()
     {
         Instance = this;
+        fastestTime = PlayerPrefsX.GetVector3(PlayerPrefs.GetInt("Level").ToString());
     }
 
     private void Update()
@@ -50,34 +53,30 @@ public class ResetPlayer : MonoBehaviour
 
     public void CompareTime()
     {
-        Vector3 myTime = new Vector3(Timer.instance.minutes, Timer.instance.seconds, Timer.instance.milliseconds);
-        Vector3 fastestTime = PlayerPrefsX.GetVector3(PlayerPrefs.GetInt("Level").ToString());
+        myTime = new Vector3(Timer.instance.minutes, Timer.instance.seconds, Timer.instance.milliseconds);
 
         if (fastestTime != Vector3.zero)
         {
             if (myTime.x < fastestTime.x)
             {
-                fastestTime = myTime;
-                SaveTime(fastestTime.x, fastestTime.y, fastestTime.z);
+                SaveTime(myTime.x, myTime.y, myTime.z);
             }
-            else
+            else if (myTime.x == fastestTime.x)
             {
                 if (myTime.y < fastestTime.y)
                 {
-                    fastestTime = myTime;
-                    SaveTime(fastestTime.x, fastestTime.y, fastestTime.z);
+                    SaveTime(myTime.x, myTime.y, myTime.z);
                 }
-                else
+                else if (myTime.y == fastestTime.y)
                 {
                     if (myTime.z < fastestTime.z)
                     {
-                        fastestTime = myTime;
-                        SaveTime(fastestTime.x, fastestTime.y, fastestTime.z);
+                        SaveTime(myTime.x, myTime.y, myTime.z);
                     }
                 }
             }
         }
-        else
+        else if (fastestTime == Vector3.zero || fastestTime == null)
         {
             SaveTime(myTime.x, myTime.y, myTime.z);
         }
