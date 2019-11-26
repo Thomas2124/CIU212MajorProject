@@ -14,7 +14,7 @@ public class PlayerLight : MonoBehaviour
     //private bool isRunning = false;
     public float lightUpTime = 1.5f;
     public float lightDownTime = 1f;
-
+    public float intensity = 4f;
     public bool lightUp = false;
     public bool lightDown = false;
 
@@ -26,7 +26,7 @@ public class PlayerLight : MonoBehaviour
         Illumination.Instance.lightScript = this;
         objectLight = gameObject.transform.GetChild(0).gameObject.GetComponent<Light>();
         objectLight.range = endValue;
-        objectLight.intensity = 3f;
+        objectLight.intensity = intensity;
         objectLight.range = startValue;
     }
 

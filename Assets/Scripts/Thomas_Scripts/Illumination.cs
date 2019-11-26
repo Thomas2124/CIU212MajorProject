@@ -14,6 +14,7 @@ public class Illumination : MonoBehaviour
     public bool done;
     public PlayerLight lightScript;
     public bool gotItems = false;
+    public Material myMaterial;
 
     private void Awake()
     {
